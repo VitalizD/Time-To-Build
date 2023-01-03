@@ -8,10 +8,13 @@ namespace Service.MaterialStorage
     {
         [SerializeField] private ZoneMaterial[] _zoneMaterials;
         [SerializeField] private Material _buildingArea;
+        [SerializeField] private Material _road;
 
         private Dictionary<ZoneType, Material> _zoneMaterialDictionary = new();
 
         public Material GetBuildingAreaMaterial() => _buildingArea;
+
+        public Material GetRoadMaterial() => _road;
 
         public Material GetZoneMaterial(ZoneType zoneType)
         {

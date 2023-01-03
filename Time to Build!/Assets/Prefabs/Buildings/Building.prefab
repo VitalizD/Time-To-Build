@@ -242,7 +242,7 @@ MonoBehaviour:
   _platform: {fileID: 7653184434986841526}
   _buildingPoint: {fileID: 1792735108104941091}
   _progressBar: {fileID: 8148903292689716708}
-  _empty: 0
+  _empty: 1
   _building: 0
 --- !u!114 &1868506062689741199
 MonoBehaviour:
@@ -256,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c58861d48389d347932a5e03579d1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buildingSiteSpawner: {fileID: 3698890173320559888, guid: 6080669cba394af4f9bdace4ce15ea11, type: 3}
 --- !u!65 &3207282549842827091
 BoxCollider:
   m_ObjectHideFlags: 0

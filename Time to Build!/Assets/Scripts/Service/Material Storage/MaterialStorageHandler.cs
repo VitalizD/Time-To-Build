@@ -17,12 +17,14 @@ namespace Service.MaterialStorage
         {
             BuildingArea.GetZoneMaterial += _materialStorage.GetZoneMaterial;
             BuildingArea.GetBuildingAreaMaterial += _materialStorage.GetBuildingAreaMaterial;
+            BuildingArea.GetRoadMaterial += _materialStorage.GetRoadMaterial;
         }
 
         private void OnDisable()
         {
             BuildingArea.GetZoneMaterial -= _materialStorage.GetZoneMaterial;
             BuildingArea.GetBuildingAreaMaterial -= _materialStorage.GetBuildingAreaMaterial;
+            BuildingArea.GetRoadMaterial -= _materialStorage.GetRoadMaterial;
         }
     }
 }

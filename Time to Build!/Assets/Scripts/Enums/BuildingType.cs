@@ -1,5 +1,6 @@
 public enum BuildingType
 {
     House,
-    Road
+    Road,
+    BuildingSite
 }

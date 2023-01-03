@@ -20,11 +20,12 @@ namespace Gameplay.Buildings
         private AdjacentBuildings _adjacentBuildings;
         private RoadAdapter _roadAdapter;
 
-        public BuildingType Type { get; private set; }
+        public BuildingType Type { get; private set; } = BuildingType.BuildingSite;
 
         public static event Func<BuildingType, Building> GetBuilding;
         public static event Func<ZoneType, Material> GetZoneMaterial;
         public static event Func<Material> GetBuildingAreaMaterial;
+        public static event Func<Material> GetRoadMaterial;
 
         public void UpdateRoadType()
         {
@@ -67,12 +68,15 @@ namespace Gameplay.Buildings
                 isRoad = true;
                 _roadAdapter = gameObject.AddComponent<RoadAdapter>();
                 UpdateRoadType();
-                foreach (var adjacent in _adjacentBuildings.Get4Sides().Values)
+                var adjacents = _adjacentBuildings.Get4Sides().Values;
+                foreach (var adjacent in adjacents)
                 {
                     if (adjacent == null)
                         continue;
                     adjacent.UpdateRoadType();
                 }
+                _platform.material = GetRoadMaterial?.Invoke();
+                _adjacentBuildings.CreateBuildingSites();
             }
             else isRoad = false;
         }

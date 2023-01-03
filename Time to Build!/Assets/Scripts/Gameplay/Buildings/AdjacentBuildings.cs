@@ -1,6 +1,8 @@
+using Service;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace Gameplay.Buildings
 {
@@ -8,8 +10,22 @@ namespace Gameplay.Buildings
     {
         private const float checkRadius = 0.1f;
 
+        [SerializeField] private GameObject _buildingSiteSpawner;
+
         private readonly Dictionary<Direction, BuildingArea> _adjacentBuildings = new();
         private readonly Direction[] _sidesFour = { Direction.Left, Direction.Right, Direction.Top, Direction.Bottom };
+        private Dictionary<Direction, Vector3> _pointsByDirection;
+
+        private void Awake()
+        {
+            _pointsByDirection = new Dictionary<Direction, Vector3>
+            {
+                [Direction.Left] = new(transform.position.x - BuildingArea.CellSize, transform.position.y, transform.position.z),
+                [Direction.Right] = new(transform.position.x + BuildingArea.CellSize, transform.position.y, transform.position.z),
+                [Direction.Top] = new(transform.position.x, transform.position.y, transform.position.z + BuildingArea.CellSize),
+                [Direction.Bottom] = new(transform.position.x, transform.position.y, transform.position.z - BuildingArea.CellSize)
+            };
+        }
 
         public Dictionary<Direction, BuildingArea> Get8Sides()
         {
@@ -29,14 +45,31 @@ namespace Gameplay.Buildings
             return result;
         }
 
+        public void CreateBuildingSites()
+        {
+            var adjacents4 = Get4Sides();
+            foreach (var adjacent in adjacents4)
+            {
+                if (adjacent.Value == null)
+                    CreateBuildingArea(_pointsByDirection[adjacent.Key]);
+            }
+        }
+
+        private void CreateBuildingArea(Vector3 point)
+        {
+            var spawner = Instantiate(_buildingSiteSpawner, point, Quaternion.identity, transform.parent);
+            spawner.GetComponent<BuildingSiteSpawner>().Spawn();
+            Destroy(spawner);
+        }
+
         private void CreateAdjacentBuildingDictionary()
         {
             var pos = transform.position;
             _adjacentBuildings.Clear();
-            _adjacentBuildings.Add(Direction.Left, GetBuildingArea(new Vector3(pos.x - BuildingArea.CellSize, pos.y, pos.z)));
-            _adjacentBuildings.Add(Direction.Right, GetBuildingArea(new Vector3(pos.x + BuildingArea.CellSize, pos.y, pos.z)));
-            _adjacentBuildings.Add(Direction.Top, GetBuildingArea(new Vector3(pos.x, pos.y, pos.z + BuildingArea.CellSize)));
-            _adjacentBuildings.Add(Direction.Bottom, GetBuildingArea(new Vector3(pos.x, pos.y, pos.z - BuildingArea.CellSize)));
+            _adjacentBuildings.Add(Direction.Left, GetBuildingArea(_pointsByDirection[Direction.Left]));
+            _adjacentBuildings.Add(Direction.Right, GetBuildingArea(_pointsByDirection[Direction.Right]));
+            _adjacentBuildings.Add(Direction.Top, GetBuildingArea(_pointsByDirection[Direction.Top]));
+            _adjacentBuildings.Add(Direction.Bottom, GetBuildingArea(_pointsByDirection[Direction.Bottom]));
             _adjacentBuildings.Add(Direction.LeftTop, GetBuildingArea(new Vector3(pos.x - BuildingArea.CellSize, pos.y, pos.z + BuildingArea.CellSize)));
             _adjacentBuildings.Add(Direction.LeftBottom, GetBuildingArea(new Vector3(pos.x - BuildingArea.CellSize, pos.y, pos.z - BuildingArea.CellSize)));
             _adjacentBuildings.Add(Direction.RightTop, GetBuildingArea(new Vector3(pos.x + BuildingArea.CellSize, pos.y, pos.z + BuildingArea.CellSize)));

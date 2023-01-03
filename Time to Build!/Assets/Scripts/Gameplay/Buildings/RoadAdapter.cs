@@ -25,7 +25,7 @@ namespace Gameplay.Buildings
             foreach (var adjacent in _adjacentBuildings.Get4Sides())
             {
                 if (adjacent.Value == null)
-                    types.Add(adjacent.Key, BuildingType.House);
+                    types.Add(adjacent.Key, BuildingType.BuildingSite);
                 else
                     types.Add(adjacent.Key, adjacent.Value.Type);
             }
