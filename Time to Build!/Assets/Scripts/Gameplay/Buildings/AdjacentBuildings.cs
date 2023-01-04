@@ -16,6 +16,8 @@ namespace Gameplay.Buildings
         private readonly Direction[] _sidesFour = { Direction.Left, Direction.Right, Direction.Top, Direction.Bottom };
         private Dictionary<Direction, Vector3> _pointsByDirection;
 
+        public static event Func<Vector3, bool> PointBeyond;
+
         private void Awake()
         {
             _pointsByDirection = new Dictionary<Direction, Vector3>
@@ -50,8 +52,10 @@ namespace Gameplay.Buildings
             var adjacents4 = Get4Sides();
             foreach (var adjacent in adjacents4)
             {
-                if (adjacent.Value == null)
-                    CreateBuildingArea(_pointsByDirection[adjacent.Key]);
+                var spawnPoint = _pointsByDirection[adjacent.Key];
+                var beyond = PointBeyond?.Invoke(spawnPoint);
+                if (adjacent.Value == null && !beyond.GetValueOrDefault())
+                    CreateBuildingArea(spawnPoint);
             }
         }
 
