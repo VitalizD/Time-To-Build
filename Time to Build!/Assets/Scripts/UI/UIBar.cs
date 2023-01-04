@@ -12,13 +12,20 @@ namespace UI
 
         public bool Filled { get => bar.fillAmount >= 0.99f; }
 
-        /// <param name="value">От 0 до 100</param>
+        public float Value { get => bar.fillAmount; }
+
+        /// <param name="value">От 0 до 1</param>
         public void SetValue(float value)
         {
-            value = Mathf.Clamp(value, 0f, 100f);
-            bar.fillAmount = value / 100f;
+            value = Mathf.Clamp(value, 0f, 1f);
+            bar.fillAmount = value;
             if (valueText != null)
                 valueText.text = $"{(int)value} %";
+        }
+
+        public void AddValue(float value)
+        {
+            SetValue(bar.fillAmount + value);
         }
 
         public void SetTitle(string value)

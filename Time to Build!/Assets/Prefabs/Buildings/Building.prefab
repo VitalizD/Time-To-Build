@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.0000028014183}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8263591854058012407
 CanvasRenderer:
@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 525805234471082078}
   - component: {fileID: 1868506062689741199}
   - component: {fileID: 3207282549842827091}
+  - component: {fileID: 6476504099757776007}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -242,7 +243,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _platform: {fileID: 7653184434986841526}
   _buildingPoint: {fileID: 1792735108104941091}
-  _progressBar: {fileID: 8148903292689716708}
   _highlightColor: {r: 0.9811321, g: 0.94534963, b: 0.8830189, a: 1}
   _empty: 1
   _building: 0
@@ -284,6 +284,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.14495371, z: 1}
   m_Center: {x: 0, y: 0.0078556165, z: 0}
+--- !u!114 &6476504099757776007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6091364900540941607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5478e69dfc87a944a9c294e504ad62e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _progressBar: {fileID: 8148903292689716708}
 --- !u!1 &6091364901224777185
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +363,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u0442\u0440\u043E\u0439\u043A\u0430..."
+  m_text: "\u0421\u0442\u0440\u043E\u0438\u043C..."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a2daa7ca2f939743acd1f78f3740f5f, type: 2}
   m_sharedMaterial: {fileID: -1488129062601285810, guid: 3a2daa7ca2f939743acd1f78f3740f5f, type: 2}
@@ -429,6 +442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8148903292689716711}
   - component: {fileID: 8148903292689716708}
+  - component: {fileID: 7367096735859363671}
   m_Layer: 0
   m_Name: Progress Bar
   m_TagString: Untagged
@@ -474,6 +488,22 @@ MonoBehaviour:
   bar: {fileID: 4245635442727834134}
   valueText: {fileID: 0}
   title: {fileID: 6091364901224777191}
+--- !u!111 &7367096735859363671
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6413265509797036287}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: a6d82de7a350c6246901054a5fd46064, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: a6d82de7a350c6246901054a5fd46064, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8202809050967036785
 GameObject:
   m_ObjectHideFlags: 0

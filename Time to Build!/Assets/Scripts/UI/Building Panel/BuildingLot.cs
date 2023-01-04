@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace UI.BuildingPanel
 {
-    public class BuildingLot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class BuildingLot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _title;
@@ -24,6 +24,7 @@ namespace UI.BuildingPanel
         public static event Func<Vector2> GetInfoWindowSpawnPoint;
         public static event Action<Vector2, string, BonusInfo[], PropertyInfo, string, ZoneType> ShowInfoWindow;
         public static event Action HideInfoWindow;
+        public static event Action<BuildingType> StartBuilding;
 
         public void Set(BuildingType buildingType)
         {
@@ -51,6 +52,11 @@ namespace UI.BuildingPanel
         public void OnPointerExit(PointerEventData eventData)
         {
             HideInfoWindow?.Invoke();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            StartBuilding?.Invoke(_buildingType);
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Service.BuildingStorage
         public GameObject Prefab;
         public Sprite Icon;
         public int Cost;
+        public float BuildingTime;
     }
 }

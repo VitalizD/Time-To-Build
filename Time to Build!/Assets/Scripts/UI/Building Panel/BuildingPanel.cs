@@ -28,7 +28,6 @@ namespace UI.BuildingPanel
         {
             _selectedArea = selectedArea;
             _animator.SetBool(SHOW_ANIMATOR_BOOL, true);
-
         }
 
         public void Hide()
@@ -36,6 +35,15 @@ namespace UI.BuildingPanel
             _selectedArea = null;
             _animator.SetBool(SHOW_ANIMATOR_BOOL, false);
             RemoveBuildingAreaSelection?.Invoke();
+        }
+
+        public void BuildOnSelectedArea(BuildingType buildingType)
+        {
+            if (_selectedArea == null)
+                return;
+
+            _selectedArea.StartBuilding(buildingType);
+            Hide();
         }
 
         private void Awake()

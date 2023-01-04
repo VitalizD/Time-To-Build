@@ -7,13 +7,13 @@ using UnityEngine;
 namespace Gameplay.Buildings
 {
     [RequireComponent(typeof(AdjacentBuildings))]
+    [RequireComponent(typeof(Timer))]
     public class BuildingArea : MonoBehaviour
     {
         public const float CellSize = 1f;
 
         [SerializeField] private MeshRenderer _platform;
         [SerializeField] private Transform _buildingPoint;
-        [SerializeField] private UIBar _progressBar;
         [SerializeField] private Color _highlightColor;
         [Space]
         [SerializeField] private bool _empty = true;
@@ -21,6 +21,7 @@ namespace Gameplay.Buildings
 
         private AdjacentBuildings _adjacentBuildings;
         private RoadAdapter _roadAdapter;
+        private Timer _timer;
         private Color _initialColor;
 
         public BuildingType Type { get; private set; } = BuildingType.BuildingSite;
@@ -41,17 +42,30 @@ namespace Gameplay.Buildings
 
         public void RemoveHighlight() => _platform.material.color = _initialColor;
 
+        public void StartBuilding(BuildingType buildingType)
+        {
+            if (Type != BuildingType.BuildingSite)
+                return;
+
+            Type = buildingType;
+            var buildingTime = GetBuilding(buildingType).BuildingTime;
+            _timer.Run(buildingTime, () => Build(buildingType));
+        }
+
         private void Awake()
         {
             _adjacentBuildings = GetComponent<AdjacentBuildings>();
-            _progressBar.gameObject.SetActive(false);
+            _timer = GetComponent<Timer>();
             _initialColor = _platform.material.color;
         }
 
         private void Start()
         {
             if (!_empty)
+            {
+                Type = _building;
                 Build(_building);
+            }
             else
                 SetDefault();
         }
@@ -83,7 +97,6 @@ namespace Gameplay.Buildings
 
         private void Build(BuildingType buildingType)
         {
-            Type = buildingType;
             CheckRoad(buildingType, out bool isRoad);
 
             if (isRoad)
@@ -96,6 +109,7 @@ namespace Gameplay.Buildings
 
         private void CheckRoad(BuildingType buildingType, out bool isRoad)
         {
+
             if (buildingType == BuildingType.Road)
             {
                 isRoad = true;
