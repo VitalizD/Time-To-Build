@@ -10,7 +10,7 @@ namespace Service.MaterialStorage
         [SerializeField] private Material _buildingArea;
         [SerializeField] private Material _road;
 
-        private Dictionary<ZoneType, Material> _zoneMaterialDictionary = new();
+        private Dictionary<ZoneType, ZoneMaterial> _zoneMaterialDictionary = new();
 
         public Material GetBuildingAreaMaterial() => _buildingArea;
 
@@ -19,14 +19,21 @@ namespace Service.MaterialStorage
         public Material GetZoneMaterial(ZoneType zoneType)
         {
             if (_zoneMaterialDictionary.ContainsKey(zoneType))
-                return _zoneMaterialDictionary[zoneType];
-            throw new Exception($"ћатериал {zoneType} отсутствует в хранилище");
+                return _zoneMaterialDictionary[zoneType].Material;
+            throw new Exception($"ћатериал зоны {zoneType} отсутствует в хранилище");
+        }
+
+        public Color GetZoneColor(ZoneType zoneType)
+        {
+            if (_zoneMaterialDictionary.ContainsKey(zoneType))
+                return _zoneMaterialDictionary[zoneType].Color;
+            throw new Exception($"÷вет зоны {zoneType} отсутствует в хранилище");
         }
 
         private void Awake()
         {
             foreach (var material in _zoneMaterials)
-                _zoneMaterialDictionary.Add(material.Type, material.Material);
+                _zoneMaterialDictionary.Add(material.Type, material);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Gameplay.Buildings;
+using UI.InformationWindow;
 using UnityEngine;
 
 namespace Service.MaterialStorage
@@ -18,6 +19,7 @@ namespace Service.MaterialStorage
             BuildingArea.GetZoneMaterial += _materialStorage.GetZoneMaterial;
             BuildingArea.GetBuildingAreaMaterial += _materialStorage.GetBuildingAreaMaterial;
             BuildingArea.GetRoadMaterial += _materialStorage.GetRoadMaterial;
+            InfoWindow.GetZoneColor += _materialStorage.GetZoneColor;
         }
 
         private void OnDisable()
@@ -25,6 +27,7 @@ namespace Service.MaterialStorage
             BuildingArea.GetZoneMaterial -= _materialStorage.GetZoneMaterial;
             BuildingArea.GetBuildingAreaMaterial -= _materialStorage.GetBuildingAreaMaterial;
             BuildingArea.GetRoadMaterial -= _materialStorage.GetRoadMaterial;
+            InfoWindow.GetZoneColor -= _materialStorage.GetZoneColor;
         }
     }
 }

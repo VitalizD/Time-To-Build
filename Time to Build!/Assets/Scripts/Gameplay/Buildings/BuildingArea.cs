@@ -1,5 +1,6 @@
 using Service.BuildingStorage;
 using System;
+using System.Collections;
 using UI;
 using UnityEngine;
 
@@ -13,12 +14,14 @@ namespace Gameplay.Buildings
         [SerializeField] private MeshRenderer _platform;
         [SerializeField] private Transform _buildingPoint;
         [SerializeField] private UIBar _progressBar;
+        [SerializeField] private Color _highlightColor;
         [Space]
         [SerializeField] private bool _empty = true;
         [SerializeField] private BuildingType _building;
 
         private AdjacentBuildings _adjacentBuildings;
         private RoadAdapter _roadAdapter;
+        private Color _initialColor;
 
         public BuildingType Type { get; private set; } = BuildingType.BuildingSite;
 
@@ -26,6 +29,8 @@ namespace Gameplay.Buildings
         public static event Func<ZoneType, Material> GetZoneMaterial;
         public static event Func<Material> GetBuildingAreaMaterial;
         public static event Func<Material> GetRoadMaterial;
+        public static event Action<BuildingArea> OpenBuildingPanel;
+        public static event Func<bool> SelectedArea;
 
         public void UpdateRoadType()
         {
@@ -34,10 +39,13 @@ namespace Gameplay.Buildings
             _roadAdapter.CreateAdaptRoad(_buildingPoint.position);
         }
 
+        public void RemoveHighlight() => _platform.material.color = _initialColor;
+
         private void Awake()
         {
             _adjacentBuildings = GetComponent<AdjacentBuildings>();
             _progressBar.gameObject.SetActive(false);
+            _initialColor = _platform.material.color;
         }
 
         private void Start()
@@ -46,6 +54,31 @@ namespace Gameplay.Buildings
                 Build(_building);
             else
                 SetDefault();
+        }
+
+        private void OnMouseEnter()
+        {
+            if (!SelectedArea() && Type == BuildingType.BuildingSite)
+                Highlight();
+        }
+
+        private void OnMouseExit()
+        {
+            if (!SelectedArea() && Type == BuildingType.BuildingSite)
+                RemoveHighlight();
+        }
+
+        private void OnMouseDown()
+        {
+            if (Type == BuildingType.BuildingSite)
+                StartCoroutine(OpenBuildingPanelWithDelay());
+        }
+
+        private IEnumerator OpenBuildingPanelWithDelay()
+        {
+            yield return new WaitForEndOfFrame();
+            OpenBuildingPanel?.Invoke(this);
+            Highlight();
         }
 
         private void Build(BuildingType buildingType)
@@ -58,7 +91,7 @@ namespace Gameplay.Buildings
 
             var building = GetBuilding?.Invoke(buildingType);
             Instantiate(building.Prefab, _buildingPoint.position, Quaternion.identity, transform);
-            _platform.material = GetZoneMaterial?.Invoke(building.Zone);
+            SetMaterial(GetZoneMaterial?.Invoke(building.Zone));
         }
 
         private void CheckRoad(BuildingType buildingType, out bool isRoad)
@@ -75,7 +108,7 @@ namespace Gameplay.Buildings
                         continue;
                     adjacent.UpdateRoadType();
                 }
-                _platform.material = GetRoadMaterial?.Invoke();
+                SetMaterial(GetRoadMaterial?.Invoke());
                 _adjacentBuildings.CreateBuildingSites();
             }
             else isRoad = false;
@@ -84,6 +117,14 @@ namespace Gameplay.Buildings
         private void SetDefault()
         {
             _platform.material = GetBuildingAreaMaterial?.Invoke();
+        }
+
+        private void Highlight() => _platform.material.color = _highlightColor;
+
+        private void SetMaterial(Material material)
+        {
+            _platform.material = material;
+            _initialColor = material.color;
         }
     }
 }

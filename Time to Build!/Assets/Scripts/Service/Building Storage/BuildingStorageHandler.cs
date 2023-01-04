@@ -1,4 +1,5 @@
 using Gameplay.Buildings;
+using UI.BuildingPanel;
 using UnityEngine;
 
 namespace Service.BuildingStorage
@@ -16,11 +17,13 @@ namespace Service.BuildingStorage
         private void OnEnable()
         {
             BuildingArea.GetBuilding += _buildingStorage.GetBuilding;
+            BuildingLot.GetBuilding += _buildingStorage.GetBuilding;
         }
 
         private void OnDisable()
         {
             BuildingArea.GetBuilding -= _buildingStorage.GetBuilding;
+            BuildingLot.GetBuilding -= _buildingStorage.GetBuilding;
         }
     }
 }

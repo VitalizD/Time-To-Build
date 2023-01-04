@@ -9,5 +9,7 @@ namespace Service.BuildingStorage
         public BuildingType Type;
         public ZoneType Zone;
         public GameObject Prefab;
+        public Sprite Icon;
+        public int Cost;
     }
 }

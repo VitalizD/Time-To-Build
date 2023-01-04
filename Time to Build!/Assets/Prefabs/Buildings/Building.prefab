@@ -200,6 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6091364900540941604}
   - component: {fileID: 6091364900540941605}
+  - component: {fileID: 525805234471082078}
   - component: {fileID: 1868506062689741199}
   - component: {fileID: 3207282549842827091}
   m_Layer: 0
@@ -242,8 +243,21 @@ MonoBehaviour:
   _platform: {fileID: 7653184434986841526}
   _buildingPoint: {fileID: 1792735108104941091}
   _progressBar: {fileID: 8148903292689716708}
+  _highlightColor: {r: 0.9811321, g: 0.94534963, b: 0.8830189, a: 1}
   _empty: 1
   _building: 0
+--- !u!114 &525805234471082078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6091364900540941607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d006a2eea9ffd948978438b00b9d9d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1868506062689741199
 MonoBehaviour:
   m_ObjectHideFlags: 0

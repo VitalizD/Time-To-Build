@@ -1,4 +1,5 @@
-using Unity.VisualScripting;
+using System;
+using UI;
 using UnityEngine;
 
 namespace CameraEngine
@@ -16,6 +17,7 @@ namespace CameraEngine
         private CameraBounds _bounds;
         private float _currentY = 50f;
 
+        public static event Func<GameObject[]> GetScreenRaycastResults;
 
         private void Awake()
         {
@@ -25,6 +27,12 @@ namespace CameraEngine
 
         private void Update()
         {
+            var hits = GetScreenRaycastResults?.Invoke();
+            foreach (var obj in hits)
+            {
+                if (obj.GetComponent<UIElement>() != null)
+                    return;
+            }
             var wheelValue = Input.GetAxis("Mouse ScrollWheel");
             if (wheelValue != 0f)
             {

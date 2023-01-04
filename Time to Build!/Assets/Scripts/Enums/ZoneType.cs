@@ -3,5 +3,6 @@ public enum ZoneType
     Resident,
     Commercial,
     Industrial,
-    Social
+    Social,
+    None
 }
