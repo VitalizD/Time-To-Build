@@ -15,7 +15,7 @@ namespace Service
         private readonly static Dictionary<BuildingType, string> _buildingNames = new Dictionary<BuildingType, string>
         {
             [BuildingType.Road] = "Дорога",
-            [BuildingType.House] = "Жилой дом",
+            [BuildingType.House] = "Домишко",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new Dictionary<BuildingType, string>

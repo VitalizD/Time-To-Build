@@ -102,14 +102,14 @@ namespace Gameplay.Buildings
             if (isRoad)
                 return;
 
-            var building = GetBuilding?.Invoke(buildingType);
-            Instantiate(building.Prefab, _buildingPoint.position, Quaternion.identity, transform);
-            SetMaterial(GetZoneMaterial?.Invoke(building.Zone));
+            var buildingInfo = GetBuilding?.Invoke(buildingType);
+            var building = Instantiate(buildingInfo.Prefab, _buildingPoint.position, Quaternion.identity, transform);
+            SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
+            TurnToRoad(building.transform);
         }
 
         private void CheckRoad(BuildingType buildingType, out bool isRoad)
         {
-
             if (buildingType == BuildingType.Road)
             {
                 isRoad = true;
@@ -139,6 +139,26 @@ namespace Gameplay.Buildings
         {
             _platform.material = material;
             _initialColor = material.color;
+        }
+
+        private void TurnToRoad(Transform building)
+        {
+            var adjacents = _adjacentBuildings.Get4Sides();
+            foreach (var adjacent in adjacents)
+            {
+                if (adjacent.Value != null && adjacent.Value.Type == BuildingType.Road)
+                {
+                    var angle = adjacent.Key switch
+                    {
+                        Direction.Left => 90f,
+                        Direction.Top => 180f,
+                        Direction.Right => 270f,
+                        _ => 0f,
+                    };
+                    building.Rotate(new Vector3(0f, angle, 0f));
+                    return;
+                }
+            }
         }
     }
 }

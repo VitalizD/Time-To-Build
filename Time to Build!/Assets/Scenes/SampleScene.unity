@@ -1196,9 +1196,9 @@ MonoBehaviour:
   - Type: 0
     Zone: 0
     Prefab: {fileID: 1303870201522125594, guid: bf8b3f60682fc42499f655ec04ad0c27, type: 3}
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 9fa3014957a149249adc07766a2dae91, type: 3}
     Cost: 3
-    BuildingTime: 0
+    BuildingTime: 15
   - Type: 1
     Zone: 4
     Prefab: {fileID: 0}
@@ -3503,7 +3503,7 @@ MonoBehaviour:
   _baseLots: {fileID: 1474669626}
   _marketLots: {fileID: 877596885}
   _lotPrefab: {fileID: 5141203852303613167, guid: 44b1c6bdb44cd4743bf3d5b232cf8c4e, type: 3}
-  _baseBuildings: 01000000
+  _baseBuildings: 0100000000000000
 --- !u!114 &2107290386
 MonoBehaviour:
   m_ObjectHideFlags: 0
