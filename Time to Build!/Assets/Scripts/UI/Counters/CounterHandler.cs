@@ -1,3 +1,4 @@
+using Gameplay.Buildings;
 using Gameplay.Cycle;
 using UI.BuildingPanel;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace UI.Counters
             DayCycle.AddMoney += AddResource;
             DayCycle.AddIncome += AddResource;
             DayCycle.AddReputation += AddResource;
+            BuildingArea.AddResource += AddResource;
         }
 
         private void OnDisable()
@@ -30,6 +32,7 @@ namespace UI.Counters
             DayCycle.AddMoney -= AddResource;
             DayCycle.AddIncome -= AddResource;
             DayCycle.AddReputation -= AddResource;
+            BuildingArea.AddResource -= AddResource;
         }
 
         private void AddResource(ResourceType type, int value)

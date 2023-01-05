@@ -1,6 +1,7 @@
 using Service;
 using Service.BuildingStorage;
 using System;
+using System.Linq;
 using TMPro;
 using UI.InformationWindow;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace UI.BuildingPanel
 
         public static event Func<BuildingType, Building> GetBuilding;
         public static event Func<Vector2> GetInfoWindowSpawnPoint;
-        public static event Action<Vector2, string, BonusInfo[], PropertyInfo, string, ZoneType> ShowInfoWindow;
+        public static event Action<Vector2, string, BonusInfo[], PropertyInfo[], string, ZoneType> ShowInfoWindow;
         public static event Action HideInfoWindow;
         public static event Action<BuildingType, int> StartBuilding;
         public static event Func<int> GetMoney;
@@ -55,7 +56,13 @@ namespace UI.BuildingPanel
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            ShowInfoWindow?.Invoke(_infoWindowSpawnPoint, _title.text, null, null,
+            var building = GetBuilding?.Invoke(_buildingType);
+            var instantBonuses = building.InstantBonuses.Length == 0 ? null : building.InstantBonuses;
+            var propertyInfos = building.Properties.Length == 0 ? null 
+                : building.Properties.Select(property => new PropertyInfo(property.Bonuses, 
+                Translation.GetPropertyDescription(property.Type, property.Zones))).ToArray();
+
+            ShowInfoWindow?.Invoke(_infoWindowSpawnPoint, _title.text, building.InstantBonuses, propertyInfos,
                 Translation.GetBuildingDescription(_buildingType), _zoneType);
         }
 

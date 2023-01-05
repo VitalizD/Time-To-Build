@@ -1,4 +1,5 @@
 using System;
+using UI.InformationWindow;
 using UnityEngine;
 
 namespace Service.BuildingStorage
@@ -12,5 +13,7 @@ namespace Service.BuildingStorage
         public Sprite Icon;
         public int Cost;
         public float BuildingTime;
+        public BonusInfo[] InstantBonuses;
+        public Property[] Properties;
     }
 }

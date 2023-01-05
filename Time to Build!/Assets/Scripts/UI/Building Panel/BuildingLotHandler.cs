@@ -1,3 +1,4 @@
+using UI.Counters;
 using UnityEngine;
 
 namespace UI.BuildingPanel
@@ -15,11 +16,13 @@ namespace UI.BuildingPanel
         private void OnEnable()
         {
             BuildingPanel.UpdateLotColors += _buildingLot.UpdateColors;
+            UICounter.UpdateBuildingLotColors += _buildingLot.UpdateColors;
         }
 
         private void OnDisable()
         {
             BuildingPanel.UpdateLotColors -= _buildingLot.UpdateColors;
+            UICounter.UpdateBuildingLotColors -= _buildingLot.UpdateColors;
         }
     }
 }

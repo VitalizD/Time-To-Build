@@ -1,16 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace UI.InformationWindow
 {
+    [Serializable]
     public class BonusInfo
     {
-        public string Text { get; }
-        public Sprite Icon { get; }
-
-        public BonusInfo(string text, Sprite icon)
-        {
-            Text = text;
-            Icon = icon;
-        }
+        public ResourceType Resource;
+        public int Value;
     }
 }

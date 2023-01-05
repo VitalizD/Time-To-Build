@@ -11,6 +11,8 @@ namespace UI.InformationWindow
 
         public void SetText(string text) => _text.text = text;
 
+        public void SetRedColor() => _text.color = Color.red;
+
         public void SetSprite(Sprite sprite) => _image.sprite = sprite;
     }
 }

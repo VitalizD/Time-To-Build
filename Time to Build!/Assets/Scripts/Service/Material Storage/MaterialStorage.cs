@@ -7,10 +7,12 @@ namespace Service.MaterialStorage
     public class MaterialStorage : MonoBehaviour
     {
         [SerializeField] private ZoneMaterial[] _zoneMaterials;
+        [SerializeField] private ResourceIcon[] _resourceIcons;
         [SerializeField] private Material _buildingArea;
         [SerializeField] private Material _road;
 
-        private Dictionary<ZoneType, ZoneMaterial> _zoneMaterialDictionary = new();
+        private readonly Dictionary<ZoneType, ZoneMaterial> _zoneMaterialDictionary = new();
+        private readonly Dictionary<ResourceType, Sprite> _resourceSpriteDictionary = new();
 
         public Material GetBuildingAreaMaterial() => _buildingArea;
 
@@ -30,10 +32,20 @@ namespace Service.MaterialStorage
             throw new Exception($"÷вет зоны {zoneType} отсутствует в хранилище");
         }
 
+        public Sprite GetResourceIcon(ResourceType resourceType)
+        {
+            if (_resourceSpriteDictionary.ContainsKey(resourceType))
+                return _resourceSpriteDictionary[resourceType];
+            throw new Exception($"»конка ресурса {resourceType} отсутствует в хранилище");
+        }
+
         private void Awake()
         {
             foreach (var material in _zoneMaterials)
                 _zoneMaterialDictionary.Add(material.Type, material);
+
+            foreach (var icon in _resourceIcons)
+                _resourceSpriteDictionary.Add(icon.Type, icon.Icon);
         }
     }
 }

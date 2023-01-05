@@ -1,6 +1,9 @@
 public enum BuildingType
 {
-    House,
+    LittleHouse,
     Road,
-    BuildingSite
+    BuildingSite,
+    FastFoonRestaurant,
+    Factory,
+    Park
 }

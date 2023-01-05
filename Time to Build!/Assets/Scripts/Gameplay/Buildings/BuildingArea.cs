@@ -1,7 +1,10 @@
 using Service.BuildingStorage;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UI;
+using UI.InformationWindow;
 using UnityEngine;
 
 namespace Gameplay.Buildings
@@ -32,6 +35,7 @@ namespace Gameplay.Buildings
         public static event Func<Material> GetRoadMaterial;
         public static event Action<BuildingArea> OpenBuildingPanel;
         public static event Func<bool> SelectedArea;
+        public static event Action<ResourceType, int> AddResource;
 
         public void UpdateRoadType()
         {
@@ -67,7 +71,7 @@ namespace Gameplay.Buildings
                 Build(_building);
             }
             else
-                SetDefault();
+                SetDefaultMaterial();
         }
 
         private void OnMouseEnter()
@@ -106,6 +110,7 @@ namespace Gameplay.Buildings
             var building = Instantiate(buildingInfo.Prefab, _buildingPoint.position, Quaternion.identity, transform);
             SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
             TurnToRoad(building.transform);
+            ApplyBonuses(buildingInfo);
         }
 
         private void CheckRoad(BuildingType buildingType, out bool isRoad)
@@ -128,7 +133,7 @@ namespace Gameplay.Buildings
             else isRoad = false;
         }
 
-        private void SetDefault()
+        private void SetDefaultMaterial()
         {
             _platform.material = GetBuildingAreaMaterial?.Invoke();
         }
@@ -159,6 +164,63 @@ namespace Gameplay.Buildings
                     return;
                 }
             }
+        }
+
+        private void ApplyBonuses(Building buildingInfo)
+        {
+            var rewardList = new List<Dictionary<ResourceType, int>>();
+            rewardList.Add(GetInstantRewards(buildingInfo.InstantBonuses));
+
+            foreach (var property in buildingInfo.Properties)
+            {
+                switch (property.Type)
+                {
+                    case PropertyType.Adjacents: rewardList.Add(GetPropertyAdjacentRewards(property)); break;
+                }
+            }
+
+            var commonReward = new Dictionary<ResourceType, int>();
+            foreach (var rewards in rewardList)
+            {
+                foreach (var resource in rewards)
+                {
+                    if (commonReward.ContainsKey(resource.Key))
+                        commonReward[resource.Key] += resource.Value;
+                    else
+                        commonReward.Add(resource.Key, resource.Value);
+                }
+            }
+            foreach (var reward in commonReward)
+                AddResource?.Invoke(reward.Key, reward.Value);
+        }
+
+        private Dictionary<ResourceType, int> GetInstantRewards(BonusInfo[] bonuses)
+        {
+            return bonuses.ToDictionary(bonus => bonus.Resource, bonus => bonus.Value);
+        }
+
+        private Dictionary<ResourceType, int> GetPropertyAdjacentRewards(Property property)
+        {
+            var adjacents = _adjacentBuildings.Get8Sides()
+                .Where(adjacent => adjacent.Value != null && adjacent.Value.Type != BuildingType.BuildingSite);
+            var rewards = new Dictionary<ResourceType, int>();
+            foreach (var zone in property.Zones)
+            {
+                foreach (var adjacent in adjacents)
+                {
+                    if (zone == GetBuilding(adjacent.Value.Type).Zone)
+                    {
+                        foreach (var bonus in property.Bonuses)
+                        {
+                            if (rewards.ContainsKey(bonus.Resource))
+                                rewards[bonus.Resource] += bonus.Value;
+                            else
+                                rewards.Add(bonus.Resource, bonus.Value);
+                        }    
+                    }
+                }
+            }
+            return rewards;
         }
     }
 }

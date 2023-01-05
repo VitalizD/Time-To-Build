@@ -1,5 +1,6 @@
 using Service;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,31 +12,52 @@ namespace UI.InformationWindow
         [SerializeField] private GameObject _panel;
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private GameObject _instantsBonuses;
-        [SerializeField] private GameObject _property;
-        [SerializeField] private GameObject _propertyBonuses;
-        [SerializeField] private TextMeshProUGUI _propertyText;
+        [SerializeField] private GameObject _properties;
         [SerializeField] private TextMeshProUGUI _description;
         [SerializeField] private GameObject _zone;
         [SerializeField] private Image _zoneSquare;
         [SerializeField] private TextMeshProUGUI _zoneText;
         [SerializeField] private GameObject _bonusPrefab;
+        [SerializeField] private GameObject _propertyPrefab;
 
         public static event Func<ZoneType, Color> GetZoneColor;
+        public static event Func<ResourceType, Sprite> GetResourceIcon;
 
         public void Show(Vector2 position, string title, BonusInfo[] instantBonuses,
-            PropertyInfo property, string description, ZoneType zone)
+            PropertyInfo[] properties, string description, ZoneType zone)
         {
             transform.position = position;
             _title.text = title;
 
             _description.text = description;
             SetInstantBonuses(instantBonuses);
-            SetProperty(property);
+            SetProperties(properties);
             SetZone(zone);
+            _panel.SetActive(true);
+
+            // Костыль для корректного отображения 
+            StartCoroutine(Reshow());
+        }
+
+        public void Hide()
+        {
+            RemoveContent(_properties.transform);
+            RemoveContent(_instantsBonuses.transform);
+            _panel.SetActive(false);
+        }
+
+        private IEnumerator Reshow()
+        {
+            yield return new WaitForEndOfFrame();
+            _panel.SetActive(false);
             _panel.SetActive(true);
         }
 
-        public void Hide() => _panel.SetActive(false);
+        private void RemoveContent(Transform obj)
+        {
+            for (var i = obj.childCount - 1; i >= 0; --i)
+                Destroy(obj.GetChild(i).gameObject);
+        }
 
         private void SetInstantBonuses(BonusInfo[] instantBonuses)
         {
@@ -48,31 +70,39 @@ namespace UI.InformationWindow
             foreach (var bonusInfo in instantBonuses)
             {
                 var bonus = GetBonusObject(bonusInfo);
-                bonus.transform.parent = _instantsBonuses.transform;
+                bonus.transform.SetParent(_instantsBonuses.transform);
             }
         }
 
-        private void SetProperty(PropertyInfo propertyInfo)
+        private void SetProperties(PropertyInfo[] propertyInfos)
         {
-            if (propertyInfo == null)
+            if (propertyInfos == null)
             {
-                _property.SetActive(false);
+                _properties.SetActive(false);
                 return;
             }
-            _property.SetActive(true);
-            foreach (var bonusInfo in propertyInfo.Bonuses)
+            _properties.SetActive(true);
+            foreach (var propertyInfo in propertyInfos)
             {
-                var bonus = GetBonusObject(bonusInfo);
-                bonus.transform.parent = _propertyBonuses.transform;
+                var property = Instantiate(_propertyPrefab).GetComponent<PropertyParameters>();
+                foreach (var bonusInfo in propertyInfo.Bonuses)
+                {
+                    var bonus = GetBonusObject(bonusInfo);
+                    property.AddBonus(bonus.transform);
+                }
+                property.SetText(propertyInfo.ConditionText);
+                property.transform.SetParent(_properties.transform);
             }
-            _propertyText.text = propertyInfo.Text;
         }
 
         private BonusProperties GetBonusObject(BonusInfo info)
         {
             var bonus = Instantiate(_bonusPrefab).GetComponent<BonusProperties>();
-            bonus.SetSprite(info.Icon);
-            bonus.SetText(info.Text);
+            bonus.SetSprite(GetResourceIcon?.Invoke(info.Resource));
+            var text = info.Value.ToString();
+            bonus.SetText(info.Value > 0 ? '+' + text : text);
+            if (info.Value < 0)
+                bonus.SetRedColor();
             return bonus;
         }
 

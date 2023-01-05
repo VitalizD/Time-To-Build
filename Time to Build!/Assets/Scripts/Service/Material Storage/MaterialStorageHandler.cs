@@ -20,6 +20,8 @@ namespace Service.MaterialStorage
             BuildingArea.GetBuildingAreaMaterial += _materialStorage.GetBuildingAreaMaterial;
             BuildingArea.GetRoadMaterial += _materialStorage.GetRoadMaterial;
             InfoWindow.GetZoneColor += _materialStorage.GetZoneColor;
+            InfoWindow.GetResourceIcon += _materialStorage.GetResourceIcon;
+            Translation.GetZoneColor += _materialStorage.GetZoneColor;
         }
 
         private void OnDisable()
@@ -28,6 +30,8 @@ namespace Service.MaterialStorage
             BuildingArea.GetBuildingAreaMaterial -= _materialStorage.GetBuildingAreaMaterial;
             BuildingArea.GetRoadMaterial -= _materialStorage.GetRoadMaterial;
             InfoWindow.GetZoneColor -= _materialStorage.GetZoneColor;
+            InfoWindow.GetResourceIcon -= _materialStorage.GetResourceIcon;
+            Translation.GetZoneColor -= _materialStorage.GetZoneColor;
         }
     }
 }

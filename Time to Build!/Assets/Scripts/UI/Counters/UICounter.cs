@@ -19,8 +19,9 @@ namespace UI.Counters
         public ResourceType Type { get => _resourceType; }
         public int Count { get => _value; }
 
-        public static event Action<Vector2, string, BonusInfo[], PropertyInfo, string, ZoneType> ShowInfoWindow;
+        public static event Action<Vector2, string, BonusInfo[], PropertyInfo[], string, ZoneType> ShowInfoWindow;
         public static event Action HideInfoWindow;
+        public static event Action UpdateBuildingLotColors;
 
         public void SetValue(int value)
         {
@@ -37,6 +38,8 @@ namespace UI.Counters
                 _increaseResourceAnimation.PlayIncrease($"+{value}");
             else if (value < 0)
                 _increaseResourceAnimation.PlayDecrease(value.ToString());
+
+            UpdateBuildingLotColors?.Invoke();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -51,7 +54,11 @@ namespace UI.Counters
             HideInfoWindow?.Invoke();
         }
 
-        private void UpdateText() => _valueText.text = _value.ToString();
+        private void UpdateText()
+        {
+            _valueText.text = _value.ToString();
+            _valueText.color = _value >= 0 ? Color.white : Color.red;
+        }
 
         private void Start()
         {
