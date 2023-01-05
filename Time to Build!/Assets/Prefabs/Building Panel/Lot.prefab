@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5141203852303613164}
   - component: {fileID: 5141203852303613162}
+  - component: {fileID: -5929192820423039579}
   m_Layer: 5
   m_Name: Lot
   m_TagString: Untagged
@@ -205,6 +206,18 @@ MonoBehaviour:
   _icon: {fileID: 5141203853951352675}
   _title: {fileID: 5141203852823992399}
   _costText: {fileID: 5141203851941628009}
+--- !u!114 &-5929192820423039579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141203852303613167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95cfcc4e086e23459367f15dc415434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5141203852823992433
 GameObject:
   m_ObjectHideFlags: 0

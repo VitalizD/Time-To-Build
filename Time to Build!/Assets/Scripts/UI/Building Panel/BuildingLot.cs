@@ -24,7 +24,8 @@ namespace UI.BuildingPanel
         public static event Func<Vector2> GetInfoWindowSpawnPoint;
         public static event Action<Vector2, string, BonusInfo[], PropertyInfo, string, ZoneType> ShowInfoWindow;
         public static event Action HideInfoWindow;
-        public static event Action<BuildingType> StartBuilding;
+        public static event Action<BuildingType, int> StartBuilding;
+        public static event Func<int> GetMoney;
 
         public void Set(BuildingType buildingType)
         {
@@ -35,6 +36,15 @@ namespace UI.BuildingPanel
             _icon.sprite = building.Icon;
             _title.text = Translation.GetBuildingName(buildingType);
             _costText.text = building.Cost.ToString();
+        }
+
+        public void UpdateColors()
+        {
+            var money = GetMoney();
+            if (money < _cost)
+                _costText.color = Color.red;
+            else
+                _costText.color = Color.white;
         }
 
         private void Start()
@@ -56,7 +66,7 @@ namespace UI.BuildingPanel
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            StartBuilding?.Invoke(_buildingType);
+            StartBuilding?.Invoke(_buildingType, _cost);
         }
     }
 }

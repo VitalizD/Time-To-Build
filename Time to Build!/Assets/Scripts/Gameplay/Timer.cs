@@ -35,6 +35,7 @@ namespace Gameplay
         private void Stop()
         {
             Activated = false;
+            _progressBar.SetValue(0f);
             _progressBar.gameObject.SetActive(false);
             _execute?.Invoke();
         }

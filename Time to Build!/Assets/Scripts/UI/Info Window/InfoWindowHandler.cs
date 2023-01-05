@@ -17,12 +17,16 @@ namespace UI.InformationWindow
         {
             BuildingLot.ShowInfoWindow += _infoWindow.Show;
             BuildingLot.HideInfoWindow += _infoWindow.Hide;
+            UICounter.ShowInfoWindow += _infoWindow.Show;
+            UICounter.HideInfoWindow += _infoWindow.Hide;
         }
 
         private void OnDisable()
         {
             BuildingLot.ShowInfoWindow -= _infoWindow.Show;
             BuildingLot.HideInfoWindow -= _infoWindow.Hide;
+            UICounter.ShowInfoWindow -= _infoWindow.Show;
+            UICounter.HideInfoWindow -= _infoWindow.Hide;
         }
     }
 }

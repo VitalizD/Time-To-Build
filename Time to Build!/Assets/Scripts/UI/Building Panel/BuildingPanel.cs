@@ -23,11 +23,15 @@ namespace UI.BuildingPanel
 
         public static event Func<GameObject[]> GetScreenRaycastResults;
         public static event Action RemoveBuildingAreaSelection;
+        public static event Func<int> GetMoney;
+        public static event Action<ResourceType, int> AddMoney;
+        public static event Action UpdateLotColors;
 
         public void Show(BuildingArea selectedArea)
         {
             _selectedArea = selectedArea;
             _animator.SetBool(SHOW_ANIMATOR_BOOL, true);
+            UpdateLotColors?.Invoke();
         }
 
         public void Hide()
@@ -37,13 +41,15 @@ namespace UI.BuildingPanel
             RemoveBuildingAreaSelection?.Invoke();
         }
 
-        public void BuildOnSelectedArea(BuildingType buildingType)
+        public void BuildOnSelectedArea(BuildingType buildingType, int cost)
         {
-            if (_selectedArea == null)
+            var money = GetMoney();
+            if (_selectedArea == null || money < cost)
                 return;
 
             _selectedArea.StartBuilding(buildingType);
             Hide();
+            AddMoney?.Invoke(ResourceType.Money, -cost);
         }
 
         private void Awake()
