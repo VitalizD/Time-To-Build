@@ -6,12 +6,13 @@ using UI.InformationWindow;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI
+namespace UI.Counters
 {
     public class UICounter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private TextMeshProUGUI _valueText;
         [SerializeField] private Transform _infoWindowPoint;
+        [SerializeField] private IncreaseResourceAnimation _increaseResourceAnimation;
         [SerializeField] private ResourceType _resourceType;
         [SerializeField] private int _value;
 
@@ -31,6 +32,11 @@ namespace UI
         {
             _value += value;
             UpdateText();
+
+            if (value > 0)
+                _increaseResourceAnimation.PlayIncrease($"+{value}");
+            else if (value < 0)
+                _increaseResourceAnimation.PlayDecrease(value.ToString());
         }
 
         public void OnPointerEnter(PointerEventData eventData)

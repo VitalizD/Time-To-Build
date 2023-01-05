@@ -19,6 +19,8 @@ namespace UI.Counters
             BuildingPanel.BuildingPanel.AddMoney += AddResource;
             DayCycle.AddPopulation += AddResource;
             DayCycle.AddMoney += AddResource;
+            DayCycle.AddIncome += AddResource;
+            DayCycle.AddReputation += AddResource;
         }
 
         private void OnDisable()
@@ -26,6 +28,8 @@ namespace UI.Counters
             BuildingPanel.BuildingPanel.AddMoney -= AddResource;
             DayCycle.AddPopulation -= AddResource;
             DayCycle.AddMoney -= AddResource;
+            DayCycle.AddIncome -= AddResource;
+            DayCycle.AddReputation -= AddResource;
         }
 
         private void AddResource(ResourceType type, int value)

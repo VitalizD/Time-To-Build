@@ -1,3 +1,4 @@
+using Gameplay.Cycle;
 using UI;
 using UnityEngine;
 
@@ -15,12 +16,12 @@ namespace UI.Counters
 
         private void OnEnable()
         {
-
+            DayCycle.GetPopulation += Get;
         }
 
         private void OnDisable()
         {
-
+            DayCycle.GetPopulation -= Get;
         }
 
         private int Get() => _counter.Count;
