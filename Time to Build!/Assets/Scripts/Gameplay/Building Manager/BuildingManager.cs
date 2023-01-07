@@ -35,7 +35,7 @@ namespace Gameplay.BuildingManager
             var rewards = new List<Dictionary<ResourceType, int>>();
             foreach (var building in _buildingsWithEachProperty)
                 rewards.Add(building.GetRewardsInThis());
-            return BuildingArea.UnionRewards(rewards);
+            return RewardsCalculator.UnionRewards(rewards);
         }
 
         public void HighlightBuildingsByZone(ZoneType[] zoneTypes)

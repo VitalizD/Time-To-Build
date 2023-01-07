@@ -202,8 +202,9 @@ GameObject:
   - component: {fileID: 6091364900540941605}
   - component: {fileID: 525805234471082078}
   - component: {fileID: 1868506062689741199}
-  - component: {fileID: 3207282549842827091}
   - component: {fileID: 6476504099757776007}
+  - component: {fileID: 2457741741971208571}
+  - component: {fileID: 3207282549842827091}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -275,19 +276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingSiteSpawner: {fileID: 3698890173320559888, guid: 6080669cba394af4f9bdace4ce15ea11, type: 3}
---- !u!65 &3207282549842827091
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6091364900540941607}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.14495371, z: 1}
-  m_Center: {x: 0, y: 0.0078556165, z: 0}
 --- !u!114 &6476504099757776007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +289,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _progressBar: {fileID: 8148903292689716708}
+--- !u!114 &2457741741971208571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6091364900540941607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce306d6588e17c41b87e87e9b6e6ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &3207282549842827091
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6091364900540941607}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.14495371, z: 1}
+  m_Center: {x: 0, y: 0.0078556165, z: 0}
 --- !u!1 &6091364901224777185
 GameObject:
   m_ObjectHideFlags: 0

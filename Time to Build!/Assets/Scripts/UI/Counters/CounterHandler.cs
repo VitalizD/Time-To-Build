@@ -23,7 +23,7 @@ namespace UI.Counters
             DayCycle.SetMoney += SetResource;
             DayCycle.AddIncome += AddResource;
             DayCycle.AddReputation += AddResource;
-            BuildingArea.AddResource += AddResource;
+            RewardsCalculator.AddResource += AddResource;
         }
 
         private void OnDisable()
@@ -34,7 +34,7 @@ namespace UI.Counters
             DayCycle.SetMoney -= SetResource;
             DayCycle.AddIncome -= AddResource;
             DayCycle.AddReputation -= AddResource;
-            BuildingArea.AddResource -= AddResource;
+            RewardsCalculator.AddResource -= AddResource;
         }
 
         private void AddResource(ResourceType type, int value)

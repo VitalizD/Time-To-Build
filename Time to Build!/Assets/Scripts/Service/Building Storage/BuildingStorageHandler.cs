@@ -20,6 +20,7 @@ namespace Service.BuildingStorage
             BuildingArea.GetBuilding += _buildingStorage.GetBuilding;
             BuildingLot.GetBuilding += _buildingStorage.GetBuilding;
             InfoWindow.GetBuilding += _buildingStorage.GetBuilding;
+            RewardsCalculator.GetBuilding += _buildingStorage.GetBuilding;
         }
 
         private void OnDisable()
@@ -27,6 +28,7 @@ namespace Service.BuildingStorage
             BuildingArea.GetBuilding -= _buildingStorage.GetBuilding;
             BuildingLot.GetBuilding -= _buildingStorage.GetBuilding;
             InfoWindow.GetBuilding -= _buildingStorage.GetBuilding;
+            RewardsCalculator.GetBuilding -= _buildingStorage.GetBuilding;
         }
     }
 }

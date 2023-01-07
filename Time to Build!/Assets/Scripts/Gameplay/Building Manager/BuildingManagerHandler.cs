@@ -16,20 +16,20 @@ namespace Gameplay.BuildingManager
 
         private void OnEnable()
         {
-            BuildingArea.GetBuildingsCountByZone += _buildingManager.GetBuildingCountByZone;
             BuildingArea.AddToBuildingManager += _buildingManager.AddBuilding;
             BuildingArea.AddToBuildingManagerWithEachProperty += _buildingManager.AddBuildingWithEachProperty;
-            BuildingArea.GetRewardsForBuildingsWithEachProperty += _buildingManager.GetRewardsForBuildingsWithEachProperty;
+            RewardsCalculator.GetBuildingsCountByZone += _buildingManager.GetBuildingCountByZone;
+            RewardsCalculator.GetRewardsForBuildingsWithEachProperty += _buildingManager.GetRewardsForBuildingsWithEachProperty;
             BuildingLot.HighlightBuildingsByZone += _buildingManager.HighlightBuildingsByZone;
             BuildingLot.RemoveighlightingBuildingsByZone += _buildingManager.RemoveHighlightingBuildingsByZone;
         }
 
         private void OnDisable()
         {
-            BuildingArea.GetBuildingsCountByZone -= _buildingManager.GetBuildingCountByZone;
             BuildingArea.AddToBuildingManager -= _buildingManager.AddBuilding;
             BuildingArea.AddToBuildingManagerWithEachProperty -= _buildingManager.AddBuildingWithEachProperty;
-            BuildingArea.GetRewardsForBuildingsWithEachProperty -= _buildingManager.GetRewardsForBuildingsWithEachProperty;
+            RewardsCalculator.GetBuildingsCountByZone -= _buildingManager.GetBuildingCountByZone;
+            RewardsCalculator.GetRewardsForBuildingsWithEachProperty -= _buildingManager.GetRewardsForBuildingsWithEachProperty;
             BuildingLot.HighlightBuildingsByZone -= _buildingManager.HighlightBuildingsByZone;
             BuildingLot.RemoveighlightingBuildingsByZone -= _buildingManager.RemoveHighlightingBuildingsByZone;
         }
