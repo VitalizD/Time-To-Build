@@ -1,6 +1,8 @@
 using Service;
+using Service.BuildingStorage;
 using System;
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +24,24 @@ namespace UI.InformationWindow
 
         public static event Func<ZoneType, Color> GetZoneColor;
         public static event Func<ResourceType, Sprite> GetResourceIcon;
+        public static event Func<BuildingType, Building> GetBuilding;
+
+        public void Show(Vector2 position, BuildingType buildingType)
+        {
+            var building = GetBuilding?.Invoke(buildingType);
+            var instantBonuses = building.InstantBonuses.Length == 0 ? null : building.InstantBonuses;
+            var propertyInfos = building.Properties.Length == 0 ? null
+                : building.Properties.Select(property => new PropertyInfo(property.Bonuses,
+                Translation.GetPropertyDescription(property.Type, property.Zones))).ToArray();
+
+            Show(position, Translation.GetBuildingName(buildingType), building.InstantBonuses, propertyInfos,
+                Translation.GetBuildingDescription(buildingType), building.Zone);
+        }
+
+        public void Show(Vector2 position, string title, string description)
+        {
+            Show(position, title, null, null, description, ZoneType.None);
+        }
 
         public void Show(Vector2 position, string title, BonusInfo[] instantBonuses,
             PropertyInfo[] properties, string description, ZoneType zone)

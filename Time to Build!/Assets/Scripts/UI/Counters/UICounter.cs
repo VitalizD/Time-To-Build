@@ -19,7 +19,7 @@ namespace UI.Counters
         public ResourceType Type { get => _resourceType; }
         public int Count { get => _value; }
 
-        public static event Action<Vector2, string, BonusInfo[], PropertyInfo[], string, ZoneType> ShowInfoWindow;
+        public static event Action<Vector2, string, string> ShowInfoWindow;
         public static event Action HideInfoWindow;
         public static event Action UpdateBuildingLotColors;
 
@@ -46,7 +46,7 @@ namespace UI.Counters
         {
             var title = Translation.GetResourceName(_resourceType);
             var description = Translation.GetResourceDescription(_resourceType);
-            ShowInfoWindow?.Invoke(_infoWindowPoint.position, title, null, null, description, ZoneType.None);
+            ShowInfoWindow?.Invoke(_infoWindowPoint.position, title, description);
         }
 
         public void OnPointerExit(PointerEventData eventData)

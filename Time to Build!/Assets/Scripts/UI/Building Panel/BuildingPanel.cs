@@ -52,6 +52,18 @@ namespace UI.BuildingPanel
             AddMoney?.Invoke(ResourceType.Money, -cost);
         }
 
+        public void HighlightAdjacentsInSelectedArea()
+        {
+            if (_selectedArea != null)
+                _selectedArea.HighlightAdjacents();
+        }
+
+        public void RemoveHighlightingAdjacentsInSelectedArea()
+        {
+            if (_selectedArea != null)
+                _selectedArea.RemoveHighlightingAdjacents();
+        }
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();

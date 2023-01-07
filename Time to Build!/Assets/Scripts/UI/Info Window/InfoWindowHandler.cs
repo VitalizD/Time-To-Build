@@ -1,3 +1,4 @@
+using Gameplay.Buildings;
 using UI.BuildingPanel;
 using UI.Counters;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace UI.InformationWindow
             BuildingLot.HideInfoWindow += _infoWindow.Hide;
             UICounter.ShowInfoWindow += _infoWindow.Show;
             UICounter.HideInfoWindow += _infoWindow.Hide;
+            BuildingArea.ShowInfoWindow += _infoWindow.Show;
+            BuildingArea.HideInfoWindow += _infoWindow.Hide;
         }
 
         private void OnDisable()
@@ -28,6 +31,8 @@ namespace UI.InformationWindow
             BuildingLot.HideInfoWindow -= _infoWindow.Hide;
             UICounter.ShowInfoWindow -= _infoWindow.Show;
             UICounter.HideInfoWindow -= _infoWindow.Hide;
+            BuildingArea.ShowInfoWindow -= _infoWindow.Show;
+            BuildingArea.HideInfoWindow -= _infoWindow.Hide;
         }
     }
 }

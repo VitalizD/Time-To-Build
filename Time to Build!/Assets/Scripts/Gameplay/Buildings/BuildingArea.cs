@@ -17,13 +17,17 @@ namespace Gameplay.Buildings
 
         [SerializeField] private MeshRenderer _platform;
         [SerializeField] private Transform _buildingPoint;
+        [SerializeField] private GameObject _highlightArea;
+        [SerializeField] private GameObject _highlightBuilding;
         [SerializeField] private Color _highlightColor;
         [Space]
         [SerializeField] private bool _empty = true;
         [SerializeField] private BuildingType _building;
 
+        private Dictionary<ResourceType, int> _gettedRewards = new();
         private AdjacentBuildings _adjacentBuildings;
         private RoadAdapter _roadAdapter;
+        private Vector2 _infoWindowPoint;
         private Timer _timer;
         private Color _initialColor;
 
@@ -34,8 +38,11 @@ namespace Gameplay.Buildings
         public static event Func<Material> GetBuildingAreaMaterial;
         public static event Func<Material> GetRoadMaterial;
         public static event Action<BuildingArea> OpenBuildingPanel;
-        public static event Func<bool> SelectedArea;
+        public static event Func<bool> AreaIsSelected;
         public static event Action<ResourceType, int> AddResource;
+        public static event Func<Vector2> GetInfoWindowPoint;
+        public static event Action<Vector2, BuildingType> ShowInfoWindow;
+        public static event Action HideInfoWindow;
 
         public void UpdateRoadType()
         {
@@ -44,7 +51,7 @@ namespace Gameplay.Buildings
             _roadAdapter.CreateAdaptRoad(_buildingPoint.position);
         }
 
-        public void RemoveHighlight() => _platform.material.color = _initialColor;
+        public void RemoveIllumination() => _platform.material.color = _initialColor;
 
         public void StartBuilding(BuildingType buildingType)
         {
@@ -56,6 +63,19 @@ namespace Gameplay.Buildings
             _timer.Run(buildingTime, () => Build(buildingType));
         }
 
+        public Dictionary<ResourceType, int> GetRewardsInThis()
+        {
+            return GetRewardsInThis(GetBuilding?.Invoke(Type));
+        }
+
+        public void HighlightAdjacents() => _highlightArea.SetActive(true);
+
+        public void RemoveHighlightingAdjacents() => _highlightArea.SetActive(false);
+
+        public void HighlightThis() => _highlightBuilding.SetActive(true);
+
+        public void RemoveHighlightingThis() => _highlightBuilding.SetActive(false);
+
         private void Awake()
         {
             _adjacentBuildings = GetComponent<AdjacentBuildings>();
@@ -65,6 +85,7 @@ namespace Gameplay.Buildings
 
         private void Start()
         {
+            _infoWindowPoint = GetInfoWindowPoint();
             if (!_empty)
             {
                 Type = _building;
@@ -76,14 +97,22 @@ namespace Gameplay.Buildings
 
         private void OnMouseEnter()
         {
-            if (!SelectedArea() && Type == BuildingType.BuildingSite)
-                Highlight();
+            if (!AreaIsSelected() && Type == BuildingType.BuildingSite)
+                Illuminate();
+
+            if (Type != BuildingType.Road && Type != BuildingType.BuildingSite)
+            {
+                ShowInfoWindow?.Invoke(_infoWindowPoint, Type);
+            }
         }
 
         private void OnMouseExit()
         {
-            if (!SelectedArea() && Type == BuildingType.BuildingSite)
-                RemoveHighlight();
+            if (!AreaIsSelected() && Type == BuildingType.BuildingSite)
+                RemoveIllumination();
+
+            if (Type != BuildingType.Road && Type != BuildingType.BuildingSite)
+                HideInfoWindow?.Invoke();
         }
 
         private void OnMouseDown()
@@ -96,7 +125,7 @@ namespace Gameplay.Buildings
         {
             yield return new WaitForEndOfFrame();
             OpenBuildingPanel?.Invoke(this);
-            Highlight();
+            Illuminate();
         }
 
         private void Build(BuildingType buildingType)
@@ -110,7 +139,7 @@ namespace Gameplay.Buildings
             var building = Instantiate(buildingInfo.Prefab, _buildingPoint.position, Quaternion.identity, transform);
             SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
             TurnToRoad(building.transform);
-            ApplyBonuses(buildingInfo);
+            GetAllRewards(buildingInfo);
         }
 
         private void CheckRoad(BuildingType buildingType, out bool isRoad)
@@ -133,12 +162,24 @@ namespace Gameplay.Buildings
             else isRoad = false;
         }
 
+        private void GetAllRewards(Building buildingInfo)
+        {
+            var rewards = new List<Dictionary<ResourceType, int>>();
+            rewards.Add(GetRewardsInThis(buildingInfo));
+            var adjacents = _adjacentBuildings.Get8Sides().Values
+                .Where(building => building != null && building.Type != BuildingType.BuildingSite);
+            foreach (var adjacent in adjacents)
+                rewards.Add(adjacent.GetRewardsInThis());
+            foreach (var reward in UnionRewards(rewards))
+                AddResource?.Invoke(reward.Key, reward.Value);
+        }
+
         private void SetDefaultMaterial()
         {
             _platform.material = GetBuildingAreaMaterial?.Invoke();
         }
 
-        private void Highlight() => _platform.material.color = _highlightColor;
+        private void Illuminate() => _platform.material.color = _highlightColor;
 
         private void SetMaterial(Material material)
         {
@@ -166,7 +207,7 @@ namespace Gameplay.Buildings
             }
         }
 
-        private void ApplyBonuses(Building buildingInfo)
+        private Dictionary<ResourceType, int> GetRewardsInThis(Building buildingInfo)
         {
             var rewardList = new List<Dictionary<ResourceType, int>>();
             rewardList.Add(GetInstantRewards(buildingInfo.InstantBonuses));
@@ -178,20 +219,17 @@ namespace Gameplay.Buildings
                     case PropertyType.Adjacents: rewardList.Add(GetPropertyAdjacentRewards(property)); break;
                 }
             }
-
-            var commonReward = new Dictionary<ResourceType, int>();
-            foreach (var rewards in rewardList)
+            var commonRewards = UnionRewards(rewardList);
+            var rewardsToGet = new Dictionary<ResourceType, int>();
+            foreach (var resourceType in commonRewards.Keys)
             {
-                foreach (var resource in rewards)
-                {
-                    if (commonReward.ContainsKey(resource.Key))
-                        commonReward[resource.Key] += resource.Value;
-                    else
-                        commonReward.Add(resource.Key, resource.Value);
-                }
+                if (_gettedRewards.ContainsKey(resourceType))
+                    rewardsToGet.Add(resourceType, commonRewards[resourceType] - _gettedRewards[resourceType]);
+                else
+                    rewardsToGet.Add(resourceType, commonRewards[resourceType]);
             }
-            foreach (var reward in commonReward)
-                AddResource?.Invoke(reward.Key, reward.Value);
+            _gettedRewards = new Dictionary<ResourceType, int>(commonRewards);
+            return rewardsToGet;
         }
 
         private Dictionary<ResourceType, int> GetInstantRewards(BonusInfo[] bonuses)
@@ -203,24 +241,54 @@ namespace Gameplay.Buildings
         {
             var adjacents = _adjacentBuildings.Get8Sides()
                 .Where(adjacent => adjacent.Value != null && adjacent.Value.Type != BuildingType.BuildingSite);
+            var commonRewards = new Dictionary<ResourceType, int>();
+            foreach (var adjacent in adjacents)
+            {
+                var rewards = GetPropertyBonus(property, GetBuilding(adjacent.Value.Type).Zone);
+                foreach (var reward in rewards)
+                {
+                    if (commonRewards.ContainsKey(reward.Key))
+                        commonRewards[reward.Key] += reward.Value;
+                    else
+                        commonRewards.Add(reward.Key, reward.Value);
+                }
+            }
+            return commonRewards;
+        }
+
+        private Dictionary<ResourceType, int> GetPropertyBonus(Property property, ZoneType buildingZone)
+        {
             var rewards = new Dictionary<ResourceType, int>();
             foreach (var zone in property.Zones)
             {
-                foreach (var adjacent in adjacents)
+                if (zone == buildingZone)
                 {
-                    if (zone == GetBuilding(adjacent.Value.Type).Zone)
+                    foreach (var bonus in property.Bonuses)
                     {
-                        foreach (var bonus in property.Bonuses)
-                        {
-                            if (rewards.ContainsKey(bonus.Resource))
-                                rewards[bonus.Resource] += bonus.Value;
-                            else
-                                rewards.Add(bonus.Resource, bonus.Value);
-                        }    
+                        if (rewards.ContainsKey(bonus.Resource))
+                            rewards[bonus.Resource] += bonus.Value;
+                        else
+                            rewards.Add(bonus.Resource, bonus.Value);
                     }
                 }
             }
             return rewards;
+        }
+
+        private Dictionary<ResourceType, int> UnionRewards(IEnumerable<Dictionary<ResourceType, int>> rewardList)
+        {
+            var result = new Dictionary<ResourceType, int>();
+            foreach (var rewards in rewardList)
+            {
+                foreach (var resource in rewards)
+                {
+                    if (result.ContainsKey(resource.Key))
+                        result[resource.Key] += resource.Value;
+                    else
+                        result.Add(resource.Key, resource.Value);
+                }
+            }
+            return result;
         }
     }
 }

@@ -23,10 +23,12 @@ namespace UI.BuildingPanel
 
         public static event Func<BuildingType, Building> GetBuilding;
         public static event Func<Vector2> GetInfoWindowSpawnPoint;
-        public static event Action<Vector2, string, BonusInfo[], PropertyInfo[], string, ZoneType> ShowInfoWindow;
+        public static event Action<Vector2, BuildingType> ShowInfoWindow;
         public static event Action HideInfoWindow;
         public static event Action<BuildingType, int> StartBuilding;
         public static event Func<int> GetMoney;
+        public static event Action HighlightAdjacents;
+        public static event Action RemoveHighlightingAdjacents;
 
         public void Set(BuildingType buildingType)
         {
@@ -48,32 +50,41 @@ namespace UI.BuildingPanel
                 _costText.color = Color.white;
         }
 
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            ShowInfoWindow?.Invoke(_infoWindowSpawnPoint, _buildingType);
+
+            if (ExistsAdjacentProperty())
+                HighlightAdjacents?.Invoke();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            HideInfoWindow?.Invoke();
+            RemoveHighlightingAdjacents?.Invoke();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            RemoveHighlightingAdjacents?.Invoke();
+            StartBuilding?.Invoke(_buildingType, _cost);
+        }
+
         private void Start()
         {
             var infoWindowSpawnPoint = GetInfoWindowSpawnPoint?.Invoke();
             _infoWindowSpawnPoint = infoWindowSpawnPoint.GetValueOrDefault();
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        private bool ExistsAdjacentProperty()
         {
             var building = GetBuilding?.Invoke(_buildingType);
-            var instantBonuses = building.InstantBonuses.Length == 0 ? null : building.InstantBonuses;
-            var propertyInfos = building.Properties.Length == 0 ? null 
-                : building.Properties.Select(property => new PropertyInfo(property.Bonuses, 
-                Translation.GetPropertyDescription(property.Type, property.Zones))).ToArray();
-
-            ShowInfoWindow?.Invoke(_infoWindowSpawnPoint, _title.text, building.InstantBonuses, propertyInfos,
-                Translation.GetBuildingDescription(_buildingType), _zoneType);
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            HideInfoWindow?.Invoke();
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            StartBuilding?.Invoke(_buildingType, _cost);
+            foreach (var property in building.Properties)
+            {
+                if (property.Type == PropertyType.Adjacents)
+                    return true;
+            }
+            return false;
         }
     }
 }

@@ -15,12 +15,12 @@ namespace Gameplay.Buildings
 
         private void OnEnable()
         {
-            BuildingPanel.RemoveBuildingAreaSelection += _buildingArea.RemoveHighlight;
+            BuildingPanel.RemoveBuildingAreaSelection += _buildingArea.RemoveIllumination;
         }
 
         private void OnDisable()
         {
-            BuildingPanel.RemoveBuildingAreaSelection -= _buildingArea.RemoveHighlight;
+            BuildingPanel.RemoveBuildingAreaSelection -= _buildingArea.RemoveIllumination;
         }
     }
 }
