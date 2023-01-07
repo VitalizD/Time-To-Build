@@ -1,3 +1,4 @@
+using Gameplay.Buildings;
 using Service;
 using Service.BuildingStorage;
 using System;
@@ -25,6 +26,7 @@ namespace UI.BuildingPanel
         private int _currentReserve;
         private int _daysForRefill;
         private int _currentDaysForRefill;
+        private Property[] _properties;
 
         public bool Locked { get; private set; } = false;
 
@@ -36,6 +38,8 @@ namespace UI.BuildingPanel
         public static event Func<int> GetMoney;
         public static event Action HighlightAdjacents;
         public static event Action RemoveHighlightingAdjacents;
+        public static event Action<ZoneType[]> HighlightBuildingsByZone;
+        public static event Action RemoveighlightingBuildingsByZone;
 
         public void Set(BuildingType buildingType)
         {
@@ -47,6 +51,7 @@ namespace UI.BuildingPanel
             _currentReserve = building.Reserve;
             _daysForRefill = building.DaysForRefill;
             _currentDaysForRefill = building.DaysForRefill;
+            _properties = building.Properties;
             _icon.sprite = building.Icon;
             _title.text = Translation.GetBuildingName(buildingType);
             _costText.text = building.Cost.ToString();
@@ -82,14 +87,16 @@ namespace UI.BuildingPanel
         {
             ShowInfoWindow?.Invoke(_infoWindowSpawnPoint, _buildingType, Locked);
 
-            if (ExistsAdjacentProperty())
+            if (BuildingArea.ExistsPropertyOf(PropertyType.Adjacents, _buildingType))
                 HighlightAdjacents?.Invoke();
+            HighlightBuildingsForEachProperty();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             HideInfoWindow?.Invoke();
             RemoveHighlightingAdjacents?.Invoke();
+            RemoveighlightingBuildingsByZone?.Invoke();
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -111,15 +118,14 @@ namespace UI.BuildingPanel
             _infoWindowSpawnPoint = infoWindowSpawnPoint.GetValueOrDefault();
         }
 
-        private bool ExistsAdjacentProperty()
+        private void HighlightBuildingsForEachProperty()
         {
-            var building = GetBuilding?.Invoke(_buildingType);
-            foreach (var property in building.Properties)
+            foreach (var property in _properties)
             {
-                if (property.Type == PropertyType.Adjacents)
-                    return true;
+                if (property.Type != PropertyType.Each)
+                    return;
+                HighlightBuildingsByZone(property.Zones);
             }
-            return false;
         }
     }
 }

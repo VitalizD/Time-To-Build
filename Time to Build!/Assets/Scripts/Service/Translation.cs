@@ -22,6 +22,7 @@ namespace Service
             [BuildingType.Factory] = "Комбинат",
             [BuildingType.Park] = "Парк",
             [BuildingType.Lake] = "Пруд",
+            [BuildingType.HomeownersAssociation] = "Ассоциация домовладельцев",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new()

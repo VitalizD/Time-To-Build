@@ -43,6 +43,37 @@ namespace Gameplay.Buildings
         public static event Func<Vector2> GetInfoWindowPoint;
         public static event Action<Vector2, BuildingType, bool> ShowInfoWindow;
         public static event Action HideInfoWindow;
+        public static event Func<ZoneType, int> GetBuildingsCountByZone;
+        public static event Action<ZoneType, BuildingArea> AddToBuildingManager;
+        public static event Action<BuildingArea> AddToBuildingManagerWithEachProperty;
+        public static event Func<Dictionary<ResourceType, int>> GetRewardsForBuildingsWithEachProperty;
+
+        public static Dictionary<ResourceType, int> UnionRewards(IEnumerable<Dictionary<ResourceType, int>> rewardList)
+        {
+            var result = new Dictionary<ResourceType, int>();
+            foreach (var rewards in rewardList)
+            {
+                foreach (var resource in rewards)
+                {
+                    if (result.ContainsKey(resource.Key))
+                        result[resource.Key] += resource.Value;
+                    else
+                        result.Add(resource.Key, resource.Value);
+                }
+            }
+            return result;
+        }
+
+        public static bool ExistsPropertyOf(PropertyType propertyType, BuildingType buildingType)
+        {
+            var building = GetBuilding?.Invoke(buildingType);
+            foreach (var property in building.Properties)
+            {
+                if (property.Type == propertyType)
+                    return true;
+            }
+            return false;
+        }
 
         public void UpdateRoadType()
         {
@@ -131,7 +162,6 @@ namespace Gameplay.Buildings
         private void Build(BuildingType buildingType)
         {
             CheckRoad(buildingType, out bool isRoad);
-
             if (isRoad)
                 return;
 
@@ -140,6 +170,9 @@ namespace Gameplay.Buildings
             var material = GetZoneMaterial?.Invoke(buildingInfo.Zone);
             if (material != null)
                 SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
+            if (ExistsPropertyOf(PropertyType.Each, Type))
+                AddToBuildingManagerWithEachProperty?.Invoke(this);
+            AddToBuildingManager?.Invoke(buildingInfo.Zone, this);
             TurnToRoad(building.transform);
             GetAllRewards(buildingInfo);
         }
@@ -172,6 +205,7 @@ namespace Gameplay.Buildings
                 .Where(building => building != null && building.Type != BuildingType.BuildingSite);
             foreach (var adjacent in adjacents)
                 rewards.Add(adjacent.GetRewardsInThis());
+            rewards.Add(GetRewardsForBuildingsWithEachProperty?.Invoke());
             foreach (var reward in UnionRewards(rewards))
                 AddResource?.Invoke(reward.Key, reward.Value);
         }
@@ -219,6 +253,7 @@ namespace Gameplay.Buildings
                 switch (property.Type)
                 {
                     case PropertyType.Adjacents: rewardList.Add(GetPropertyAdjacentRewards(property)); break;
+                    case PropertyType.Each: rewardList.Add(GetPropertyEachRewards(property)); break;
                 }
             }
             var commonRewards = UnionRewards(rewardList);
@@ -258,6 +293,23 @@ namespace Gameplay.Buildings
             return commonRewards;
         }
 
+        private Dictionary<ResourceType, int> GetPropertyEachRewards(Property property)
+        {
+            var rewards = new Dictionary<ResourceType, int>();
+            foreach (var zone in property.Zones)
+            {
+                foreach (var bonus in property.Bonuses)
+                {
+                    var buildingsCount = GetBuildingsCountByZone(zone);
+                    if (rewards.ContainsKey(bonus.Resource))
+                        rewards[bonus.Resource] += buildingsCount;
+                    else
+                        rewards.Add(bonus.Resource, buildingsCount * bonus.Value);
+                }
+            }
+            return rewards;
+        }
+
         private Dictionary<ResourceType, int> GetPropertyBonus(Property property, ZoneType buildingZone)
         {
             var rewards = new Dictionary<ResourceType, int>();
@@ -275,22 +327,6 @@ namespace Gameplay.Buildings
                 }
             }
             return rewards;
-        }
-
-        private Dictionary<ResourceType, int> UnionRewards(IEnumerable<Dictionary<ResourceType, int>> rewardList)
-        {
-            var result = new Dictionary<ResourceType, int>();
-            foreach (var rewards in rewardList)
-            {
-                foreach (var resource in rewards)
-                {
-                    if (result.ContainsKey(resource.Key))
-                        result[resource.Key] += resource.Value;
-                    else
-                        result.Add(resource.Key, resource.Value);
-                }
-            }
-            return result;
         }
     }
 }

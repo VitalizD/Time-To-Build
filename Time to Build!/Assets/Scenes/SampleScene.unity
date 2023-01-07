@@ -447,7 +447,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0.34901962, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -990,6 +990,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6885195780170364024, guid: 61f3afb111727ff49a153051c8f9817d, type: 3}
   m_PrefabInstance: {fileID: 654394870}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &632153784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 632153785}
+  - component: {fileID: 632153787}
+  - component: {fileID: 632153786}
+  m_Layer: 0
+  m_Name: Buildings Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &632153785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632153784}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1264.5818, y: -601.956, z: 0.69130605}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1117437066}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &632153786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632153784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d659a645910207b419eb250300d64689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &632153787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632153784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cd37e0787d856418e9447a80bac235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &654394870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1665,6 +1722,23 @@ MonoBehaviour:
       - Resource: 1
         Value: 1
       Zones: 00000000
+  - Type: 7
+    Zone: 0
+    Prefab: {fileID: 1683947399557563401, guid: c622e978360ee7f409a9d52ecc2d64ad, type: 3}
+    Icon: {fileID: 21300000, guid: f84c416b1561f5a40919dd1075468e38, type: 3}
+    Cost: 6
+    BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 1
+    InstantBonuses:
+    - Resource: 1
+      Value: 1
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 0
+        Value: 2
+      Zones: 00000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,6 +2014,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1086573037}
+  - {fileID: 632153785}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2241,7 +2316,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0.34901962, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3236,7 +3311,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0.34901962, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

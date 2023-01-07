@@ -6,5 +6,6 @@ public enum BuildingType
     FastFoonRestaurant,
     Factory,
     Park,
-    Lake
+    Lake,
+    HomeownersAssociation
 }
