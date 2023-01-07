@@ -447,7 +447,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0.34901962, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -600,6 +600,105 @@ MonoBehaviour:
     Prefabs:
     - {fileID: 919132149155446097, guid: 108dc042499ab9f4c8e5c48b44cbdd24, type: 3}
     - {fileID: 919132149155446097, guid: b7da663e0f593c145a531260cace70ac, type: 3}
+--- !u!1 &470356630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 497384422361747419, guid: ead0419b9f44d53438fba7a537f74563, type: 3}
+  m_PrefabInstance: {fileID: 535902444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &482744956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482744957}
+  - component: {fileID: 482744958}
+  m_Layer: 0
+  m_Name: Sunset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &482744957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482744956}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1439685031}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!108 &482744958
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482744956}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.15471691, b: 0.16219734, a: 1}
+  m_Intensity: 0.75
+  m_Range: 10
+  m_SpotAngle: 45
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &531803913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,7 +1194,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 0.9503912, b: 0.81509435, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1154,12 +1253,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 1.23, y: 0.70000005, z: 0.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1439685031}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &761545887 stripped
 GameObject:
@@ -1484,6 +1583,8 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: b4385dedb90dac743824d106731354a3, type: 3}
     Cost: 1
     BuildingTime: 3
+    Reserve: 99
+    DaysForRefill: 1
     InstantBonuses: []
     Properties: []
   - Type: 0
@@ -1492,31 +1593,20 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 9fa3014957a149249adc07766a2dae91, type: 3}
     Cost: 3
     BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 2
     InstantBonuses:
     - Resource: 1
       Value: 2
     Properties: []
-  - Type: 3
-    Zone: 1
-    Prefab: {fileID: 3105890215803279508, guid: fd5974a0206510a4cbed7c4531040d50, type: 3}
-    Icon: {fileID: 21300000, guid: 2d3c3581014fa6c43af9ab0c32671077, type: 3}
-    Cost: 7
-    BuildingTime: 3
-    InstantBonuses:
-    - Resource: 2
-      Value: 1
-    Properties:
-    - Type: 1
-      Bonuses:
-      - Resource: 1
-        Value: 1
-      Zones: 00000000
   - Type: 4
     Zone: 2
     Prefab: {fileID: 4001180836953694710, guid: 7973ba92916cf214993fc4c6025599ee, type: 3}
     Icon: {fileID: 21300000, guid: 38145e777dfe3304c8a17e887b302e08, type: 3}
     Cost: 3
     BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 2
     InstantBonuses:
     - Resource: 2
       Value: 1
@@ -1532,6 +1622,8 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 2e6d9d3f1ad95a948bb4c357f269e54b, type: 3}
     Cost: 4
     BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 2
     InstantBonuses:
     - Resource: 2
       Value: -1
@@ -1541,6 +1633,38 @@ MonoBehaviour:
       - Resource: 3
         Value: 1
       Zones: 000000000200000001000000
+  - Type: 6
+    Zone: 4
+    Prefab: {fileID: 2303027617286751533, guid: 0c2f578f726b0a94cb22b8fc968efec2, type: 3}
+    Icon: {fileID: 21300000, guid: ba869e94a9b54bf478e40aeedd31caa8, type: 3}
+    Cost: 0
+    BuildingTime: 3
+    Reserve: 2
+    DaysForRefill: 2
+    InstantBonuses: []
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 0
+        Value: 2
+      Zones: 00000000020000000100000003000000
+  - Type: 3
+    Zone: 1
+    Prefab: {fileID: 3105890215803279508, guid: fd5974a0206510a4cbed7c4531040d50, type: 3}
+    Icon: {fileID: 21300000, guid: 2d3c3581014fa6c43af9ab0c32671077, type: 3}
+    Cost: 7
+    BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 1
+    InstantBonuses:
+    - Resource: 2
+      Value: 1
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 1
+        Value: 1
+      Zones: 00000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,7 +2241,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0.34901962, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2351,6 +2475,40 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6091364900540941604, guid: 980afc33692b19343a86274720afb48a, type: 3}
   m_PrefabInstance: {fileID: 6091364901671601874}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1439685030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439685031}
+  m_Layer: 0
+  m_Name: Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1439685031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439685030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.23, y: 2.3, z: -0.71}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 705507995}
+  - {fileID: 2035593497}
+  - {fileID: 482744957}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1474669626 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7230198108375320383, guid: 9d037eb8ea2cfcb4d9458f49a6723a64, type: 3}
@@ -2550,6 +2708,11 @@ RectTransform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6091364900540941604, guid: 980afc33692b19343a86274720afb48a, type: 3}
   m_PrefabInstance: {fileID: 64248297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1548161408 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 497384422361747419, guid: ead0419b9f44d53438fba7a537f74563, type: 3}
+  m_PrefabInstance: {fileID: 2149425272302471381}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1551183820
 PrefabInstance:
@@ -3073,7 +3236,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0.34901962, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3534,7 +3697,7 @@ MonoBehaviour:
     Color: {r: 0, g: 0, b: 1, a: 1}
   - Type: 2
     Material: {fileID: 2100000, guid: dc891a6f42360684da1542ec2bd958e9, type: 2}
-    Color: {r: 1, g: 0.87339544, b: 0, a: 1}
+    Color: {r: 1, g: 0.98724854, b: 0, a: 1}
   - Type: 3
     Material: {fileID: 2100000, guid: b8b8009a8c5dd4041bcb35c8f0a649e7, type: 2}
     Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
@@ -3688,6 +3851,9 @@ MonoBehaviour:
   _zoneText: {fileID: 1228779439}
   _bonusPrefab: {fileID: 2123140695521895530, guid: d7e337a175dc41847b550f42e5e22318, type: 3}
   _propertyPrefab: {fileID: 3417932639669250689, guid: e06e73fecd285224b813c6d9e1ba9f6b, type: 3}
+  _lineInstantsBonuses: {fileID: 470356630}
+  _lineProperty: {fileID: 1548161408}
+  _lineZone: {fileID: 2146774577}
 --- !u!114 &1913898803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3700,6 +3866,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41569fcbc1561a849abedd9d069d9d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2035593496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2035593497}
+  - component: {fileID: 2035593498}
+  m_Layer: 0
+  m_Name: Sun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2035593497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035593496}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1439685031}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!108 &2035593498
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035593496}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.8184299, b: 0.114848554, a: 1}
+  m_Intensity: 0.3
+  m_Range: 10
+  m_SpotAngle: 45
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &2064132672 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7230198109115253061, guid: 9d037eb8ea2cfcb4d9458f49a6723a64, type: 3}
@@ -3843,7 +4103,7 @@ MonoBehaviour:
   _baseLots: {fileID: 1474669626}
   _marketLots: {fileID: 877596885}
   _lotPrefab: {fileID: 5141203852303613167, guid: 44b1c6bdb44cd4743bf3d5b232cf8c4e, type: 3}
-  _baseBuildings: 01000000000000000500000004000000
+  _baseBuildings: 0100000006000000000000000400000005000000
 --- !u!114 &2107290386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3869,6 +4129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
+--- !u!1 &2146774577 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 497384422361747419, guid: ead0419b9f44d53438fba7a537f74563, type: 3}
+  m_PrefabInstance: {fileID: 1551183820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &21521153507856375
 PrefabInstance:
   m_ObjectHideFlags: 0

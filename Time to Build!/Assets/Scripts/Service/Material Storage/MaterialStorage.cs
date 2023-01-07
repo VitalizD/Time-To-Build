@@ -22,6 +22,8 @@ namespace Service.MaterialStorage
         {
             if (_zoneMaterialDictionary.ContainsKey(zoneType))
                 return _zoneMaterialDictionary[zoneType].Material;
+            if (zoneType == ZoneType.None)
+                return null;
             throw new Exception($"ћатериал зоны {zoneType} отсутствует в хранилище");
         }
 

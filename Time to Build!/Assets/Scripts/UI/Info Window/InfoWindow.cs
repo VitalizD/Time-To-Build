@@ -21,21 +21,30 @@ namespace UI.InformationWindow
         [SerializeField] private TextMeshProUGUI _zoneText;
         [SerializeField] private GameObject _bonusPrefab;
         [SerializeField] private GameObject _propertyPrefab;
+        [Space]
+        [SerializeField] private GameObject _lineInstantsBonuses;
+        [SerializeField] private GameObject _lineProperty;
+        [SerializeField] private GameObject _lineZone;
 
         public static event Func<ZoneType, Color> GetZoneColor;
         public static event Func<ResourceType, Sprite> GetResourceIcon;
         public static event Func<BuildingType, Building> GetBuilding;
 
-        public void Show(Vector2 position, BuildingType buildingType)
+        public void Show(Vector2 position, BuildingType buildingType, bool noReserve)
         {
             var building = GetBuilding?.Invoke(buildingType);
             var instantBonuses = building.InstantBonuses.Length == 0 ? null : building.InstantBonuses;
             var propertyInfos = building.Properties.Length == 0 ? null
                 : building.Properties.Select(property => new PropertyInfo(property.Bonuses,
                 Translation.GetPropertyDescription(property.Type, property.Zones))).ToArray();
-
+            var description = Translation.GetBuildingDescription(buildingType);
+            if (noReserve)
+            {
+                description += "\n\n<color=red>нет в запасе</color>";
+                description = description.TrimStart('\n');
+            }
             Show(position, Translation.GetBuildingName(buildingType), building.InstantBonuses, propertyInfos,
-                Translation.GetBuildingDescription(buildingType), building.Zone);
+                description, building.Zone);
         }
 
         public void Show(Vector2 position, string title, string description)
@@ -53,6 +62,9 @@ namespace UI.InformationWindow
             SetInstantBonuses(instantBonuses);
             SetProperties(properties);
             SetZone(zone);
+            _lineInstantsBonuses.SetActive(instantBonuses != null && instantBonuses.Length > 0);
+            _lineProperty.SetActive((properties != null && properties.Length > 0) || (description != null && description != ""));
+            _lineZone.SetActive(zone != ZoneType.None);
             _panel.SetActive(true);
 
             // Костыль для корректного отображения 

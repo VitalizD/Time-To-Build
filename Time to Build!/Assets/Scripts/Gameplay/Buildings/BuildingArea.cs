@@ -41,7 +41,7 @@ namespace Gameplay.Buildings
         public static event Func<bool> AreaIsSelected;
         public static event Action<ResourceType, int> AddResource;
         public static event Func<Vector2> GetInfoWindowPoint;
-        public static event Action<Vector2, BuildingType> ShowInfoWindow;
+        public static event Action<Vector2, BuildingType, bool> ShowInfoWindow;
         public static event Action HideInfoWindow;
 
         public void UpdateRoadType()
@@ -102,7 +102,7 @@ namespace Gameplay.Buildings
 
             if (Type != BuildingType.Road && Type != BuildingType.BuildingSite)
             {
-                ShowInfoWindow?.Invoke(_infoWindowPoint, Type);
+                ShowInfoWindow?.Invoke(_infoWindowPoint, Type, false);
             }
         }
 
@@ -137,7 +137,9 @@ namespace Gameplay.Buildings
 
             var buildingInfo = GetBuilding?.Invoke(buildingType);
             var building = Instantiate(buildingInfo.Prefab, _buildingPoint.position, Quaternion.identity, transform);
-            SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
+            var material = GetZoneMaterial?.Invoke(buildingInfo.Zone);
+            if (material != null)
+                SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
             TurnToRoad(building.transform);
             GetAllRewards(buildingInfo);
         }

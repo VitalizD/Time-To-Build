@@ -23,7 +23,6 @@ namespace UI.BuildingPanel
 
         public static event Func<GameObject[]> GetScreenRaycastResults;
         public static event Action RemoveBuildingAreaSelection;
-        public static event Func<int> GetMoney;
         public static event Action<ResourceType, int> AddMoney;
         public static event Action UpdateLotColors;
 
@@ -43,8 +42,7 @@ namespace UI.BuildingPanel
 
         public void BuildOnSelectedArea(BuildingType buildingType, int cost)
         {
-            var money = GetMoney();
-            if (_selectedArea == null || money < cost)
+            if (_selectedArea == null)
                 return;
 
             _selectedArea.StartBuilding(buildingType);

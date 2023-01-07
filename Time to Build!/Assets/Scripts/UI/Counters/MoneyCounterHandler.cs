@@ -1,3 +1,4 @@
+using Gameplay.Cycle;
 using UI.BuildingPanel;
 using UnityEngine;
 
@@ -15,14 +16,14 @@ namespace UI.Counters
 
         private void OnEnable()
         {
-            BuildingPanel.BuildingPanel.GetMoney += Get;
             BuildingLot.GetMoney += Get;
+            DayCycle.GetMoney += Get;
         }
 
         private void OnDisable()
         {
-            BuildingPanel.BuildingPanel.GetMoney -= Get;
             BuildingLot.GetMoney -= Get;
+            DayCycle.GetMoney -= Get;
         }
 
         private int Get() => _counter.Count;

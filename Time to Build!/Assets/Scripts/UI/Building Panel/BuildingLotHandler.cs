@@ -1,3 +1,4 @@
+using Gameplay.Cycle;
 using UI.Counters;
 using UnityEngine;
 
@@ -17,12 +18,14 @@ namespace UI.BuildingPanel
         {
             BuildingPanel.UpdateLotColors += _buildingLot.UpdateColors;
             UICounter.UpdateBuildingLotColors += _buildingLot.UpdateColors;
+            DayCycle.NewDay += _buildingLot.UpdateDaysForRefill;
         }
 
         private void OnDisable()
         {
             BuildingPanel.UpdateLotColors -= _buildingLot.UpdateColors;
             UICounter.UpdateBuildingLotColors -= _buildingLot.UpdateColors;
+            DayCycle.NewDay -= _buildingLot.UpdateDaysForRefill;
         }
     }
 }

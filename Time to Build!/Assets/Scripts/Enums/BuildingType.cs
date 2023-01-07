@@ -5,5 +5,6 @@ public enum BuildingType
     BuildingSite,
     FastFoonRestaurant,
     Factory,
-    Park
+    Park,
+    Lake
 }

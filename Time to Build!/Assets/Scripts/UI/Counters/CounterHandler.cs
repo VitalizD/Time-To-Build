@@ -20,6 +20,7 @@ namespace UI.Counters
             BuildingPanel.BuildingPanel.AddMoney += AddResource;
             DayCycle.AddPopulation += AddResource;
             DayCycle.AddMoney += AddResource;
+            DayCycle.SetMoney += SetResource;
             DayCycle.AddIncome += AddResource;
             DayCycle.AddReputation += AddResource;
             BuildingArea.AddResource += AddResource;
@@ -30,6 +31,7 @@ namespace UI.Counters
             BuildingPanel.BuildingPanel.AddMoney -= AddResource;
             DayCycle.AddPopulation -= AddResource;
             DayCycle.AddMoney -= AddResource;
+            DayCycle.SetMoney -= SetResource;
             DayCycle.AddIncome -= AddResource;
             DayCycle.AddReputation -= AddResource;
             BuildingArea.AddResource -= AddResource;
@@ -41,6 +43,14 @@ namespace UI.Counters
                 return;
 
             _counter.AddValue(value);
+        }
+
+        private void SetResource(ResourceType type, int value)
+        {
+            if (type != _counter.Type)
+                return;
+
+            _counter.SetValue(value);
         }
     }
 }

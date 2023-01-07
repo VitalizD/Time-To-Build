@@ -13,6 +13,8 @@ namespace Service.BuildingStorage
         public Sprite Icon;
         public int Cost;
         public float BuildingTime;
+        public int Reserve = 1;
+        public int DaysForRefill = 1;
         public BonusInfo[] InstantBonuses;
         public Property[] Properties;
     }

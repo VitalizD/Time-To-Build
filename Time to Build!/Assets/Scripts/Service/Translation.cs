@@ -21,6 +21,7 @@ namespace Service
             [BuildingType.FastFoonRestaurant] = "Ресторан быстрого питания",
             [BuildingType.Factory] = "Комбинат",
             [BuildingType.Park] = "Парк",
+            [BuildingType.Lake] = "Пруд",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new()
@@ -38,10 +39,10 @@ namespace Service
 
         private readonly static Dictionary<ResourceType, string> _resourceDescriptions = new()
         {
-            [ResourceType.Money] = "Главный ресурс для развития города. Чтобы получить больше, повышайте доход и озеленяйте город лесами.",
-            [ResourceType.Population] = "Привлекайте население в Ваш город, поддерживая репутацию на высоком уровне. Наберите как можно больше населения, чтобы победить!\n\nС ростом населения доход и репутация уменьшаются.",
+            [ResourceType.Money] = "Главный ресурс для развития города. Чтобы получить больше, повышайте доход и стройте озёра.\n\n<color=red>Если Вы утопаете в долгах, горожане будут покидать город!</color>",
+            [ResourceType.Population] = "Привлекайте население в Ваш город, поддерживая репутацию на высоком уровне. Наберите как можно больше населения, чтобы победить!\n\n<color=red>С ростом населения доход и репутация уменьшаются.</color>",
             [ResourceType.Income] = "Количество монет, которые поступят в казну в конце текущего дня.",
-            [ResourceType.Reputation] = "Значение населения, которое прибудет в город в конце текущего дня.",
+            [ResourceType.Reputation] = "Население, которое прибудет в город в конце текущего дня.",
         };
 
         public static event Func<ZoneType, Color> GetZoneColor;

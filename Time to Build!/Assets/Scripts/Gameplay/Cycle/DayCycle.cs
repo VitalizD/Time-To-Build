@@ -20,10 +20,13 @@ namespace Gameplay.Cycle
         public static event Func<int> GetIncome;
         public static event Func<int> GetReputation;
         public static event Func<int> GetPopulation;
+        public static event Func<int> GetMoney;
         public static event Action<ResourceType, int> AddMoney;
+        public static event Action<ResourceType, int> SetMoney;
         public static event Action<ResourceType, int> AddPopulation;
         public static event Action<ResourceType, int> AddIncome;
         public static event Action<ResourceType, int> AddReputation;
+        public static event Action NewDay;
 
         private void Awake()
         {
@@ -39,14 +42,25 @@ namespace Gameplay.Cycle
 
         private void UpdateStates()
         {
-            AddMoney?.Invoke(ResourceType.Money, GetIncome());
-            AddPopulation?.Invoke(ResourceType.Population, GetReputation());
+            var income = GetIncome();
+            var currentMoney = GetMoney();
+            var population = GetReputation();
+            var totalMoney = currentMoney + income;
+            if (totalMoney < 0)
+            {
+                population += totalMoney;
+                SetMoney?.Invoke(ResourceType.Money, 0);
+            }
+            else
+                AddMoney?.Invoke(ResourceType.Money, income);
+            AddPopulation?.Invoke(ResourceType.Population, population);
             var reductionValue = GetReductionValue(GetPopulation());
             AddIncome?.Invoke(ResourceType.Income, -reductionValue);
             AddReputation?.Invoke(ResourceType.Reputation, -reductionValue);
 
             ++_dayNumber;
             UpdateDayNumberText();
+            NewDay?.Invoke();
             RunCycle();
         }
 

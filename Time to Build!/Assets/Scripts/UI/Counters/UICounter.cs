@@ -25,8 +25,15 @@ namespace UI.Counters
 
         public void SetValue(int value)
         {
+            if (_value + value > 0)
+                _increaseResourceAnimation.PlayIncrease($"+{value}");
+            else if (_value + value < 0)
+                _increaseResourceAnimation.PlayDecrease(value.ToString());
+
             _value = value;
             _valueText.text = value.ToString();
+
+            UpdateBuildingLotColors?.Invoke();
         }
 
         public void AddValue(int value)
