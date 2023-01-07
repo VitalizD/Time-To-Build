@@ -47,6 +47,7 @@ namespace Gameplay.Buildings
         public static event Action<ZoneType, BuildingArea> AddToBuildingManager;
         public static event Action<BuildingArea> AddToBuildingManagerWithEachProperty;
         public static event Func<Dictionary<ResourceType, int>> GetRewardsForBuildingsWithEachProperty;
+        public static event Func<bool> CursorOverUIElement;
 
         public static Dictionary<ResourceType, int> UnionRewards(IEnumerable<Dictionary<ResourceType, int>> rewardList)
         {
@@ -128,6 +129,9 @@ namespace Gameplay.Buildings
 
         private void OnMouseEnter()
         {
+            if (CursorOverUIElement())
+                return;
+
             if (!AreaIsSelected() && Type == BuildingType.BuildingSite)
                 Illuminate();
 
@@ -139,6 +143,9 @@ namespace Gameplay.Buildings
 
         private void OnMouseExit()
         {
+            if (CursorOverUIElement())
+                return;
+
             if (!AreaIsSelected() && Type == BuildingType.BuildingSite)
                 RemoveIllumination();
 
@@ -148,6 +155,9 @@ namespace Gameplay.Buildings
 
         private void OnMouseDown()
         {
+            if (CursorOverUIElement())
+                return;
+
             if (Type == BuildingType.BuildingSite)
                 StartCoroutine(OpenBuildingPanelWithDelay());
         }

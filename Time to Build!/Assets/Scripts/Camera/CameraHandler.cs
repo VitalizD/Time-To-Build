@@ -1,3 +1,4 @@
+using Gameplay.Buildings;
 using UI.BuildingPanel;
 using UnityEngine;
 
@@ -15,14 +16,16 @@ namespace CameraEngine
 
         private void OnEnable()
         {
-            BuildingPanel.GetScreenRaycastResults += _screenRaycaster.GetScreenRaycastResults;
+            BuildingPanel.CursorOverUIElement += _screenRaycaster.CursorOverUIElement;
             CameraMoving.GetScreenRaycastResults += _screenRaycaster.GetScreenRaycastResults;
+            BuildingArea.CursorOverUIElement += _screenRaycaster.CursorOverUIElement;
         }
 
         private void OnDisable()
         {
-            BuildingPanel.GetScreenRaycastResults -= _screenRaycaster.GetScreenRaycastResults;
+            BuildingPanel.CursorOverUIElement -= _screenRaycaster.CursorOverUIElement;
             CameraMoving.GetScreenRaycastResults -= _screenRaycaster.GetScreenRaycastResults;
+            BuildingArea.CursorOverUIElement -= _screenRaycaster.CursorOverUIElement;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace UI.BuildingPanel
 
         public bool BuildingSiteSelected { get => _selectedArea != null; }
 
-        public static event Func<GameObject[]> GetScreenRaycastResults;
+        public static event Func<bool> CursorOverUIElement;
         public static event Action RemoveBuildingAreaSelection;
         public static event Action<ResourceType, int> AddMoney;
         public static event Action UpdateLotColors;
@@ -80,18 +80,8 @@ namespace UI.BuildingPanel
         {
             if (Input.GetMouseButtonDown(0))
             {
-                var hits = GetScreenRaycastResults?.Invoke();
-                if (hits.Length == 0)
-                {
+                if (!CursorOverUIElement())
                     Hide();
-                    return;
-                }
-                foreach (var obj in hits)
-                {
-                    if (obj.GetComponent<UIElement>() != null)
-                        return;
-                }
-                Hide();
             }
         }
     }
