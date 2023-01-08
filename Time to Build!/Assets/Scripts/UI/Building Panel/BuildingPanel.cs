@@ -72,7 +72,7 @@ namespace UI.BuildingPanel
             foreach (var type in _baseBuildings)
             {
                 var lot = Instantiate(_lotPrefab, _baseLots.transform);
-                lot.GetComponent<BuildingLot>().Set(type);
+                lot.GetComponent<BuildingLot>().Set(type, false);
             }
         }
 

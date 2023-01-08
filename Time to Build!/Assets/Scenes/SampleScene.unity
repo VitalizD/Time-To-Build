@@ -1334,6 +1334,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107290380}
     m_Modifications:
+    - target: {fileID: 7230198108375320377, guid: 9d037eb8ea2cfcb4d9458f49a6723a64, type: 3}
+      propertyPath: m_ReverseArrangement
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7230198108481706793, guid: 9d037eb8ea2cfcb4d9458f49a6723a64, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -1451,6 +1455,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7230198109115253061, guid: 9d037eb8ea2cfcb4d9458f49a6723a64, type: 3}
   m_PrefabInstance: {fileID: 877596883}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &877596887 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7230198108375320382, guid: 9d037eb8ea2cfcb4d9458f49a6723a64, type: 3}
+  m_PrefabInstance: {fileID: 877596883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &877596889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877596886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4759955af02b441ad6cbc8055fb2f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _marketLots: {fileID: 877596887}
+  _lotPrefab: {fileID: 5141203852303613167, guid: 44b1c6bdb44cd4743bf3d5b232cf8c4e, type: 3}
+  _minLots: 3
+  _maxLots: 7
+  _freeLots: 2
+  _markupStep: 2
 --- !u!1 &877681689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,7 +1588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -836, y: 367.46}
+  m_AnchoredPosition: {x: -425, y: 367.46}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &895328531
@@ -1633,8 +1660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5990b52a7ae5f4d91e9b0bc1de26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildings:
+  _allBuildings:
   - Type: 1
+    Level: 0
     Zone: 4
     Prefab: {fileID: 0}
     Icon: {fileID: 21300000, guid: b4385dedb90dac743824d106731354a3, type: 3}
@@ -1644,7 +1672,24 @@ MonoBehaviour:
     DaysForRefill: 1
     InstantBonuses: []
     Properties: []
+  - Type: 6
+    Level: 0
+    Zone: 4
+    Prefab: {fileID: 2303027617286751533, guid: 0c2f578f726b0a94cb22b8fc968efec2, type: 3}
+    Icon: {fileID: 21300000, guid: ba869e94a9b54bf478e40aeedd31caa8, type: 3}
+    Cost: 0
+    BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 2
+    InstantBonuses: []
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 0
+        Value: 2
+      Zones: 00000000010000000200000003000000
   - Type: 0
+    Level: 0
     Zone: 0
     Prefab: {fileID: 1303870201522125594, guid: bf8b3f60682fc42499f655ec04ad0c27, type: 3}
     Icon: {fileID: 21300000, guid: 9fa3014957a149249adc07766a2dae91, type: 3}
@@ -1657,6 +1702,7 @@ MonoBehaviour:
       Value: 2
     Properties: []
   - Type: 4
+    Level: 0
     Zone: 2
     Prefab: {fileID: 4001180836953694710, guid: 7973ba92916cf214993fc4c6025599ee, type: 3}
     Icon: {fileID: 21300000, guid: 38145e777dfe3304c8a17e887b302e08, type: 3}
@@ -1674,6 +1720,7 @@ MonoBehaviour:
         Value: -1
       Zones: 0000000003000000
   - Type: 5
+    Level: 0
     Zone: 3
     Prefab: {fileID: 5497316933721429642, guid: 0d081ffe10021bc4296b98e265db10c8, type: 3}
     Icon: {fileID: 21300000, guid: 2e6d9d3f1ad95a948bb4c357f269e54b, type: 3}
@@ -1689,23 +1736,9 @@ MonoBehaviour:
       Bonuses:
       - Resource: 3
         Value: 1
-      Zones: 000000000200000001000000
-  - Type: 6
-    Zone: 4
-    Prefab: {fileID: 2303027617286751533, guid: 0c2f578f726b0a94cb22b8fc968efec2, type: 3}
-    Icon: {fileID: 21300000, guid: ba869e94a9b54bf478e40aeedd31caa8, type: 3}
-    Cost: 0
-    BuildingTime: 3
-    Reserve: 2
-    DaysForRefill: 2
-    InstantBonuses: []
-    Properties:
-    - Type: 1
-      Bonuses:
-      - Resource: 0
-        Value: 2
-      Zones: 00000000020000000100000003000000
+      Zones: 000000000100000002000000
   - Type: 3
+    Level: 0
     Zone: 1
     Prefab: {fileID: 3105890215803279508, guid: fd5974a0206510a4cbed7c4531040d50, type: 3}
     Icon: {fileID: 21300000, guid: 2d3c3581014fa6c43af9ab0c32671077, type: 3}
@@ -1720,9 +1753,10 @@ MonoBehaviour:
     - Type: 1
       Bonuses:
       - Resource: 1
-        Value: 1
+        Value: 3
       Zones: 00000000
   - Type: 7
+    Level: 0
     Zone: 0
     Prefab: {fileID: 1683947399557563401, guid: c622e978360ee7f409a9d52ecc2d64ad, type: 3}
     Icon: {fileID: 21300000, guid: f84c416b1561f5a40919dd1075468e38, type: 3}
@@ -1739,6 +1773,20 @@ MonoBehaviour:
       - Resource: 0
         Value: 2
       Zones: 00000000
+  - Type: 8
+    Level: 0
+    Zone: 1
+    Prefab: {fileID: 4671812711801339845, guid: 0114b765ddfbecd44b601467fb7e453f, type: 3}
+    Icon: {fileID: 21300000, guid: 9d80f48df28eb3c469a26986d98f6607, type: 3}
+    Cost: 6
+    BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 1
+    InstantBonuses:
+    - Resource: 2
+      Value: 1
+    Properties: []
+  _availableBuildings: 070000000700000003000000030000000800000008000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4090,7 +4138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 252, y: -88.9198}
+  m_AnchoredPosition: {x: 247, y: -88.9198}
   m_SizeDelta: {x: 333.8917, y: 902.1604}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2107290381
@@ -4163,6 +4211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3ae12b342ad6d4499f3fa4b3f82358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _market: {fileID: 877596889}
 --- !u!114 &2107290385
 MonoBehaviour:
   m_ObjectHideFlags: 0

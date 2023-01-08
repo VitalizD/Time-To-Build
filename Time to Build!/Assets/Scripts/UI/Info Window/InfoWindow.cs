@@ -30,19 +30,24 @@ namespace UI.InformationWindow
         public static event Func<ResourceType, Sprite> GetResourceIcon;
         public static event Func<BuildingType, Building> GetBuilding;
 
-        public void Show(Vector2 position, BuildingType buildingType, bool noReserve)
+        public void Show(Vector2 position, BuildingType buildingType, bool noReserve, bool soonDisappear, int markup)
         {
             var building = GetBuilding?.Invoke(buildingType);
             var instantBonuses = building.InstantBonuses.Length == 0 ? null : building.InstantBonuses;
             var propertyInfos = building.Properties.Length == 0 ? null
                 : building.Properties.Select(property => new PropertyInfo(property.Bonuses,
                 Translation.GetPropertyDescription(property.Type, property.Zones))).ToArray();
+
             var description = Translation.GetBuildingDescription(buildingType);
             if (noReserve)
-            {
                 description += "\n\n<color=red>нет в запасе</color>";
+            if (markup > 0)
+                description += $"\n\n<color=red>наценка +{markup}</color>";
+            if (soonDisappear)
+                description += "\n\n<color=red>скоро исчезнет с рынка</color>";
+            if (description != null)
                 description = description.TrimStart('\n');
-            }
+
             Show(position, Translation.GetBuildingName(buildingType), building.InstantBonuses, propertyInfos,
                 description, building.Zone);
         }

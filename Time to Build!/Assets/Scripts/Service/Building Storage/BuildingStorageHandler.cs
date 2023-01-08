@@ -1,5 +1,6 @@
 using Gameplay.Buildings;
 using UI.BuildingPanel;
+using UI.BuildingPanel.Market;
 using UI.InformationWindow;
 using UnityEngine;
 
@@ -17,18 +18,20 @@ namespace Service.BuildingStorage
 
         private void OnEnable()
         {
-            BuildingArea.GetBuilding += _buildingStorage.GetBuilding;
-            BuildingLot.GetBuilding += _buildingStorage.GetBuilding;
-            InfoWindow.GetBuilding += _buildingStorage.GetBuilding;
-            RewardsCalculator.GetBuilding += _buildingStorage.GetBuilding;
+            BuildingArea.GetBuilding += _buildingStorage.GetBuildingInfo;
+            BuildingLot.GetBuilding += _buildingStorage.GetBuildingInfo;
+            InfoWindow.GetBuilding += _buildingStorage.GetBuildingInfo;
+            RewardsCalculator.GetBuilding += _buildingStorage.GetBuildingInfo;
+            Market.GetNextBuildingInfo += _buildingStorage.GetNextBuilding;
         }
 
         private void OnDisable()
         {
-            BuildingArea.GetBuilding -= _buildingStorage.GetBuilding;
-            BuildingLot.GetBuilding -= _buildingStorage.GetBuilding;
-            InfoWindow.GetBuilding -= _buildingStorage.GetBuilding;
-            RewardsCalculator.GetBuilding -= _buildingStorage.GetBuilding;
+            BuildingArea.GetBuilding -= _buildingStorage.GetBuildingInfo;
+            BuildingLot.GetBuilding -= _buildingStorage.GetBuildingInfo;
+            InfoWindow.GetBuilding -= _buildingStorage.GetBuildingInfo;
+            RewardsCalculator.GetBuilding -= _buildingStorage.GetBuildingInfo;
+            Market.GetNextBuildingInfo -= _buildingStorage.GetNextBuilding;
         }
     }
 }

@@ -1,4 +1,5 @@
 using Gameplay.Buildings;
+using Gameplay.Cycle;
 using UnityEngine;
 
 namespace UI.BuildingPanel
@@ -6,11 +7,18 @@ namespace UI.BuildingPanel
     [RequireComponent(typeof(BuildingPanel))]
     public class BuildingPanelHandler : MonoBehaviour
     {
+        [SerializeField] private Market.Market _market;
+
         private BuildingPanel _buildingPanel;
 
         private void Awake()
         {
             _buildingPanel = GetComponent<BuildingPanel>();
+        }
+
+        private void Start()
+        {
+            _market.Replenish();
         }
 
         private void OnEnable()
@@ -20,6 +28,7 @@ namespace UI.BuildingPanel
             BuildingLot.StartBuilding += _buildingPanel.BuildOnSelectedArea;
             BuildingLot.HighlightAdjacents += _buildingPanel.HighlightAdjacentsInSelectedArea;
             BuildingLot.RemoveHighlightingAdjacents += _buildingPanel.RemoveHighlightingAdjacentsInSelectedArea;
+            DayCycle.NewDay += _market.Replenish;
         }
 
         private void OnDisable()
@@ -29,6 +38,7 @@ namespace UI.BuildingPanel
             BuildingLot.StartBuilding -= _buildingPanel.BuildOnSelectedArea;
             BuildingLot.HighlightAdjacents -= _buildingPanel.HighlightAdjacentsInSelectedArea;
             BuildingLot.RemoveHighlightingAdjacents -= _buildingPanel.RemoveHighlightingAdjacentsInSelectedArea;
+            DayCycle.NewDay -= _market.Replenish;
         }
 
         private bool BuildingSiteSelected() => _buildingPanel.BuildingSiteSelected;

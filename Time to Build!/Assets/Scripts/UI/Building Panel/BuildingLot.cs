@@ -14,25 +14,30 @@ namespace UI.BuildingPanel
     public class BuildingLot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         [SerializeField] private Image _icon;
+        [SerializeField] private GameObject _newIcon;
+        [SerializeField] private GameObject _soonDisappearIcon;
+        [SerializeField] private GameObject _markupIcon;
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _costText;
         [SerializeField] private GameObject _block;
 
-        private Vector2 _infoWindowSpawnPoint;
+        private Transform _infoWindowSpawnPoint;
         private BuildingType _buildingType = BuildingType.Road;
         private int _cost;
+        private int _markup = 0;
         private ZoneType _zoneType;
         private int _reserve;
         private int _currentReserve;
         private int _daysForRefill;
         private int _currentDaysForRefill;
         private Property[] _properties;
+        private bool _single;
 
         public bool Locked { get; private set; } = false;
 
         public static event Func<BuildingType, Building> GetBuilding;
-        public static event Func<Vector2> GetInfoWindowSpawnPoint;
-        public static event Action<Vector2, BuildingType, bool> ShowInfoWindow;
+        public static event Func<Transform> GetInfoWindowSpawnPoint;
+        public static event Action<Vector2, BuildingType, bool, bool, int> ShowInfoWindow;
         public static event Action HideInfoWindow;
         public static event Action<BuildingType, int> StartBuilding;
         public static event Func<int> GetMoney;
@@ -41,7 +46,7 @@ namespace UI.BuildingPanel
         public static event Action<ZoneType[]> HighlightBuildingsByZone;
         public static event Action RemoveighlightingBuildingsByZone;
 
-        public void Set(BuildingType buildingType)
+        public void Set(BuildingType buildingType, bool single)
         {
             var building = GetBuilding?.Invoke(buildingType);
             _buildingType = buildingType;
@@ -53,9 +58,22 @@ namespace UI.BuildingPanel
             _currentDaysForRefill = building.DaysForRefill;
             _properties = building.Properties;
             _icon.sprite = building.Icon;
+            _single = single;
             _title.text = Translation.GetBuildingName(buildingType);
-            _costText.text = building.Cost.ToString();
+            UpdateCostText();
+
+            if (single)
+                _newIcon.SetActive(true);
         }
+
+        public void SetMarkup(int value)
+        {
+            _markup = value;
+            _markupIcon.SetActive(value > 0);
+            UpdateCostText();
+        }
+
+        public void ActivateSoonDisappear() => _soonDisappearIcon.SetActive(true);
 
         public void SetLock(bool value)
         {
@@ -69,7 +87,7 @@ namespace UI.BuildingPanel
             if (money < _cost)
                 _costText.color = Color.red;
             else
-                _costText.color = Color.white;
+                _costText.color = Color.black;
         }
 
         public void UpdateDaysForRefill()
@@ -85,11 +103,13 @@ namespace UI.BuildingPanel
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            ShowInfoWindow?.Invoke(_infoWindowSpawnPoint, _buildingType, Locked);
+            ShowInfoWindow?.Invoke(_infoWindowSpawnPoint.position, _buildingType, Locked, _soonDisappearIcon.activeSelf, _markup);
 
             if (BuildingArea.ExistsPropertyOf(PropertyType.Adjacents, _buildingType))
                 HighlightAdjacents?.Invoke();
             HighlightBuildingsForEachProperty();
+
+            _newIcon.SetActive(false);
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -107,15 +127,20 @@ namespace UI.BuildingPanel
 
             RemoveHighlightingAdjacents?.Invoke();
             StartBuilding?.Invoke(_buildingType, _cost);
-            --_currentReserve;
-            if (_currentReserve <= 0)
-                SetLock(true);
+
+            if (_single)
+                Destroy(gameObject);
+            else
+            {
+                --_currentReserve;
+                if (_currentReserve <= 0)
+                    SetLock(true);
+            }
         }
 
         private void Start()
         {
-            var infoWindowSpawnPoint = GetInfoWindowSpawnPoint?.Invoke();
-            _infoWindowSpawnPoint = infoWindowSpawnPoint.GetValueOrDefault();
+            _infoWindowSpawnPoint = GetInfoWindowSpawnPoint?.Invoke();
         }
 
         private void HighlightBuildingsForEachProperty()
@@ -126,6 +151,12 @@ namespace UI.BuildingPanel
                     return;
                 HighlightBuildingsByZone(property.Zones);
             }
+        }
+
+        private void UpdateCostText()
+        {
+            _costText.text = (_cost + _markup).ToString();
+            //_extraCostText.text = _markup == 0 ? "" : $"(+{_markup})";
         }
     }
 }

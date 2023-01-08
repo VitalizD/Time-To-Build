@@ -1,3 +1,4 @@
+
 using System;
 using UI.InformationWindow;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Service.BuildingStorage
     public class Building
     {
         public BuildingType Type;
+        public BuildingLevel Level;
         public ZoneType Zone;
         public GameObject Prefab;
         public Sprite Icon;

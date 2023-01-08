@@ -8,14 +8,14 @@ namespace UI.InformationWindow
     {
         private void OnEnable()
         {
-            BuildingLot.GetInfoWindowSpawnPoint += GetPosition;
+            BuildingLot.GetInfoWindowSpawnPoint += GetPoint;
         }
 
         private void OnDisable()
         {
-            BuildingLot.GetInfoWindowSpawnPoint -= GetPosition;
+            BuildingLot.GetInfoWindowSpawnPoint -= GetPoint;
         }
 
-        private Vector2 GetPosition() => transform.position;
+        private Transform GetPoint() => transform;
     }
 }

@@ -40,7 +40,7 @@ namespace Gameplay.Buildings
         public static event Action<BuildingArea> OpenBuildingPanel;
         public static event Func<bool> AreaIsSelected;
         public static event Func<Vector2> GetInfoWindowPoint;
-        public static event Action<Vector2, BuildingType, bool> ShowInfoWindow;
+        public static event Action<Vector2, BuildingType, bool, bool, int> ShowInfoWindow;
         public static event Action HideInfoWindow;
         public static event Action<ZoneType, BuildingArea> AddToBuildingManager;
         public static event Action<BuildingArea> AddToBuildingManagerWithEachProperty;
@@ -119,7 +119,7 @@ namespace Gameplay.Buildings
 
             if (Type != BuildingType.Road && Type != BuildingType.BuildingSite)
             {
-                ShowInfoWindow?.Invoke(_infoWindowPoint, Type, false);
+                ShowInfoWindow?.Invoke(_infoWindowPoint, Type, false, false, 0);
             }
         }
 

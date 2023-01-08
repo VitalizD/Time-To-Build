@@ -7,5 +7,6 @@ public enum BuildingType
     Factory,
     Park,
     Lake,
-    HomeownersAssociation
+    HomeownersAssociation,
+    ConvenienceStore
 }
