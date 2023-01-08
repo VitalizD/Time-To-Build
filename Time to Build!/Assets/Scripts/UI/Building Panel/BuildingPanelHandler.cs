@@ -28,6 +28,7 @@ namespace UI.BuildingPanel
             BuildingLot.StartBuilding += _buildingPanel.BuildOnSelectedArea;
             BuildingLot.HighlightAdjacents += _buildingPanel.HighlightAdjacentsInSelectedArea;
             BuildingLot.RemoveHighlightingAdjacents += _buildingPanel.RemoveHighlightingAdjacentsInSelectedArea;
+            BuildingLot.AddLotToMarket += _market.AddOne;
             DayCycle.NewDay += _market.Replenish;
         }
 
@@ -38,6 +39,7 @@ namespace UI.BuildingPanel
             BuildingLot.StartBuilding -= _buildingPanel.BuildOnSelectedArea;
             BuildingLot.HighlightAdjacents -= _buildingPanel.HighlightAdjacentsInSelectedArea;
             BuildingLot.RemoveHighlightingAdjacents -= _buildingPanel.RemoveHighlightingAdjacentsInSelectedArea;
+            BuildingLot.AddLotToMarket -= _market.AddOne;
             DayCycle.NewDay -= _market.Replenish;
         }
 

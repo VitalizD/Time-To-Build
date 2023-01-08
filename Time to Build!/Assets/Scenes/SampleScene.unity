@@ -733,7 +733,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -723, y: 141}
+  m_AnchoredPosition: {x: -723, y: 240}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &531803915
@@ -1786,7 +1786,28 @@ MonoBehaviour:
     - Resource: 2
       Value: 1
     Properties: []
-  _availableBuildings: 070000000700000003000000030000000800000008000000
+  - Type: 9
+    Level: 0
+    Zone: 2
+    Prefab: {fileID: 6100243785644340043, guid: ef4fd9f14c638bd4785f0de07acb1d8e, type: 3}
+    Icon: {fileID: 21300000, guid: bb82d13cb1954f44a934cd29cf0f6a81, type: 3}
+    Cost: 5
+    BuildingTime: 3
+    Reserve: 1
+    DaysForRefill: 1
+    InstantBonuses: []
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 3
+        Value: -1
+      Zones: 00000000
+    - Type: 1
+      Bonuses:
+      - Resource: 2
+        Value: 1
+      Zones: 01000000
+  _availableBuildings: 07000000070000000300000003000000080000000800000009000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,7 +2286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f86162d5953c5e40bb6d5f5c6cc0b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cycleTime: 10
+  _cycleTime: 60
   _populationsForReduction: 0e000000150000001c00000022000000280000002e000000340000003a0000003f00000043000000490000004d0000005100000055000000580000005b0000005e0000006100000064000000
 --- !u!114 &1213846894
 MonoBehaviour:

@@ -45,6 +45,7 @@ namespace UI.BuildingPanel
         public static event Action RemoveHighlightingAdjacents;
         public static event Action<ZoneType[]> HighlightBuildingsByZone;
         public static event Action RemoveighlightingBuildingsByZone;
+        public static event Action<bool> AddLotToMarket;
 
         public void Set(BuildingType buildingType, bool single)
         {
@@ -125,11 +126,15 @@ namespace UI.BuildingPanel
             if (money < _cost || _currentReserve <= 0)
                 return;
 
+            HideInfoWindow?.Invoke();
             RemoveHighlightingAdjacents?.Invoke();
             StartBuilding?.Invoke(_buildingType, _cost);
 
             if (_single)
+            {
                 Destroy(gameObject);
+                AddLotToMarket?.Invoke(true);
+            }
             else
             {
                 --_currentReserve;

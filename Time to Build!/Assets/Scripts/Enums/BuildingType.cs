@@ -8,5 +8,6 @@ public enum BuildingType
     Park,
     Lake,
     HomeownersAssociation,
-    ConvenienceStore
+    ConvenienceStore,
+    Freeway
 }
