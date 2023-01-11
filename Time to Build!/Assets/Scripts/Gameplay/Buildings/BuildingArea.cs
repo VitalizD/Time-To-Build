@@ -1,4 +1,5 @@
 using Service.BuildingStorage;
+using Service.Sounds;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Gameplay.Buildings
         [SerializeField] private Transform _buildingPoint;
         [SerializeField] private GameObject _highlightArea;
         [SerializeField] private GameObject _highlightBuilding;
+        [SerializeField] private AudioSource _audioSource;
         [SerializeField] private Color _highlightColor;
         [Space]
         [SerializeField] private bool _empty = true;
@@ -73,6 +75,7 @@ namespace Gameplay.Buildings
 
             Type = buildingType;
             var buildingTime = GetBuilding(buildingType).BuildingTime;
+            SoundManager.Instance.PlayLoop(Sound.Building, _audioSource);
             _timer.Run(buildingTime, () => Build(buildingType));
         }
 
@@ -141,7 +144,10 @@ namespace Gameplay.Buildings
                 return;
 
             if (Type == BuildingType.BuildingSite)
+            {
+                SoundManager.Instance.Play(Sound.Click, null);
                 StartCoroutine(OpenBuildingPanelWithDelay());
+            }
         }
 
         private IEnumerator OpenBuildingPanelWithDelay()
@@ -153,6 +159,7 @@ namespace Gameplay.Buildings
 
         private void Build(BuildingType buildingType)
         {
+            SoundManager.Instance.Stop(Sound.Building);
             CheckRoad(buildingType, out bool isRoad);
             if (isRoad)
                 return;

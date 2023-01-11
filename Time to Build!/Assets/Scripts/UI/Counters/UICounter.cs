@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using Service;
+using Service.Sounds;
 using System;
 using TMPro;
 using UI.InformationWindow;
@@ -15,6 +16,9 @@ namespace UI.Counters
         [SerializeField] private IncreaseResourceAnimation _increaseResourceAnimation;
         [SerializeField] private ResourceType _resourceType;
         [SerializeField] private int _value;
+        [Space]
+        [SerializeField] private bool _playSound;
+        [SerializeField] private Sound _getValueSound;
 
         public ResourceType Type { get => _resourceType; }
         public int Count { get => _value; }
@@ -26,7 +30,11 @@ namespace UI.Counters
         public void SetValue(int value)
         {
             if (_value + value > 0)
+            {
                 _increaseResourceAnimation.PlayIncrease($"+{value}");
+                if (_playSound)
+                    SoundManager.Instance.Play(_getValueSound, null);
+            }
             else if (_value + value < 0)
                 _increaseResourceAnimation.PlayDecrease(value.ToString());
 
@@ -42,7 +50,11 @@ namespace UI.Counters
             UpdateText();
 
             if (value > 0)
+            {
                 _increaseResourceAnimation.PlayIncrease($"+{value}");
+                if (_playSound)
+                    SoundManager.Instance.Play(_getValueSound, null);
+            }
             else if (value < 0)
                 _increaseResourceAnimation.PlayDecrease(value.ToString());
 

@@ -17,6 +17,7 @@ namespace Service.BuildingStorage
         public float BuildingTime;
         public int Reserve = 1;
         public int DaysForRefill = 1;
+        public BuildingCategory[] Categories;
         public BonusInfo[] InstantBonuses;
         public Property[] Properties;
     }

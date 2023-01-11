@@ -1,6 +1,7 @@
 using Gameplay.Buildings;
 using Service;
 using Service.BuildingStorage;
+using Service.Sounds;
 using System;
 using System.Linq;
 using TMPro;
@@ -122,6 +123,8 @@ namespace UI.BuildingPanel
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            SoundManager.Instance.Play(Sound.Click, null);
+
             var money = GetMoney();
             if (money < _cost || _currentReserve <= 0)
                 return;
@@ -129,6 +132,9 @@ namespace UI.BuildingPanel
             HideInfoWindow?.Invoke();
             RemoveHighlightingAdjacents?.Invoke();
             StartBuilding?.Invoke(_buildingType, _cost);
+
+            SoundManager.Instance.Play(Sound.StartBuilding, null);
+            SoundManager.Instance.Play(Sound.SelectLot, null);
 
             if (_single)
             {

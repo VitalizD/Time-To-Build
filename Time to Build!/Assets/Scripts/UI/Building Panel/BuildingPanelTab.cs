@@ -1,11 +1,13 @@
+using Service.Sounds;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI.BuildingPanel
 {
     [RequireComponent(typeof(Toggle))]
-    public class BuildingPanelTab : MonoBehaviour
+    public class BuildingPanelTab : MonoBehaviour, IPointerDownHandler
     {
         [SerializeField] private GameObject _buildingsList;
 
@@ -27,6 +29,11 @@ namespace UI.BuildingPanel
         {
             _buildingsList.SetActive(value);
             _toggle.interactable = !value;
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            SoundManager.Instance.Play(Sound.Click, null);
         }
     }
 }
