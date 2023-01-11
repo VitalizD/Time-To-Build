@@ -45,6 +45,7 @@ namespace UI.BuildingPanel
         public static event Action HighlightAdjacents;
         public static event Action RemoveHighlightingAdjacents;
         public static event Action<ZoneType[]> HighlightBuildingsByZone;
+        public static event Action<BuildingCategory[]> HighlightBuildingsByCategory;
         public static event Action RemoveighlightingBuildingsByZone;
         public static event Action<bool> AddLotToMarket;
 
@@ -86,7 +87,7 @@ namespace UI.BuildingPanel
         public void UpdateColors()
         {
             var money = GetMoney();
-            if (money < _cost)
+            if (money < _cost + _markup)
                 _costText.color = Color.red;
             else
                 _costText.color = Color.black;
@@ -160,7 +161,8 @@ namespace UI.BuildingPanel
             {
                 if (property.Type != PropertyType.Each)
                     return;
-                HighlightBuildingsByZone(property.Zones);
+                HighlightBuildingsByZone?.Invoke(property.Zones);
+                HighlightBuildingsByCategory?.Invoke(property.Categories);
             }
         }
 

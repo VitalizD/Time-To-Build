@@ -1,5 +1,6 @@
 using Service.BuildingStorage;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UI.InformationWindow;
@@ -17,6 +18,7 @@ namespace Gameplay.Buildings
         public static event Action<ResourceType, int> AddResource;
         public static event Func<BuildingType, Building> GetBuilding;
         public static event Func<ZoneType, int> GetBuildingsCountByZone;
+        public static event Func<BuildingCategory, int> GetBuildingsCountByCategory;
 
         public static Dictionary<ResourceType, int> UnionRewards(IEnumerable<Dictionary<ResourceType, int>> rewardList)
         {
@@ -87,19 +89,15 @@ namespace Gameplay.Buildings
         {
             var adjacents = _adjacentBuildings.Get8Sides()
                 .Where(adjacent => adjacent.Value != null && adjacent.Value.Type != BuildingType.BuildingSite);
-            var commonRewards = new Dictionary<ResourceType, int>();
+            var rewardsList = new List<Dictionary<ResourceType, int>>();
             foreach (var adjacent in adjacents)
             {
-                var rewards = GetPropertyBonus(property, GetBuilding(adjacent.Value.Type).Zone);
-                foreach (var reward in rewards)
-                {
-                    if (commonRewards.ContainsKey(reward.Key))
-                        commonRewards[reward.Key] += reward.Value;
-                    else
-                        commonRewards.Add(reward.Key, reward.Value);
-                }
+                var buildingInfo = GetBuilding(adjacent.Value.Type);
+                rewardsList.Add(GetPropertyBonus(property, buildingInfo.Zone));
+                foreach (var category in buildingInfo.Categories)
+                    rewardsList.Add(GetPropertyBonus(property, category));
             }
-            return commonRewards;
+            return UnionRewards(rewardsList);
         }
 
         private Dictionary<ResourceType, int> GetPropertyEachRewards(Property property)
@@ -107,9 +105,20 @@ namespace Gameplay.Buildings
             var rewards = new Dictionary<ResourceType, int>();
             foreach (var zone in property.Zones)
             {
+                var buildingsCount = GetBuildingsCountByZone(zone);
                 foreach (var bonus in property.Bonuses)
                 {
-                    var buildingsCount = GetBuildingsCountByZone(zone);
+                    if (rewards.ContainsKey(bonus.Resource))
+                        rewards[bonus.Resource] += buildingsCount;
+                    else
+                        rewards.Add(bonus.Resource, buildingsCount * bonus.Value);
+                }
+            }
+            foreach (var category in property.Categories)
+            {
+                var buildingsCount = GetBuildingsCountByCategory(category);
+                foreach (var bonus in property.Bonuses)
+                {
                     if (rewards.ContainsKey(bonus.Resource))
                         rewards[bonus.Resource] += buildingsCount;
                     else
@@ -125,6 +134,25 @@ namespace Gameplay.Buildings
             foreach (var zone in property.Zones)
             {
                 if (zone == buildingZone)
+                {
+                    foreach (var bonus in property.Bonuses)
+                    {
+                        if (rewards.ContainsKey(bonus.Resource))
+                            rewards[bonus.Resource] += bonus.Value;
+                        else
+                            rewards.Add(bonus.Resource, bonus.Value);
+                    }
+                }
+            }
+            return rewards;
+        }
+
+        private Dictionary<ResourceType, int> GetPropertyBonus(Property property, BuildingCategory buildingCategory)
+        {
+            var rewards = new Dictionary<ResourceType, int>();
+            foreach (var category in property.Categories)
+            {
+                if (category == buildingCategory)
                 {
                     foreach (var bonus in property.Bonuses)
                     {

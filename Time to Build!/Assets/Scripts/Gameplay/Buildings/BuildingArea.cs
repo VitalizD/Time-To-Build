@@ -44,7 +44,7 @@ namespace Gameplay.Buildings
         public static event Func<Vector2> GetInfoWindowPoint;
         public static event Action<Vector2, BuildingType, bool, bool, int> ShowInfoWindow;
         public static event Action HideInfoWindow;
-        public static event Action<ZoneType, BuildingArea> AddToBuildingManager;
+        public static event Action<ZoneType, BuildingCategory[], BuildingArea> AddToBuildingManager;
         public static event Action<BuildingArea> AddToBuildingManagerWithEachProperty;
         public static event Func<bool> CursorOverUIElement;
 
@@ -171,7 +171,7 @@ namespace Gameplay.Buildings
                 SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
             if (ExistsPropertyOf(PropertyType.Each, Type))
                 AddToBuildingManagerWithEachProperty?.Invoke(this);
-            AddToBuildingManager?.Invoke(buildingInfo.Zone, this);
+            AddToBuildingManager?.Invoke(buildingInfo.Zone, buildingInfo.Categories, this);
             TurnToRoad(building.transform);
             _rewardsCalculator.GetAllRewards(buildingInfo);
         }

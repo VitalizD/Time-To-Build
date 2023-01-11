@@ -8,11 +8,13 @@ namespace Service.MaterialStorage
     {
         [SerializeField] private ZoneMaterial[] _zoneMaterials;
         [SerializeField] private ResourceIcon[] _resourceIcons;
+        [SerializeField] private CategoryIcon[] _categoryIcons;
         [SerializeField] private Material _buildingArea;
         [SerializeField] private Material _road;
 
         private readonly Dictionary<ZoneType, ZoneMaterial> _zoneMaterialDictionary = new();
         private readonly Dictionary<ResourceType, Sprite> _resourceSpriteDictionary = new();
+        private readonly Dictionary<BuildingCategory, Sprite> _categorySpriteDictionary = new();
 
         public Material GetBuildingAreaMaterial() => _buildingArea;
 
@@ -41,6 +43,13 @@ namespace Service.MaterialStorage
             throw new Exception($"»конка ресурса {resourceType} отсутствует в хранилище");
         }
 
+        public Sprite GetCategoryIcon(BuildingCategory categoryType)
+        {
+            if (_categorySpriteDictionary.ContainsKey(categoryType))
+                return _categorySpriteDictionary[categoryType];
+            throw new Exception($"»конка категории {categoryType} отсутствует в хранилище");
+        }
+
         private void Awake()
         {
             foreach (var material in _zoneMaterials)
@@ -48,6 +57,9 @@ namespace Service.MaterialStorage
 
             foreach (var icon in _resourceIcons)
                 _resourceSpriteDictionary.Add(icon.Type, icon.Icon);
+
+            foreach (var icon in _categoryIcons)
+                _categorySpriteDictionary.Add(icon.Type, icon.Icon);
         }
     }
 }

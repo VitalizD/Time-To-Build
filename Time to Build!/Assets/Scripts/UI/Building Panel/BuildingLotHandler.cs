@@ -18,6 +18,7 @@ namespace UI.BuildingPanel
         {
             BuildingPanel.UpdateLotColors += _buildingLot.UpdateColors;
             UICounter.UpdateBuildingLotColors += _buildingLot.UpdateColors;
+            BuildingPanelTab.UpdateBuildingLotColors += _buildingLot.UpdateColors;
             DayCycle.NewDay += _buildingLot.UpdateDaysForRefill;
         }
 
@@ -25,6 +26,7 @@ namespace UI.BuildingPanel
         {
             BuildingPanel.UpdateLotColors -= _buildingLot.UpdateColors;
             UICounter.UpdateBuildingLotColors -= _buildingLot.UpdateColors;
+            BuildingPanelTab.UpdateBuildingLotColors -= _buildingLot.UpdateColors;
             DayCycle.NewDay -= _buildingLot.UpdateDaysForRefill;
         }
     }

@@ -1,5 +1,6 @@
 using Service.Sounds;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,13 @@ namespace UI.BuildingPanel
         [SerializeField] private GameObject _buildingsList;
 
         private Toggle _toggle;
+
+        public static event Action UpdateBuildingLotColors;
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            SoundManager.Instance.Play(Sound.Click, null);
+        }
 
         private void Awake()
         {
@@ -29,11 +37,13 @@ namespace UI.BuildingPanel
         {
             _buildingsList.SetActive(value);
             _toggle.interactable = !value;
+            StartCoroutine(UpdateBuildingLotColorsAfterFrame());
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        private IEnumerator UpdateBuildingLotColorsAfterFrame()
         {
-            SoundManager.Instance.Play(Sound.Click, null);
+            yield return new WaitForEndOfFrame();
+            UpdateBuildingLotColors?.Invoke();
         }
     }
 }

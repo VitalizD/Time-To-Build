@@ -6,6 +6,8 @@ namespace Service
 {
     public static class Translation
     {
+        private const string CATEGORY_COLOR_CODE = "8d11a8";
+
         private readonly static Dictionary<ZoneType, string> _zoneNames = new()
         {
             [ZoneType.Resident] = "жилой",
@@ -25,6 +27,7 @@ namespace Service
             [BuildingType.HomeownersAssociation] = "Ассоциация домовладельцев",
             [BuildingType.ConvenienceStore] = "Круглосуточный магазин",
             [BuildingType.Freeway] = "Автомагистраль",
+            [BuildingType.FancyRestaurant] = "Модное кафе",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new()
@@ -48,9 +51,20 @@ namespace Service
             [ResourceType.Reputation] = "Население, которое прибудет в город в конце текущего дня.",
         };
 
+        private readonly static Dictionary<BuildingCategory, string> _buildingCategoryNames = new()
+        {
+            [BuildingCategory.Office] = "офис",
+            [BuildingCategory.Nightlife] = "ночная жизнь",
+            [BuildingCategory.Restaurant] = "ресторан",
+            [BuildingCategory.CarDealership] = "автосалон",
+            [BuildingCategory.Airport] = "аэропорт",
+            [BuildingCategory.Skyscraper] = "небоскрёб",
+            [BuildingCategory.School] = "школа",
+        };
+
         public static event Func<ZoneType, Color> GetZoneColor;
 
-        public static string GetPropertyDescription(PropertyType propertyType, ZoneType[] zoneTypes)
+        public static string GetPropertyDescription(PropertyType propertyType, ZoneType[] zoneTypes, BuildingCategory[] buildingCategories)
         {
             switch (propertyType)
             {
@@ -59,8 +73,14 @@ namespace Service
                         var result = "за каждый соседний";
                         foreach (var zone in zoneTypes)
                             result += $" <color=#{ColorUtility.ToHtmlStringRGB(GetZoneColor(zone))}>{Translation.GetZoneName(zone)}</color>,";
+                        if (zoneTypes.Length > 0)
+                        {
+                            result = result.TrimEnd(',');
+                            result += " район";
+                        }
+                        foreach (var category in buildingCategories)
+                            result += $" <color=#{CATEGORY_COLOR_CODE}>{Translation.GetCategoryName(category)}</color>,";
                         result = result.TrimEnd(',');
-                        result += " район";
                         return result;
                     }
                 case PropertyType.Each:
@@ -68,8 +88,14 @@ namespace Service
                         var result = "за каждый ваш";
                         foreach (var zone in zoneTypes)
                             result += $" <color=#{ColorUtility.ToHtmlStringRGB(GetZoneColor(zone))}>{Translation.GetZoneName(zone)}</color>,";
+                        if (zoneTypes.Length > 0)
+                        {
+                            result = result.TrimEnd(',');
+                            result += " район";
+                        }
+                        foreach (var category in buildingCategories)
+                            result += $" <color=#{CATEGORY_COLOR_CODE}>{Translation.GetCategoryName(category)}</color>,";
                         result = result.TrimEnd(',');
-                        result += " район";
                         return result;
                     }
                 case PropertyType.NoReduction:
@@ -89,5 +115,7 @@ namespace Service
         public static string GetResourceName(ResourceType resourceType) => _resourceNames.ContainsKey(resourceType) ? _resourceNames[resourceType] : null;
 
         public static string GetResourceDescription(ResourceType resourceType) => _resourceDescriptions.ContainsKey(resourceType) ? _resourceDescriptions[resourceType] : null;
+
+        public static string GetCategoryName(BuildingCategory buildingCategory) => _buildingCategoryNames.ContainsKey(buildingCategory) ? _buildingCategoryNames[buildingCategory] : null;
     }
 }

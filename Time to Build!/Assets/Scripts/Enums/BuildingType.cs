@@ -9,5 +9,6 @@ public enum BuildingType
     Lake,
     HomeownersAssociation,
     ConvenienceStore,
-    Freeway
+    Freeway,
+    FancyRestaurant
 }

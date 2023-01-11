@@ -13,7 +13,6 @@ namespace Service.BuildingStorage
         private readonly Dictionary<BuildingLevel, List<BuildingType>> _availableBuildingsDictionary = new();
         private Dictionary<BuildingLevel, List<BuildingType>> _buildingsForCurrentGame;
         private BuildingLevel _currentBuilgingLevel = BuildingLevel.A;
-        private Queue<BuildingType> _buildingsQueueForCurrentGame = new();
 
         public Building GetBuildingInfo(BuildingType buildingType)
         {

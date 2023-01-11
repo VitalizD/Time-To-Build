@@ -19,9 +19,11 @@ namespace Gameplay.BuildingManager
             BuildingArea.AddToBuildingManager += _buildingManager.AddBuilding;
             BuildingArea.AddToBuildingManagerWithEachProperty += _buildingManager.AddBuildingWithEachProperty;
             RewardsCalculator.GetBuildingsCountByZone += _buildingManager.GetBuildingCountByZone;
+            RewardsCalculator.GetBuildingsCountByCategory += _buildingManager.GetBuildingCountByCategory;
             RewardsCalculator.GetRewardsForBuildingsWithEachProperty += _buildingManager.GetRewardsForBuildingsWithEachProperty;
             BuildingLot.HighlightBuildingsByZone += _buildingManager.HighlightBuildingsByZone;
-            BuildingLot.RemoveighlightingBuildingsByZone += _buildingManager.RemoveHighlightingBuildingsByZone;
+            BuildingLot.HighlightBuildingsByCategory += _buildingManager.HighlightBuildingsByCategory;
+            BuildingLot.RemoveighlightingBuildingsByZone += _buildingManager.RemoveHighlightingBuildings;
         }
 
         private void OnDisable()
@@ -29,9 +31,11 @@ namespace Gameplay.BuildingManager
             BuildingArea.AddToBuildingManager -= _buildingManager.AddBuilding;
             BuildingArea.AddToBuildingManagerWithEachProperty -= _buildingManager.AddBuildingWithEachProperty;
             RewardsCalculator.GetBuildingsCountByZone -= _buildingManager.GetBuildingCountByZone;
+            RewardsCalculator.GetBuildingsCountByCategory -= _buildingManager.GetBuildingCountByCategory;
             RewardsCalculator.GetRewardsForBuildingsWithEachProperty -= _buildingManager.GetRewardsForBuildingsWithEachProperty;
             BuildingLot.HighlightBuildingsByZone -= _buildingManager.HighlightBuildingsByZone;
-            BuildingLot.RemoveighlightingBuildingsByZone -= _buildingManager.RemoveHighlightingBuildingsByZone;
+            BuildingLot.HighlightBuildingsByCategory -= _buildingManager.HighlightBuildingsByCategory;
+            BuildingLot.RemoveighlightingBuildingsByZone -= _buildingManager.RemoveHighlightingBuildings;
         }
     }
 }

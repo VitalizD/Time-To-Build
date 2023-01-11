@@ -21,6 +21,7 @@ namespace Service.MaterialStorage
             BuildingArea.GetRoadMaterial += _materialStorage.GetRoadMaterial;
             InfoWindow.GetZoneColor += _materialStorage.GetZoneColor;
             InfoWindow.GetResourceIcon += _materialStorage.GetResourceIcon;
+            InfoWindow.GetCategoryIcon += _materialStorage.GetCategoryIcon;
             Translation.GetZoneColor += _materialStorage.GetZoneColor;
         }
 
@@ -31,6 +32,7 @@ namespace Service.MaterialStorage
             BuildingArea.GetRoadMaterial -= _materialStorage.GetRoadMaterial;
             InfoWindow.GetZoneColor -= _materialStorage.GetZoneColor;
             InfoWindow.GetResourceIcon -= _materialStorage.GetResourceIcon;
+            InfoWindow.GetCategoryIcon -= _materialStorage.GetCategoryIcon;
             Translation.GetZoneColor -= _materialStorage.GetZoneColor;
         }
     }

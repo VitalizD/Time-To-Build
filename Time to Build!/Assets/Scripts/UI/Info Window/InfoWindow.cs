@@ -19,15 +19,19 @@ namespace UI.InformationWindow
         [SerializeField] private GameObject _zone;
         [SerializeField] private Image _zoneSquare;
         [SerializeField] private TextMeshProUGUI _zoneText;
+        [SerializeField] private GameObject _categories;
         [SerializeField] private GameObject _bonusPrefab;
         [SerializeField] private GameObject _propertyPrefab;
+        [SerializeField] private GameObject _categoryPrefab;
         [Space]
         [SerializeField] private GameObject _lineInstantsBonuses;
         [SerializeField] private GameObject _lineProperty;
         [SerializeField] private GameObject _lineZone;
+        [SerializeField] private GameObject _catogoriesLine;
 
         public static event Func<ZoneType, Color> GetZoneColor;
         public static event Func<ResourceType, Sprite> GetResourceIcon;
+        public static event Func<BuildingCategory, Sprite> GetCategoryIcon;
         public static event Func<BuildingType, Building> GetBuilding;
 
         public void Show(Vector2 position, BuildingType buildingType, bool noReserve, bool soonDisappear, int markup)
@@ -36,7 +40,7 @@ namespace UI.InformationWindow
             var instantBonuses = building.InstantBonuses.Length == 0 ? null : building.InstantBonuses;
             var propertyInfos = building.Properties.Length == 0 ? null
                 : building.Properties.Select(property => new PropertyInfo(property.Bonuses,
-                Translation.GetPropertyDescription(property.Type, property.Zones))).ToArray();
+                Translation.GetPropertyDescription(property.Type, property.Zones, property.Categories))).ToArray();
 
             var description = Translation.GetBuildingDescription(buildingType);
             if (noReserve)
@@ -49,16 +53,16 @@ namespace UI.InformationWindow
                 description = description.TrimStart('\n');
 
             Show(position, Translation.GetBuildingName(buildingType), building.InstantBonuses, propertyInfos,
-                description, building.Zone);
+                description, building.Zone, building.Categories);
         }
 
         public void Show(Vector2 position, string title, string description)
         {
-            Show(position, title, null, null, description, ZoneType.None);
+            Show(position, title, null, null, description, ZoneType.None, null);
         }
 
         public void Show(Vector2 position, string title, BonusInfo[] instantBonuses,
-            PropertyInfo[] properties, string description, ZoneType zone)
+            PropertyInfo[] properties, string description, ZoneType zone, BuildingCategory[] categories)
         {
             transform.position = position;
             _title.text = title;
@@ -67,9 +71,11 @@ namespace UI.InformationWindow
             SetInstantBonuses(instantBonuses);
             SetProperties(properties);
             SetZone(zone);
+            SetCategories(categories);
             _lineInstantsBonuses.SetActive(instantBonuses != null && instantBonuses.Length > 0);
             _lineProperty.SetActive((properties != null && properties.Length > 0) || (description != null && description != ""));
             _lineZone.SetActive(zone != ZoneType.None);
+            _catogoriesLine.SetActive(categories != null && categories.Length > 0);
             _panel.SetActive(true);
 
             // Костыль для корректного отображения 
@@ -80,6 +86,7 @@ namespace UI.InformationWindow
         {
             RemoveContent(_properties.transform);
             RemoveContent(_instantsBonuses.transform);
+            RemoveContent(_categories.transform);
             _panel.SetActive(false);
         }
 
@@ -132,9 +139,9 @@ namespace UI.InformationWindow
             }
         }
 
-        private BonusProperties GetBonusObject(BonusInfo info)
+        private UIElementProperties GetBonusObject(BonusInfo info)
         {
-            var bonus = Instantiate(_bonusPrefab).GetComponent<BonusProperties>();
+            var bonus = Instantiate(_bonusPrefab).GetComponent<UIElementProperties>();
             bonus.SetSprite(GetResourceIcon?.Invoke(info.Resource));
             var text = info.Value.ToString();
             bonus.SetText(info.Value > 0 ? '+' + text : text);
@@ -154,6 +161,19 @@ namespace UI.InformationWindow
             var zoneColor = GetZoneColor?.Invoke(type);
             _zoneSquare.color = zoneColor.GetValueOrDefault();
             _zoneText.text = Translation.GetZoneName(type);
+        }
+
+        private void SetCategories(BuildingCategory[] buildingCategories)
+        {
+            if (buildingCategories == null || buildingCategories.Length == 0)
+                return;
+            _categories.SetActive(true);
+            foreach (var category in buildingCategories)
+            {
+                var element = Instantiate(_categoryPrefab, _categories.transform).GetComponent<UIElementProperties>();
+                element.SetSprite(GetCategoryIcon?.Invoke(category));
+                element.SetText(Translation.GetCategoryName(category));
+            }
         }
     }
 }
