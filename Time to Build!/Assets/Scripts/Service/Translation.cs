@@ -28,6 +28,8 @@ namespace Service
             [BuildingType.ConvenienceStore] = "Круглосуточный магазин",
             [BuildingType.Freeway] = "Автомагистраль",
             [BuildingType.FancyRestaurant] = "Модное кафе",
+            [BuildingType.Farm] = "Ферма",
+            [BuildingType.Landfill] = "Свалка",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new()

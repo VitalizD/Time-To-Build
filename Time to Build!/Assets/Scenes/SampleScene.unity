@@ -2016,10 +2016,10 @@ MonoBehaviour:
     BuildingTime: 40
     Reserve: 1
     DaysForRefill: 1
-    Categories: 
+    Categories: 01000000
     InstantBonuses:
     - Resource: 2
-      Value: 3
+      Value: 4
     Properties:
     - Type: 2
       Bonuses:
@@ -2027,7 +2027,47 @@ MonoBehaviour:
         Value: -1
       Zones: 
       Categories: 01000000
-  _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a000000
+  - Type: 11
+    Level: 0
+    Zone: 2
+    Prefab: {fileID: 3867509528873661945, guid: 895f02e0a79a16c4dbcf5d0d8384edaf, type: 3}
+    Icon: {fileID: 21300000, guid: 9300abfc32a228e4a8db4fbb8234c01d, type: 3}
+    Cost: 9
+    BuildingTime: 20
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses:
+    - Resource: 3
+      Value: -1
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 2
+        Value: 1
+      Zones: 
+      Categories: 01000000
+  - Type: 12
+    Level: 0
+    Zone: 2
+    Prefab: {fileID: 2128462707135905322, guid: 9c4248ada6c1c69429d56032597a0bc4, type: 3}
+    Icon: {fileID: 21300000, guid: 2560602bf3f87bb4fa68d24dd411bedf, type: 3}
+    Cost: 4
+    BuildingTime: 20
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses:
+    - Resource: 2
+      Value: 2
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 3
+        Value: -1
+      Zones: 00000000010000000200000003000000
+      Categories: 
+  _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4983,7 +5023,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3054459189337869875, guid: 61f3afb111727ff49a153051c8f9817d, type: 3}
       propertyPath: _value
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3054459189337869875, guid: 61f3afb111727ff49a153051c8f9817d, type: 3}
       propertyPath: _playSound

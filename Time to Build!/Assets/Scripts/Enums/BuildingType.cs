@@ -10,5 +10,7 @@ public enum BuildingType
     HomeownersAssociation,
     ConvenienceStore,
     Freeway,
-    FancyRestaurant
+    FancyRestaurant,
+    Farm,
+    Landfill
 }
