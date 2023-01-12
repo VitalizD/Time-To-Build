@@ -3,7 +3,7 @@ public enum BuildingType
     LittleHouse,
     Road,
     BuildingSite,
-    FastFoonRestaurant,
+    FastFoodRestaurant,
     Factory,
     Park,
     Lake,
@@ -12,5 +12,9 @@ public enum BuildingType
     Freeway,
     FancyRestaurant,
     Farm,
-    Landfill
+    Landfill,
+    Mint,
+    HouseTwoFloors,
+    PublicTransportStop,
+    OfficeBuilding
 }

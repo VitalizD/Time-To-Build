@@ -20,7 +20,7 @@ namespace Service
         {
             [BuildingType.Road] = "Дорога",
             [BuildingType.LittleHouse] = "Маленький домик",
-            [BuildingType.FastFoonRestaurant] = "Ресторан быстрого питания",
+            [BuildingType.FastFoodRestaurant] = "Ресторан быстрого питания",
             [BuildingType.Factory] = "Комбинат",
             [BuildingType.Park] = "Парк",
             [BuildingType.Lake] = "Пруд",
@@ -30,6 +30,10 @@ namespace Service
             [BuildingType.FancyRestaurant] = "Модное кафе",
             [BuildingType.Farm] = "Ферма",
             [BuildingType.Landfill] = "Свалка",
+            [BuildingType.Mint] = "Монетный двор",
+            [BuildingType.HouseTwoFloors] = "Двухэтажный жилой дом",
+            [BuildingType.PublicTransportStop] = "Остановка обществ. транспорта",
+            [BuildingType.OfficeBuilding] = "Офисное здание",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new()
@@ -59,7 +63,7 @@ namespace Service
             [BuildingCategory.Nightlife] = "ночная жизнь",
             [BuildingCategory.Restaurant] = "ресторан",
             [BuildingCategory.CarDealership] = "автосалон",
-            [BuildingCategory.Airport] = "аэропорт",
+            [BuildingCategory.PublicTransport] = "общественный транспорт",
             [BuildingCategory.Skyscraper] = "небоскрёб",
             [BuildingCategory.School] = "школа",
         };

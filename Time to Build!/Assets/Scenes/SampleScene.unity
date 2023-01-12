@@ -2067,7 +2067,85 @@ MonoBehaviour:
         Value: -1
       Zones: 00000000010000000200000003000000
       Categories: 
-  _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c000000
+  - Type: 13
+    Level: 0
+    Zone: 3
+    Prefab: {fileID: 898184105283137040, guid: 50c8a2a3ad753614dafc6d0f48f89ec7, type: 3}
+    Icon: {fileID: 21300000, guid: 26a99fb0b2fb48741aef873c83626e16, type: 3}
+    Cost: 15
+    BuildingTime: 40
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses:
+    - Resource: 2
+      Value: 3
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 0
+        Value: 2
+      Zones: 03000000
+      Categories: 
+  - Type: 14
+    Level: 0
+    Zone: 0
+    Prefab: {fileID: 8980144437961290574, guid: 1a64e772ba4d88c46a8ab59d2c3acd3f, type: 3}
+    Icon: {fileID: 21300000, guid: 77d98e6953923bc4abb8c061c907f0b0, type: 3}
+    Cost: 4
+    BuildingTime: 50
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses:
+    - Resource: 1
+      Value: 6
+    Properties: []
+  - Type: 15
+    Level: 0
+    Zone: 2
+    Prefab: {fileID: 6232594516098626990, guid: b7f64e817f29ae843be9c48e669646df, type: 3}
+    Icon: {fileID: 21300000, guid: 4e19cae98b6077d43a5217e26af7d1be, type: 3}
+    Cost: 6
+    BuildingTime: 50
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 03000000
+    InstantBonuses: []
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 2
+        Value: 1
+      Zones: 
+      Categories: 03000000
+    - Type: 1
+      Bonuses:
+      - Resource: 3
+        Value: -1
+      Zones: 00000000
+      Categories: 
+  - Type: 16
+    Level: 0
+    Zone: 1
+    Prefab: {fileID: 3636254636627407692, guid: 5eb5a2903474e8445a90774e6978a551, type: 3}
+    Icon: {fileID: 21300000, guid: a52da9e44cf1fb548be575dccc245911, type: 3}
+    Cost: 9
+    BuildingTime: 110
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 02000000
+    InstantBonuses:
+    - Resource: 2
+      Value: 1
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 2
+        Value: 1
+      Zones: 01000000
+      Categories: 
+  _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c0000000d0000000d0000000e0000000e0000000f0000000f000000100000001000000010000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4265,7 +4343,7 @@ MonoBehaviour:
   - Type: 2
     Icon: {fileID: 21300000, guid: 5aeffb2446fc429418425f3fc309c78e, type: 3}
   - Type: 3
-    Icon: {fileID: 21300000, guid: c0f3bd70a767031499be8c331cb51611, type: 3}
+    Icon: {fileID: 21300000, guid: aa5f14dbbd1424c4cb90bc49605fd9a8, type: 3}
   - Type: 4
     Icon: {fileID: 21300000, guid: 3221b7c57d997d845af912765dfb3e75, type: 3}
   - Type: 5

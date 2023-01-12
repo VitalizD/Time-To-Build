@@ -3,7 +3,7 @@ public enum BuildingCategory
     None,
     Restaurant,
     Office,
-    Airport,
+    PublicTransport,
     School,
     Skyscraper,
     CarDealership,
