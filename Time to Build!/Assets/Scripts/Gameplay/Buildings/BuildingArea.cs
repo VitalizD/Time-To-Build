@@ -32,6 +32,7 @@ namespace Gameplay.Buildings
         private Vector2 _infoWindowPoint;
         private Timer _timer;
         private Color _initialColor;
+        private bool _builded = false;
 
         public BuildingType Type { get; private set; } = BuildingType.BuildingSite;
 
@@ -81,6 +82,8 @@ namespace Gameplay.Buildings
 
         public Dictionary<ResourceType, int> GetRewardsInThis()
         {
+            if (!_builded)
+                return new Dictionary<ResourceType, int>();
             return _rewardsCalculator.GetRewardsInThis(GetBuilding?.Invoke(Type));
         }
 
@@ -174,6 +177,7 @@ namespace Gameplay.Buildings
             AddToBuildingManager?.Invoke(buildingInfo.Zone, buildingInfo.Categories, this);
             TurnToRoad(building.transform);
             _rewardsCalculator.GetAllRewards(buildingInfo);
+            _builded = true;
         }
 
         private void CheckRoad(BuildingType buildingType, out bool isRoad)

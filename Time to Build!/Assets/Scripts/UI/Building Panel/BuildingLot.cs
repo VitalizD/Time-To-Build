@@ -132,7 +132,7 @@ namespace UI.BuildingPanel
 
             HideInfoWindow?.Invoke();
             RemoveHighlightingAdjacents?.Invoke();
-            StartBuilding?.Invoke(_buildingType, _cost);
+            StartBuilding?.Invoke(_buildingType, _cost + _markup);
 
             SoundManager.Instance.Play(Sound.StartBuilding, null);
             SoundManager.Instance.Play(Sound.SelectLot, null);

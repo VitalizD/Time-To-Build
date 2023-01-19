@@ -11,11 +11,15 @@ namespace CameraEngine
         [SerializeField] private float _rotateSpeed;
         [SerializeField] private float _minY = 20f;
         [SerializeField] private float _maxY = 60f;
+        [SerializeField] private float _minRotateX;
+        [SerializeField] private float _maxRotateX;
         [SerializeField] private float _scrollSpeed = 1000f;
-        [SerializeField] private Camera _camera;
+        [SerializeField] private float _scrollSmoothness = 1f;
+        [SerializeField] private Transform _camera;
 
         private CameraBounds _bounds;
         private float _currentY = 50f;
+        private float _reachedY;
 
         public static event Func<GameObject[]> GetScreenRaycastResults;
 
@@ -23,25 +27,10 @@ namespace CameraEngine
         {
             _bounds = GetComponent<CameraBounds>();
             _currentY = transform.position.y;
+            _reachedY = _currentY;
         }
 
         private void Update()
-        {
-            var hits = GetScreenRaycastResults?.Invoke();
-            foreach (var obj in hits)
-            {
-                if (obj.GetComponent<UIElement>() != null)
-                    return;
-            }
-            var wheelValue = Input.GetAxis("Mouse ScrollWheel");
-            if (wheelValue != 0f)
-            {
-                _currentY -= wheelValue * Time.deltaTime * _scrollSpeed;
-                _currentY = Mathf.Clamp(_currentY, _minY, _maxY);
-            }
-        }
-
-        private void FixedUpdate()
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
                 Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
@@ -51,6 +40,33 @@ namespace CameraEngine
             if (Input.GetKey(KeyCode.Q))
                 Rotate(Vector3.up);
 
+            SetPosition();
+
+            var hits = GetScreenRaycastResults?.Invoke();
+            foreach (var obj in hits)
+            {
+                if (obj.GetComponent<UIElement>() != null)
+                    return;
+            }
+
+            Scroll();
+        }
+
+        private void Scroll()
+        {
+            var wheelValue = Input.GetAxis("Mouse ScrollWheel");
+            if (wheelValue != 0f)
+            {
+                _reachedY -= wheelValue * Time.deltaTime * _scrollSpeed;
+                _reachedY = Mathf.Clamp(_reachedY, _minY, _maxY);
+            }
+
+            _currentY = Mathf.Lerp(_currentY, _reachedY, Time.deltaTime * _scrollSmoothness);
+            _camera.eulerAngles = new Vector3(Mathf.Lerp(_minRotateX, _maxRotateX, (_currentY - _minY) / (_maxY - _minY)), _camera.eulerAngles.y, 0f);
+        }
+
+        private void SetPosition()
+        {
             transform.position = new Vector3(
                 Mathf.Clamp(transform.position.x, _bounds.LeftLimit, _bounds.RightLimit),
                 _currentY,
