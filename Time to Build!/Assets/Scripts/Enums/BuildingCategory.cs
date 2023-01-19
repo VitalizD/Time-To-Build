@@ -7,5 +7,6 @@ public enum BuildingCategory
     School,
     Skyscraper,
     CarDealership,
-    Nightlife
+    Nightlife,
+    Reservoir
 }

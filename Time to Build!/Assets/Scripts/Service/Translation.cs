@@ -34,6 +34,9 @@ namespace Service
             [BuildingType.HouseTwoFloors] = "Двухэтажный жилой дом",
             [BuildingType.PublicTransportStop] = "Остановка обществ. транспорта",
             [BuildingType.OfficeBuilding] = "Офисное здание",
+            [BuildingType.Parking] = "Парковка",
+            [BuildingType.AnimalFarm] = "Скотный двор",
+            [BuildingType.WaterTower] = "Водонапорная башня",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new()
@@ -66,6 +69,7 @@ namespace Service
             [BuildingCategory.PublicTransport] = "общественный транспорт",
             [BuildingCategory.Skyscraper] = "небоскрёб",
             [BuildingCategory.School] = "школа",
+            [BuildingCategory.Reservoir] = "водоём",
         };
 
         public static event Func<ZoneType, Color> GetZoneColor;

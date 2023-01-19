@@ -16,5 +16,8 @@ public enum BuildingType
     Mint,
     HouseTwoFloors,
     PublicTransportStop,
-    OfficeBuilding
+    OfficeBuilding,
+    Parking,
+    AnimalFarm,
+    WaterTower
 }

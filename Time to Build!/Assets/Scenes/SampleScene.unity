@@ -1866,7 +1866,7 @@ MonoBehaviour:
     BuildingTime: 30
     Reserve: 1
     DaysForRefill: 2
-    Categories: 
+    Categories: 08000000
     InstantBonuses: []
     Properties:
     - Type: 1
@@ -2145,7 +2145,65 @@ MonoBehaviour:
         Value: 1
       Zones: 01000000
       Categories: 
-  _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c0000000d0000000d0000000e0000000e0000000f0000000f000000100000001000000010000000
+  - Type: 17
+    Level: 0
+    Zone: 1
+    Prefab: {fileID: 166126212323413293, guid: 7d8e3c4e7b723dc4b9a7cad4c4fe4379, type: 3}
+    Icon: {fileID: 21300000, guid: 963e9d1e58fb8f64fb8e22ec7e07a535, type: 3}
+    Cost: 12
+    BuildingTime: 30
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses:
+    - Resource: 2
+      Value: 1
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 2
+        Value: 1
+      Zones: 0100000003000000
+      Categories: 
+  - Type: 18
+    Level: 0
+    Zone: 2
+    Prefab: {fileID: 7700421279572875219, guid: fd7d0e0c7f29669469fdd85b31e42041, type: 3}
+    Icon: {fileID: 21300000, guid: a9e11fbbe650f1d4b9853fde272ffc05, type: 3}
+    Cost: 5
+    BuildingTime: 40
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses:
+    - Resource: 3
+      Value: -2
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 2
+        Value: 1
+      Zones: 
+      Categories: 01000000
+  - Type: 19
+    Level: 0
+    Zone: 1
+    Prefab: {fileID: 1432959454408043083, guid: 956f9c064dad74443a37bc47bc8d15c4, type: 3}
+    Icon: {fileID: 21300000, guid: 94163356ef093fd4ca0189ddda22bf4a, type: 3}
+    Cost: 6
+    BuildingTime: 40
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses: []
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 0
+        Value: 3
+      Zones: 
+      Categories: 08000000
+  _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c0000000d0000000d0000000e0000000e0000000f0000000f000000100000001000000010000000110000001100000012000000120000001300000013000000
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,6 +2288,37 @@ Transform:
   m_Father: {fileID: 1060256886}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!1 &966975038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 966975039}
+  m_Layer: 0
+  m_Name: City Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &966975039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966975038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.5, y: 0, z: -2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1768185935}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1060256883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,7 +2355,7 @@ MonoBehaviour:
   _rotateSpeed: 50
   _minY: 1
   _maxY: 10
-  _minRotateX: 20
+  _minRotateX: 30
   _maxRotateX: 80
   _scrollSpeed: 1000
   _scrollSmoothness: 5
@@ -2327,6 +2416,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee198f6a0bf34542a427bc0fba36634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1068361595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1068361596}
+  m_Layer: 0
+  m_Name: City Center (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1068361596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068361595}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.5, y: 0, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1768185935}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1075218089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1075218090}
+  m_Layer: 0
+  m_Name: Field Creator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1075218090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075218089}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1767810854}
+  - {fileID: 1768185935}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1086573034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,6 +3108,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!1 &1307912935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1307912936}
+  m_Layer: 0
+  m_Name: City Center (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1307912936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307912935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5, y: 0, z: -2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1768185935}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1332577270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6091364900540941604, guid: 980afc33692b19343a86274720afb48a, type: 3}
@@ -4185,6 +4369,72 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1767810853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1767810854}
+  m_Layer: 0
+  m_Name: Field Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1767810854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767810853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.5, y: 0, z: 4.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1075218090}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1768185934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1768185935}
+  m_Layer: 0
+  m_Name: City Centers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1768185935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768185934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 966975039}
+  - {fileID: 1307912936}
+  - {fileID: 2130696360}
+  - {fileID: 1068361596}
+  m_Father: {fileID: 1075218090}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805907295
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,6 +4605,8 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 9b753a0fff051a74ea3f05d1281676aa, type: 3}
   - Type: 7
     Icon: {fileID: 21300000, guid: 6d825e19a5c6036438602cdcc0324b76, type: 3}
+  - Type: 8
+    Icon: {fileID: 21300000, guid: 3a5f4ba1ab410a4498dd996b465d5acc, type: 3}
   _buildingArea: {fileID: 2100000, guid: d88bfed8be393824dab9f44a94610bdc, type: 2}
   _road: {fileID: 2100000, guid: 8f3e5e0dfb8321b4b9f08b16afe7f85b, type: 2}
 --- !u!1 &1815896176
@@ -5090,6 +5342,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
+--- !u!1 &2130696359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2130696360}
+  m_Layer: 0
+  m_Name: City Center (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2130696360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130696359}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5, y: 0, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1768185935}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146774577 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 497384422361747419, guid: ead0419b9f44d53438fba7a537f74563, type: 3}

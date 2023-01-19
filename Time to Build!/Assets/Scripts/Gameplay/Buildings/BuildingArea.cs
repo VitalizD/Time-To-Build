@@ -80,6 +80,27 @@ namespace Gameplay.Buildings
             _timer.Run(buildingTime, () => Build(buildingType));
         }
 
+        public void Build(BuildingType buildingType)
+        {
+            SoundManager.Instance.Stop(Sound.Building);
+            Type = buildingType;
+            CheckRoad(buildingType, out bool isRoad);
+            if (isRoad)
+                return;
+
+            var buildingInfo = GetBuilding?.Invoke(buildingType);
+            var building = Instantiate(buildingInfo.Prefab, _buildingPoint.position, Quaternion.identity, transform);
+            var material = GetZoneMaterial?.Invoke(buildingInfo.Zone);
+            if (material != null)
+                SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
+            if (ExistsPropertyOf(PropertyType.Each, Type))
+                AddToBuildingManagerWithEachProperty?.Invoke(this);
+            AddToBuildingManager?.Invoke(buildingInfo.Zone, buildingInfo.Categories, this);
+            TurnToRoad(building.transform);
+            _rewardsCalculator.GetAllRewards(buildingInfo);
+            _builded = true;
+        }
+
         public Dictionary<ResourceType, int> GetRewardsInThis()
         {
             if (!_builded)
@@ -158,26 +179,6 @@ namespace Gameplay.Buildings
             yield return new WaitForEndOfFrame();
             OpenBuildingPanel?.Invoke(this);
             Illuminate();
-        }
-
-        private void Build(BuildingType buildingType)
-        {
-            SoundManager.Instance.Stop(Sound.Building);
-            CheckRoad(buildingType, out bool isRoad);
-            if (isRoad)
-                return;
-
-            var buildingInfo = GetBuilding?.Invoke(buildingType);
-            var building = Instantiate(buildingInfo.Prefab, _buildingPoint.position, Quaternion.identity, transform);
-            var material = GetZoneMaterial?.Invoke(buildingInfo.Zone);
-            if (material != null)
-                SetMaterial(GetZoneMaterial?.Invoke(buildingInfo.Zone));
-            if (ExistsPropertyOf(PropertyType.Each, Type))
-                AddToBuildingManagerWithEachProperty?.Invoke(this);
-            AddToBuildingManager?.Invoke(buildingInfo.Zone, buildingInfo.Categories, this);
-            TurnToRoad(building.transform);
-            _rewardsCalculator.GetAllRewards(buildingInfo);
-            _builded = true;
         }
 
         private void CheckRoad(BuildingType buildingType, out bool isRoad)
