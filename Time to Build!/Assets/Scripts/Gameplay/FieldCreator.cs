@@ -8,18 +8,18 @@ namespace Gameplay
     {
         [SerializeField] private Vector2 _size;
         [SerializeField]
-        [Range(0f, 1f)] private float _obstacleChance;
+        [Range(0.01f, 1f)] private float _obstacleChance;
         [SerializeField] private int _obstacleCount;
         [SerializeField] private Transform _startGenPoint;
         [SerializeField] private GameObject _buildingAreaPrefab;
         [SerializeField] private Transform[] _cityCenterPoints;
-        [SerializeField] private GameObject[] _obstaclePrefabs;
 
         public static event System.Func<int, List<BuildingArea>> GetRandomBuildingSites;
 
         private void Start()
         {
             GenerateCityCenter();
+            GenerateObstacles(_obstacleCount);
         }
 
         private void GenerateCityCenter()
@@ -39,24 +39,6 @@ namespace Gameplay
                 var buildingSite = GetRandomBuildingSites?.Invoke(1)[0];
                 buildingSite.Build(BuildingType.Road);
             }
-            
-            //for (var i = 0; i < 3; ++i)
-            //{
-            //    var buildingArea = Instantiate(_buildingAreaPrefab, point.position, Quaternion.identity)
-            //        .GetComponent<BuildingArea>();
-            //    buildingArea.Build(BuildingType.Road);
-            //    var state = Random.Range(0, 4);
-            //    if (state == 0 || state == 1)
-            //    {
-            //        point.position = new Vector3(point.position.x + (state == 0 ? -BuildingArea.CellSize : BuildingArea.CellSize),
-            //            point.position.y, point.position.z);
-            //    }
-            //    else if (state == 2 || state == 3)
-            //    {
-            //        point.position = new Vector3(point.position.x,
-            //            point.position.y, point.position.z + (state == 2 ? -BuildingArea.CellSize : BuildingArea.CellSize));
-            //    }
-            //}
         }
 
         private void GenerateBuildings(BuildingType[] buildingTypes)
@@ -65,6 +47,29 @@ namespace Gameplay
             for (var i = 0; i < buildingTypes.Length; ++i)
             {
                 buildingSites[i].Build(buildingTypes[i]);
+            }
+        }
+
+        private void GenerateObstacles(int count)
+        {
+            var generatedObstacleCount = 0;
+            while (generatedObstacleCount < count)
+            {
+                for (var z = _startGenPoint.position.z; z > _startGenPoint.position.z - _size.y; --z)
+                {
+                    for (var x = _startGenPoint.position.x; x < _startGenPoint.position.x + _size.x; ++x)
+                    {
+                        var spawnPoint = new Vector3(x, _startGenPoint.position.y, z);
+                        var buildingArea = AdjacentBuildings.GetBuildingArea(spawnPoint);
+                        if (buildingArea != null || Random.Range(0f, 1f) > _obstacleChance)
+                            continue;
+
+                        var buildingSite = Instantiate(_buildingAreaPrefab, spawnPoint, Quaternion.identity)
+                            .GetComponent<BuildingArea>();
+                        buildingSite.Build(BuildingType.Obstacle);
+                        ++generatedObstacleCount;
+                    }
+                }
             }
         }
     }

@@ -2273,6 +2273,18 @@ MonoBehaviour:
         Value: 3
       Zones: 
       Categories: 08000000
+  - Type: 20
+    Level: 0
+    Zone: 4
+    Prefab: {fileID: 3481209262967104595, guid: e54ba39ecd5e84d4bbf4df6f9be5a958, type: 3}
+    Icon: {fileID: 0}
+    Cost: 1
+    BuildingTime: 1
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses: []
+    Properties: []
   _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c0000000d0000000d0000000e0000000e0000000f0000000f000000100000001000000010000000110000001100000012000000120000001300000013000000
 --- !u!1 &963194225
 GameObject:
@@ -2564,8 +2576,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _size: {x: 10, y: 10}
-  _obstacleChance: 0
-  _obstacleCount: 0
+  _obstacleChance: 0.05
+  _obstacleCount: 15
   _startGenPoint: {fileID: 1767810854}
   _buildingAreaPrefab: {fileID: 6091364900540941607, guid: 980afc33692b19343a86274720afb48a, type: 3}
   _cityCenterPoints:
@@ -2577,7 +2589,6 @@ MonoBehaviour:
   - {fileID: 488031009}
   - {fileID: 1203058683}
   - {fileID: 1077826518}
-  _obstaclePrefabs: []
 --- !u!1 &1077826517
 GameObject:
   m_ObjectHideFlags: 0
@@ -5551,7 +5562,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3054459189337869875, guid: 61f3afb111727ff49a153051c8f9817d, type: 3}
       propertyPath: _value
-      value: 100
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3054459189337869875, guid: 61f3afb111727ff49a153051c8f9817d, type: 3}
       propertyPath: _playSound
