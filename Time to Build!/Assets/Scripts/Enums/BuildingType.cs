@@ -19,5 +19,6 @@ public enum BuildingType
     OfficeBuilding,
     Parking,
     AnimalFarm,
-    WaterTower
+    WaterTower,
+    Obstacle
 }

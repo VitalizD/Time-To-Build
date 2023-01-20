@@ -12,6 +12,7 @@ namespace Gameplay.BuildingManager
         private readonly Dictionary<ZoneType, List<BuildingArea>> _buildingsByZone = new();
         private readonly Dictionary<BuildingCategory, List<BuildingArea>> _buildingsByCategory = new();
         private readonly List<BuildingArea> _buildingsWithEachProperty = new();
+        private readonly List<BuildingArea> _buildingSites = new();
         private readonly List<ZoneType> _lastZones = new();
         private readonly List<BuildingCategory> _lastCategories = new();
 
@@ -27,6 +28,22 @@ namespace Gameplay.BuildingManager
             if (_buildingsByCategory.ContainsKey(buildingCategory))
                 return _buildingsByCategory[buildingCategory].Count;
             return 0;
+        }
+
+        public List<BuildingArea> GetRandomBuildingSites(int count)
+        {
+            if (_buildingSites.Count == 0) return new List<BuildingArea>();
+            var localBuildingSites = new List<BuildingArea>(_buildingSites);
+            var result = new List<BuildingArea>();
+            for (var i = 0; i < count; ++i)
+            {
+                var randomBuildingSite = localBuildingSites[UnityEngine.Random.Range(0, localBuildingSites.Count)];
+                localBuildingSites.Remove(randomBuildingSite);
+                result.Add(randomBuildingSite);
+                if (localBuildingSites.Count == 0)
+                    return result;
+            }
+            return result;
         }
 
         public void AddBuilding(ZoneType zoneType, BuildingCategory[] categories, BuildingArea buildingArea)
@@ -46,6 +63,8 @@ namespace Gameplay.BuildingManager
         }
 
         public void AddBuildingWithEachProperty(BuildingArea buildingArea) => _buildingsWithEachProperty.Add(buildingArea);
+
+        public void AddBuildingSite(BuildingArea buildingArea) => _buildingSites.Add(buildingArea);
 
         public Dictionary<ResourceType, int> GetRewardsForBuildingsWithEachProperty()
         {
@@ -100,6 +119,12 @@ namespace Gameplay.BuildingManager
                     building.RemoveHighlightingThis();
             }
             _lastCategories.Clear();
+        }
+
+        public void RemoveBuildingSite(BuildingArea buildingArea)
+        {
+            if (_buildingSites.Contains(buildingArea))
+                _buildingSites.Remove(buildingArea);
         }
     }
 }

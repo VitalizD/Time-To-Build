@@ -48,6 +48,7 @@ namespace Gameplay.Buildings
         public static event Action<ZoneType, BuildingCategory[], BuildingArea> AddToBuildingManager;
         public static event Action<BuildingArea> AddToBuildingManagerWithEachProperty;
         public static event Func<bool> CursorOverUIElement;
+        public static event Action<BuildingArea> RemoveBuildingSite;
 
         public static bool ExistsPropertyOf(PropertyType propertyType, BuildingType buildingType)
         {
@@ -84,6 +85,7 @@ namespace Gameplay.Buildings
         {
             SoundManager.Instance.Stop(Sound.Building);
             Type = buildingType;
+            RemoveBuildingSite?.Invoke(this);
             CheckRoad(buildingType, out bool isRoad);
             if (isRoad)
                 return;
@@ -144,7 +146,7 @@ namespace Gameplay.Buildings
             if (!AreaIsSelected() && Type == BuildingType.BuildingSite)
                 Illuminate();
 
-            if (Type != BuildingType.Road && Type != BuildingType.BuildingSite)
+            if (Type != BuildingType.Road && Type != BuildingType.BuildingSite && Type != BuildingType.Obstacle)
             {
                 ShowInfoWindow?.Invoke(_infoWindowPoint, Type, false, false, 0);
             }

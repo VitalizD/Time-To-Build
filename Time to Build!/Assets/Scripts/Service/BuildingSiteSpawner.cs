@@ -1,3 +1,5 @@
+using Gameplay.Buildings;
+using System;
 using UnityEngine;
 
 namespace Service
@@ -6,9 +8,12 @@ namespace Service
     {
         [SerializeField] private GameObject _buildingSite;
 
+        public static event Action<BuildingArea> AddBuildingSite;
+
         public void Spawn()
         {
-            Instantiate(_buildingSite, transform.position, Quaternion.identity, transform.parent);
+            var buildingSite = Instantiate(_buildingSite, transform.position, Quaternion.identity, transform.parent);
+            AddBuildingSite?.Invoke(buildingSite.GetComponent<BuildingArea>());
         }
     }
 }
