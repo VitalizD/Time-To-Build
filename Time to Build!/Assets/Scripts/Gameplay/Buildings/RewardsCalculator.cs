@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UI.Counters;
 using UI.InformationWindow;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace Gameplay.Buildings
     [RequireComponent(typeof(AdjacentBuildings))]
     public class RewardsCalculator : MonoBehaviour
     {
+        [SerializeField] private IncreaseResourceAnimation _resourceAnimation;
+        [SerializeField] private AnimationClip _fadeClip;
+
         private AdjacentBuildings _adjacentBuildings;
         private Dictionary<ResourceType, int> _gettedRewards = new();
 
@@ -19,6 +23,7 @@ namespace Gameplay.Buildings
         public static event Func<BuildingType, Building> GetBuilding;
         public static event Func<ZoneType, int> GetBuildingsCountByZone;
         public static event Func<BuildingCategory, int> GetBuildingsCountByCategory;
+        public static event Func<ResourceType, Sprite> GetResourceIcon;
 
         public static Dictionary<ResourceType, int> UnionRewards(IEnumerable<Dictionary<ResourceType, int>> rewardList)
         {
@@ -72,6 +77,7 @@ namespace Gameplay.Buildings
                     rewardsToGet.Add(resourceType, commonRewards[resourceType]);
             }
             _gettedRewards = new Dictionary<ResourceType, int>(commonRewards);
+            StartCoroutine(PlayResourceAnimation(rewardsToGet));
             return rewardsToGet;
         }
 
@@ -164,6 +170,24 @@ namespace Gameplay.Buildings
                 }
             }
             return rewards;
+        }
+
+        private IEnumerator PlayResourceAnimation(Dictionary<ResourceType, int> resources)
+        {
+            if (_resourceAnimation == null)
+                yield break;
+
+            foreach (var resource in resources)
+            {
+                if (resource.Value == 0)
+                    continue;
+                var resourceIcon = GetResourceIcon?.Invoke(resource.Key);
+                if (resource.Value > 0)
+                    _resourceAnimation.PlayIncrease($"+{resource.Value}", resourceIcon);
+                else
+                    _resourceAnimation.PlayDecrease(resource.Value.ToString(), resourceIcon);
+                yield return new WaitForSeconds(_fadeClip.length);
+            }
         }
     }
 }

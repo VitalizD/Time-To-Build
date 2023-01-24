@@ -23,6 +23,7 @@ namespace Service.MaterialStorage
             InfoWindow.GetResourceIcon += _materialStorage.GetResourceIcon;
             InfoWindow.GetCategoryIcon += _materialStorage.GetCategoryIcon;
             Translation.GetZoneColor += _materialStorage.GetZoneColor;
+            RewardsCalculator.GetResourceIcon += _materialStorage.GetResourceIcon;
         }
 
         private void OnDisable()
@@ -34,6 +35,7 @@ namespace Service.MaterialStorage
             InfoWindow.GetResourceIcon -= _materialStorage.GetResourceIcon;
             InfoWindow.GetCategoryIcon -= _materialStorage.GetCategoryIcon;
             Translation.GetZoneColor -= _materialStorage.GetZoneColor;
+            RewardsCalculator.GetResourceIcon -= _materialStorage.GetResourceIcon;
         }
     }
 }

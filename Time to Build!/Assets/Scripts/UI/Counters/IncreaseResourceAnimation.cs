@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Counters
 {
@@ -11,23 +12,26 @@ namespace UI.Counters
         private const string START_INCREASE_ANIMATOR_TRIGGER = "Start Increase";
 
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Image _image;
         [SerializeField] private Color _redColor;
         [SerializeField] private Color _greenColor;
 
         private Animator _animator;
 
-        public void PlayIncrease(string text) => Play(true, text);
+        public void PlayIncrease(string text, Sprite icon = null) => Play(true, text, icon);
 
-        public void PlayDecrease(string text) => Play(false, text);
+        public void PlayDecrease(string text, Sprite icon = null) => Play(false, text, icon);
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
         }
 
-        private void Play(bool value, string text)
+        private void Play(bool value, string text, Sprite icon)
         {
             _text.text = text;
+            if (_image != null)
+                _image.sprite = icon;
             _text.color = value ? _greenColor: _redColor;
             gameObject.SetActive(true);
             _animator.SetBool(INCREASE_ANIMATOR_BOOL, value);
