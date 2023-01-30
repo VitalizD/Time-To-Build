@@ -115,6 +115,7 @@ namespace UI.InformationWindow
             {
                 var bonus = GetBonusObject(bonusInfo);
                 bonus.transform.SetParent(_instantsBonuses.transform);
+                bonus.transform.localScale = Vector3.one;
             }
         }
 
@@ -136,6 +137,7 @@ namespace UI.InformationWindow
                 }
                 property.SetText(propertyInfo.ConditionText);
                 property.transform.SetParent(_properties.transform);
+                property.transform.localScale = Vector3.one;
             }
         }
 

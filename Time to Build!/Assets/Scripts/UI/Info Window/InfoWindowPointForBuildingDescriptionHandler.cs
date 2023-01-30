@@ -5,13 +5,13 @@ public class InfoWindowPointForBuildingDescriptionHandler : MonoBehaviour
 {
     private void OnEnable()
     {
-        BuildingArea.GetInfoWindowPoint += GetPosition;
+        BuildingArea.GetInfoWindowPoint += GetTransform;
     }
 
     private void OnDisable()
     {
-        BuildingArea.GetInfoWindowPoint -= GetPosition;
+        BuildingArea.GetInfoWindowPoint -= GetTransform;
     }
 
-    private Vector2 GetPosition() => transform.position;
+    private Transform GetTransform() => transform;
 }

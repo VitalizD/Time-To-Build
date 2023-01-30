@@ -29,7 +29,7 @@ namespace Gameplay.Buildings
         private AdjacentBuildings _adjacentBuildings;
         private RoadAdapter _roadAdapter;
         private RewardsCalculator _rewardsCalculator;
-        private Vector2 _infoWindowPoint;
+        private Transform _infoWindowPoint;
         private Timer _timer;
         private Color _initialColor;
         private bool _builded = false;
@@ -42,7 +42,7 @@ namespace Gameplay.Buildings
         public static event Func<Material> GetRoadMaterial;
         public static event Action<BuildingArea> OpenBuildingPanel;
         public static event Func<bool> AreaIsSelected;
-        public static event Func<Vector2> GetInfoWindowPoint;
+        public static event Func<Transform> GetInfoWindowPoint;
         public static event Action<Vector2, BuildingType, bool, bool, int> ShowInfoWindow;
         public static event Action HideInfoWindow;
         public static event Action<ZoneType, BuildingCategory[], BuildingArea> AddToBuildingManager;
@@ -153,7 +153,7 @@ namespace Gameplay.Buildings
 
             if (Type != BuildingType.Road && Type != BuildingType.BuildingSite && Type != BuildingType.Obstacle)
             {
-                ShowInfoWindow?.Invoke(_infoWindowPoint, Type, false, false, 0);
+                ShowInfoWindow?.Invoke(_infoWindowPoint.position, Type, false, false, 0);
             }
         }
 
