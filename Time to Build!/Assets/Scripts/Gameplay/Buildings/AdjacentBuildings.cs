@@ -2,7 +2,6 @@ using Service;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace Gameplay.Buildings
 {

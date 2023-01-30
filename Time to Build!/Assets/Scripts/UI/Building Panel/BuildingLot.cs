@@ -7,6 +7,7 @@ using System.Linq;
 using TMPro;
 using UI.InformationWindow;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -48,6 +49,7 @@ namespace UI.BuildingPanel
         public static event Action<BuildingCategory[]> HighlightBuildingsByCategory;
         public static event Action RemoveighlightingBuildingsByZone;
         public static event Action<bool> AddLotToMarket;
+        public static event Action<string, string, string, UnityAction> ShowPopupWindow;
 
         public void Set(BuildingType buildingType, bool single)
         {
@@ -93,7 +95,7 @@ namespace UI.BuildingPanel
                 _costText.color = Color.black;
         }
 
-        public void UpdateDaysForRefill()
+        public void UpdateDaysForRefill(int day)
         {
             --_currentDaysForRefill;
             if (_currentDaysForRefill <= 0)
@@ -127,8 +129,15 @@ namespace UI.BuildingPanel
             SoundManager.Instance.Play(Sound.Click, null);
 
             var money = GetMoney();
-            if (money < _cost || _currentReserve <= 0)
+            if (money < _cost + _markup || _currentReserve <= 0)
+            {
+                if (_currentReserve <= 0)
+                    ShowPopupWindow?.Invoke("Нет на рынке", $"Лот закончился и временно недоступен для продажи. " +
+                        $"Появится через <color=red>({_currentDaysForRefill}) дней</color>.", "Понятно", null);
+                else if (money < _cost + _markup)
+                    ShowPopupWindow?.Invoke("Денег нет", $"Не хватает монет ({_cost + _markup - money}).", "Понятно", null);
                 return;
+            }
 
             HideInfoWindow?.Invoke();
             RemoveHighlightingAdjacents?.Invoke();

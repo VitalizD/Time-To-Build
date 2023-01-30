@@ -1,6 +1,7 @@
 using Gameplay.Buildings;
 using Gameplay.Cycle;
 using Service.Sounds;
+using System;
 using UI.BuildingPanel;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace UI.Counters
     public class CounterHandler : MonoBehaviour
     {
         private UICounter _counter;
+
+        public static event Action PopulationChanged;
 
         private void Awake()
         {
@@ -44,6 +47,9 @@ namespace UI.Counters
                 return;
 
             _counter.AddValue(value);
+
+            if (type == ResourceType.Population)
+                PopulationChanged?.Invoke();
         }
 
         private void SetResource(ResourceType type, int value)
@@ -52,6 +58,9 @@ namespace UI.Counters
                 return;
 
             _counter.SetValue(value);
+
+            if (type == ResourceType.Population)
+                PopulationChanged?.Invoke();
         }
     }
 }

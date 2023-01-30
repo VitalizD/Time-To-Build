@@ -18,7 +18,7 @@ namespace UI.BuildingPanel
 
         private void Start()
         {
-            _market.Replenish();
+            _market.Replenish(0);
         }
 
         private void OnEnable()

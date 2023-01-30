@@ -22,6 +22,8 @@ namespace Gameplay
             _progressBar.gameObject.SetActive(true);
         }
 
+        public void SetActive(bool value) => Activated = value;
+
         private void Update()
         {
             if (!Activated)

@@ -83,6 +83,9 @@ namespace Gameplay.Buildings
 
         public void Build(BuildingType buildingType)
         {
+            if (_builded)
+                return;
+
             SoundManager.Instance.Stop(Sound.Building);
             Type = buildingType;
             RemoveBuildingSite?.Invoke(this);
@@ -117,6 +120,8 @@ namespace Gameplay.Buildings
         public void HighlightThis() => _highlightBuilding.SetActive(true);
 
         public void RemoveHighlightingThis() => _highlightBuilding.SetActive(false);
+
+        public void SetActiveTimer(bool value) => _timer.SetActive(value);
 
         private void Awake()
         {

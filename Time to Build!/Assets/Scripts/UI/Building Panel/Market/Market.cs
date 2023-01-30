@@ -18,7 +18,7 @@ namespace UI.BuildingPanel.Market
 
         public static event Func<Building> GetNextBuildingInfo;
 
-        public void Replenish()
+        public void Replenish(int day)
         {
             RemoveLastLot();
             CheckOnNullLots();

@@ -17,6 +17,8 @@ namespace Gameplay.Cycle
         private int _reductionIndex = 0;
         private int _previousPopulationForReduction;
 
+        public int Day { get => _dayNumber; }
+
         public static event Func<int> GetIncome;
         public static event Func<int> GetReputation;
         public static event Func<int> GetPopulation;
@@ -26,7 +28,12 @@ namespace Gameplay.Cycle
         public static event Action<ResourceType, int> AddPopulation;
         public static event Action<ResourceType, int> AddIncome;
         public static event Action<ResourceType, int> AddReputation;
-        public static event Action NewDay;
+        public static event Action<int> NewDay;
+
+        public void SetActiveTimer(bool value)
+        {
+            _timer.SetActive(value);
+        }
 
         private void Awake()
         {
@@ -60,8 +67,8 @@ namespace Gameplay.Cycle
 
             ++_dayNumber;
             UpdateDayNumberText();
-            NewDay?.Invoke();
             RunCycle();
+            NewDay?.Invoke(_dayNumber);
         }
 
         private void RunCycle()

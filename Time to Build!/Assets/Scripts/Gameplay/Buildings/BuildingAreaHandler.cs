@@ -1,4 +1,5 @@
 using UI.BuildingPanel;
+using UI.PopupWindows;
 using UnityEngine;
 
 namespace Gameplay.Buildings
@@ -16,11 +17,13 @@ namespace Gameplay.Buildings
         private void OnEnable()
         {
             BuildingPanel.RemoveBuildingAreaSelection += _buildingArea.RemoveIllumination;
+            PopupWindow.SetActiveCycle += _buildingArea.SetActiveTimer;
         }
 
         private void OnDisable()
         {
             BuildingPanel.RemoveBuildingAreaSelection -= _buildingArea.RemoveIllumination;
+            PopupWindow.SetActiveCycle -= _buildingArea.SetActiveTimer;
         }
     }
 }
