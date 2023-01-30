@@ -20,5 +20,8 @@ public enum BuildingType
     Parking,
     AnimalFarm,
     WaterTower,
-    Obstacle
+    Obstacle,
+    FancyHouse,
+    TrainStation,
+    ElementarySchool
 }

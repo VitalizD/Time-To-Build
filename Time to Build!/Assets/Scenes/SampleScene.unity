@@ -1405,8 +1405,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -154, y: -0.0000014603}
-  m_SizeDelta: {x: 155.2866, y: 64.0764}
+  m_AnchoredPosition: {x: -203.83765, y: -0.0000014603}
+  m_SizeDelta: {x: 254.9618, y: 64.0764}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &599048143
 MonoBehaviour:
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0414\u0435\u043D\u044C 1"
+  m_text: "\u0414\u0435\u043D\u044C 1 / 60"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a2daa7ca2f939743acd1f78f3740f5f, type: 2}
   m_sharedMaterial: {fileID: -1488129062601285810, guid: 3a2daa7ca2f939743acd1f78f3740f5f, type: 2}
@@ -3016,7 +3016,75 @@ MonoBehaviour:
     Categories: 
     InstantBonuses: []
     Properties: []
-  _availableBuildings: 070000000700000003000000030000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c0000000d0000000d0000000e0000000e0000000f0000000f000000100000001000000010000000110000001100000012000000120000001300000013000000
+  - Type: 21
+    Level: 1
+    Zone: 0
+    Prefab: {fileID: 219084605080211802, guid: 2cac48acb69e8cb449aae88eb6b4d96f, type: 3}
+    Icon: {fileID: 21300000, guid: 52a544f08dfb73849a972049578c0227, type: 3}
+    Cost: 12
+    BuildingTime: 40
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 
+    InstantBonuses:
+    - Resource: 1
+      Value: 3
+    Properties:
+    - Type: 1
+      Bonuses:
+      - Resource: 3
+        Value: 1
+      Zones: 00000000
+      Categories: 
+  - Type: 22
+    Level: 1
+    Zone: 2
+    Prefab: {fileID: 1062147202129032914, guid: bb22f80a102db7c4f9cd0006c16da5be, type: 3}
+    Icon: {fileID: 21300000, guid: 1753621a0cfec1648b0a1dfcde752a75, type: 3}
+    Cost: 11
+    BuildingTime: 40
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 03000000
+    InstantBonuses:
+    - Resource: 2
+      Value: 1
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 3
+        Value: 1
+      Zones: 
+      Categories: 03000000
+    - Type: 1
+      Bonuses:
+      - Resource: 3
+        Value: -1
+      Zones: 00000000
+      Categories: 
+  - Type: 23
+    Level: 1
+    Zone: 3
+    Prefab: {fileID: 7044285340442519729, guid: c8604402b03d3584b8b6b976684b9592, type: 3}
+    Icon: {fileID: 21300000, guid: 42c1dbc37ea987a468ef02f69897052a, type: 3}
+    Cost: 5
+    BuildingTime: 70
+    Reserve: 1
+    DaysForRefill: 1
+    Categories: 04000000
+    InstantBonuses:
+    - Resource: 3
+      Value: 1
+    Properties:
+    - Type: 2
+      Bonuses:
+      - Resource: 1
+        Value: 1
+      Zones: 00000000
+      Categories: 
+  _availableBuildings: 030000000300000007000000070000000800000008000000090000000a0000000a0000000a0000000b0000000b0000000c0000000c0000000d0000000d0000000e0000000e0000000f0000000f000000100000001000000010000000110000001100000012000000120000001300000013000000150000001500000016000000160000001700000017000000
+  _dayForLevelB: 0
+  _dayForLevelC: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

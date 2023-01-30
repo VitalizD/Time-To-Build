@@ -1,4 +1,5 @@
 using Gameplay.Buildings;
+using Gameplay.Cycle;
 using UI.BuildingPanel;
 using UI.BuildingPanel.Market;
 using UI.InformationWindow;
@@ -23,6 +24,7 @@ namespace Service.BuildingStorage
             InfoWindow.GetBuilding += _buildingStorage.GetBuildingInfo;
             RewardsCalculator.GetBuilding += _buildingStorage.GetBuildingInfo;
             Market.GetNextBuildingInfo += _buildingStorage.GetNextBuilding;
+            DayCycle.NewDay += _buildingStorage.CheckBuildingLevel;
         }
 
         private void OnDisable()
@@ -32,6 +34,7 @@ namespace Service.BuildingStorage
             InfoWindow.GetBuilding -= _buildingStorage.GetBuildingInfo;
             RewardsCalculator.GetBuilding -= _buildingStorage.GetBuildingInfo;
             Market.GetNextBuildingInfo -= _buildingStorage.GetNextBuilding;
+            DayCycle.NewDay -= _buildingStorage.CheckBuildingLevel;
         }
     }
 }

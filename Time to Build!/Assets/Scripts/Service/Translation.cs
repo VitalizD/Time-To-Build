@@ -37,6 +37,9 @@ namespace Service
             [BuildingType.Parking] = "Парковка",
             [BuildingType.AnimalFarm] = "Скотный двор",
             [BuildingType.WaterTower] = "Водонапорная башня",
+            [BuildingType.FancyHouse] = "Модный домик",
+            [BuildingType.TrainStation] = "Ж/Д станция",
+            [BuildingType.ElementarySchool] = "Начальная школа",
         };
 
         private readonly static Dictionary<BuildingType, string> _buildingDescriptions = new()

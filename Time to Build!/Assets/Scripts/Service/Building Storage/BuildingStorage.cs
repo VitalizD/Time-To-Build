@@ -8,10 +8,11 @@ namespace Service.BuildingStorage
     {
         [SerializeField] private Building[] _allBuildings;
         [SerializeField] private BuildingType[] _availableBuildings;
+        [SerializeField] private int _dayForLevelB;
+        [SerializeField] private int _dayForLevelC;
 
         private readonly Dictionary<BuildingType, Building> _allBuildingsDictionary = new();
         private readonly Dictionary<BuildingLevel, List<BuildingType>> _availableBuildingsDictionary = new();
-        private Dictionary<BuildingLevel, List<BuildingType>> _buildingsForCurrentGame;
         private BuildingLevel _currentBuilgingLevel = BuildingLevel.A;
 
         public Building GetBuildingInfo(BuildingType buildingType)
@@ -23,17 +24,25 @@ namespace Service.BuildingStorage
 
         public Building GetNextBuilding()
         {
-            while (!_buildingsForCurrentGame.ContainsKey(_currentBuilgingLevel) || 
-                _buildingsForCurrentGame[_currentBuilgingLevel].Count == 0)
+            while (!_availableBuildingsDictionary.ContainsKey(_currentBuilgingLevel) ||
+                _availableBuildingsDictionary[_currentBuilgingLevel].Count == 0)
             {
                 ++_currentBuilgingLevel;
                 if (_currentBuilgingLevel >= BuildingLevel.None)
                     return null;
             }
-            var list = _buildingsForCurrentGame[_currentBuilgingLevel];
+            var list = _availableBuildingsDictionary[_currentBuilgingLevel];
             var buildingType = list[UnityEngine.Random.Range(0, list.Count)];
             list.RemoveAt(list.IndexOf(buildingType));
             return GetBuildingInfo(buildingType);
+        }
+
+        public void CheckBuildingLevel(int day)
+        {
+            if (day >= _dayForLevelC)
+                _currentBuilgingLevel = BuildingLevel.C;
+            else if (day >= _dayForLevelB)
+                _currentBuilgingLevel = BuildingLevel.B;
         }
 
         private void Awake()
@@ -49,7 +58,6 @@ namespace Service.BuildingStorage
                 else
                     _availableBuildingsDictionary.Add(level, new List<BuildingType> { building });
             }
-            _buildingsForCurrentGame = new Dictionary<BuildingLevel, List<BuildingType>>(_availableBuildingsDictionary);
         }
     }
 }
