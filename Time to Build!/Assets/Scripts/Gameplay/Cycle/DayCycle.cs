@@ -1,6 +1,7 @@
 using System;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Gameplay.Cycle
 {
@@ -16,6 +17,7 @@ namespace Gameplay.Cycle
         private int _dayNumber = 1;
         private int _reductionIndex = 0;
         private int _previousPopulationForReduction;
+        private bool _lockedTimer = false;
 
         public int Day { get => _dayNumber; }
 
@@ -29,9 +31,13 @@ namespace Gameplay.Cycle
         public static event Action<ResourceType, int> AddIncome;
         public static event Action<ResourceType, int> AddReputation;
         public static event Action<int> NewDay;
+        public static event Action<string, string, string, UnityAction> ShowPopupWindow;
 
         public void SetActiveTimer(bool value)
         {
+            if (_lockedTimer)
+                return;
+
             _timer.SetActive(value);
         }
 
@@ -69,6 +75,9 @@ namespace Gameplay.Cycle
             UpdateDayNumberText();
             RunCycle();
             NewDay?.Invoke(_dayNumber);
+
+            if (_dayNumber >= 60)
+                WinGame();
         }
 
         private void RunCycle()
@@ -76,7 +85,7 @@ namespace Gameplay.Cycle
             _timer.Run(_cycleTime, UpdateStates);
         }
 
-        private void UpdateDayNumberText() => _bar.SetTitle($"День {_dayNumber}");
+        private void UpdateDayNumberText() => _bar.SetTitle($"День {_dayNumber} / 60");
 
         private int GetReductionValue(int population)
         {
@@ -104,6 +113,13 @@ namespace Gameplay.Cycle
                 }
             }
             return reductionValue;
+        }
+
+        private void WinGame()
+        {
+            ShowPopupWindow?.Invoke("Победа!", "Поздравляем! Вы сумели сделать город самым успешным из всех за 60 дней! " +
+                "Вы можете насладиться получившимся результатом, а затем начать новую игру.", "Ура!", null);
+            _lockedTimer = true;
         }
     }
 }

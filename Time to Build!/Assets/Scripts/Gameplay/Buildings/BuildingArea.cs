@@ -87,6 +87,7 @@ namespace Gameplay.Buildings
                 return;
 
             SoundManager.Instance.Stop(Sound.Building);
+            _builded = true;
             Type = buildingType;
             RemoveBuildingSite?.Invoke(this);
             CheckRoad(buildingType, out bool isRoad);
@@ -103,7 +104,6 @@ namespace Gameplay.Buildings
             AddToBuildingManager?.Invoke(buildingInfo.Zone, buildingInfo.Categories, this);
             TurnToRoad(building.transform);
             _rewardsCalculator.GetAllRewards(buildingInfo);
-            _builded = true;
         }
 
         public Dictionary<ResourceType, int> GetRewardsInThis()

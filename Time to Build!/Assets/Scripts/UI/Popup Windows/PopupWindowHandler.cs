@@ -1,3 +1,4 @@
+using Gameplay.Cycle;
 using UI.BuildingPanel;
 using UI.Counters.Population;
 using UnityEngine;
@@ -18,12 +19,14 @@ namespace UI.PopupWindows
         {
             PopulationRequirement.ShowPopupWindow += _popupWindow.Show;
             BuildingLot.ShowPopupWindow += _popupWindow.Show;
+            DayCycle.ShowPopupWindow += _popupWindow.Show;
         }
 
         private void OnDisable()
         {
             PopulationRequirement.ShowPopupWindow -= _popupWindow.Show;
             BuildingLot.ShowPopupWindow -= _popupWindow.Show;
+            DayCycle.ShowPopupWindow -= _popupWindow.Show;
         }
     }
 }
